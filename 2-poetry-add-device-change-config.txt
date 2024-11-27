@@ -1,0 +1,1260 @@
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ nautobot-server post_upgrade
+Traceback (most recent call last):
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/bin/nautobot-server", line 8, in <module>
+    sys.exit(main())
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+    load_settings(args.config_path)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/cli/__init__.py", line 131, in load_settings
+    raise FileNotFoundError(
+FileNotFoundError: Configuration file not found at /Users/jabelk/.nautobot/nautobot_config.py - Please provide a valid --config-path path, or use 'nautobot-server init' to create a new configuration.
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke build debug
+Building Nautobot 2.3.6 with Python 3.12...
+Running docker compose command "build"
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [nautobot internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.32kB done
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 3)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 14)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 54)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 3)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 14)
+#1 DONE 0.0s
+
+#2 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot:2.3.6-py3.12
+#2 ...
+
+#3 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot-dev:2.3.6-py3.12
+#3 DONE 1.0s
+
+#2 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot:2.3.6-py3.12
+#2 DONE 1.0s
+
+#4 [nautobot internal] load .dockerignore
+#4 transferring context: 326B done
+#4 DONE 0.0s
+
+#5 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.12@sha256:96544766033cfc039a22cba41c2ab386c593be3afe46ac172b7b702dc940ffcc
+#5 DONE 0.0s
+
+#6 [nautobot nautobot-base 1/2] FROM ghcr.io/nautobot/nautobot:2.3.6-py3.12@sha256:f6b0ee939035529c1b53cd473a3f7069586e5e0abf4f318dbf3aa6a77b243f8e
+#6 DONE 0.0s
+
+#7 [nautobot internal] load build context
+#7 transferring context: 468B done
+#7 DONE 0.0s
+
+#8 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+#8 CACHED
+
+#9 [nautobot nautobot 4/5] COPY --from=builder /usr/local/bin /usr/local/bin
+#9 CACHED
+
+#10 [nautobot builder 8/8] WORKDIR /source
+#10 CACHED
+
+#11 [nautobot builder 3/8] COPY ../pyproject.toml ../poetry.lock /source/
+#11 CACHED
+
+#12 [nautobot nautobot 2/5] COPY --from=builder /opt/nautobot /opt/nautobot
+#12 CACHED
+
+#13 [nautobot nautobot 3/5] COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+#13 CACHED
+
+#14 [nautobot builder 5/8] RUN cd /source &&     poetry install --no-interaction --no-ansi &&     mkdir /tmp/dist &&     poetry export --without-hashes -o /tmp/dist/requirements.txt
+#14 CACHED
+
+#15 [nautobot builder 2/8] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/*
+#15 CACHED
+
+#16 [nautobot builder 4/8] COPY ../plugins /source/plugins
+#16 CACHED
+
+#17 [nautobot builder 6/8] COPY ../jobs /opt/nautobot/jobs
+#17 CACHED
+
+#18 [nautobot builder 7/8] COPY ../config/nautobot_config.py /opt/nautobot/nautobot_config.py
+#18 CACHED
+
+#19 [nautobot nautobot 1/5] COPY --from=builder /tmp/dist /tmp/dist
+#19 CACHED
+
+#20 [nautobot nautobot 5/5] RUN pyuwsgi --cflags | sed 's/ /\n/g' | grep -e "^-DUWSGI_SSL$"
+#20 CACHED
+
+#21 [nautobot] exporting to image
+#21 exporting layers done
+#21 writing image sha256:5b55f0dc73554e35e979a8e649829549d112610d43b7580b95a3429a0190eaa1 done
+#21 naming to docker.io/yourrepo/nautobot-docker-compose:local done
+#21 DONE 0.0s
+
+#22 [nautobot] resolving provenance for metadata file
+#22 DONE 0.0s
+Starting Nautobot in debug mode...
+Running docker compose command "up"
+ Container nautobot-docker-compose-redis-1  Running
+ Container nautobot-docker-compose-db-1  Running
+ Container nautobot-docker-compose-nautobot-1  Created
+ Container nautobot-docker-compose-celery_worker-1  Created
+ Container nautobot-docker-compose-celery_beat-1  Created
+Attaching to celery_beat-1, celery_worker-1, db-1, nautobot-1, redis-1
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (0s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (3s / 30s)
+celery_beat-1    | Traceback (most recent call last):
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+celery_beat-1    |     plugin = importlib.import_module(plugin_name)
+celery_beat-1    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_beat-1    |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+celery_beat-1    |     return _bootstrap._gcd_import(name[level:], package, level)
+celery_beat-1    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+celery_beat-1    | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+celery_beat-1    |
+celery_beat-1    | The above exception was the direct cause of the following exception:
+celery_beat-1    |
+celery_beat-1    | Traceback (most recent call last):
+celery_beat-1    |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+celery_beat-1    |     sys.exit(main())
+celery_beat-1    |              ^^^^^^
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+celery_beat-1    |     load_settings(args.config_path)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+celery_beat-1    |     _preprocess_settings(module, config_path)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+celery_beat-1    |     load_plugins(settings)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+celery_beat-1    |     load_plugin(plugin_name, settings)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+celery_beat-1    |     raise PluginNotFound(
+celery_beat-1    | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+celery_beat-1    |
+celery_worker-1  | Traceback (most recent call last):
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+celery_worker-1  |     plugin = importlib.import_module(plugin_name)
+celery_worker-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_worker-1  |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+celery_worker-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+celery_worker-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_worker-1  |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+celery_worker-1  |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+celery_worker-1  |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+celery_worker-1  | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+celery_worker-1  |
+celery_worker-1  | The above exception was the direct cause of the following exception:
+celery_worker-1  |
+celery_worker-1  | Traceback (most recent call last):
+celery_worker-1  |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+celery_worker-1  |     sys.exit(main())
+celery_worker-1  |              ^^^^^^
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+celery_worker-1  |     load_settings(args.config_path)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+celery_worker-1  |     _preprocess_settings(module, config_path)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+celery_worker-1  |     load_plugins(settings)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+celery_worker-1  |     load_plugin(plugin_name, settings)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+celery_worker-1  |     raise PluginNotFound(
+celery_worker-1  | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+celery_beat-1 exited with code 1
+celery_worker-1  |
+celery_worker-1 exited with code 1
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (6s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (9s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (12s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (15s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (18s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (21s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (24s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (27s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ❌ Waited 30s or more for the DB to become ready.
+nautobot-1 exited with code 1
+Gracefully stopping... (press Ctrl+C again to force)
+ Container nautobot-docker-compose-celery_beat-1  Stopping
+ Container nautobot-docker-compose-celery_worker-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopped
+ Container nautobot-docker-compose-celery_worker-1  Stopped
+ Container nautobot-docker-compose-nautobot-1  Stopping
+ Container nautobot-docker-compose-nautobot-1  Stopped
+ Container nautobot-docker-compose-redis-1  Stopping
+ Container nautobot-docker-compose-db-1  Stopping
+ Container nautobot-docker-compose-db-1  Stopped
+ Container nautobot-docker-compose-redis-1  Stopped
+canceled
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ poetry add nautobot-device-onboarding
+The following packages are already present in the pyproject.toml and will be skipped:
+
+  - nautobot-device-onboarding
+
+If you want to update it to the latest compatible version, you can use `poetry update package`.
+If you prefer to upgrade it to the latest available version, you can use `poetry add package@latest`.
+
+Nothing to add.
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke build --no-cache
+Building Nautobot 2.3.6 with Python 3.12...
+Running docker compose command "build --no-cache"
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [nautobot internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.32kB done
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 3)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 14)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 54)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 3)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 14)
+#1 DONE 0.0s
+
+#2 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot:2.3.6-py3.12
+#2 ...
+
+#3 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot-dev:2.3.6-py3.12
+#3 DONE 0.8s
+
+#2 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot:2.3.6-py3.12
+#2 DONE 0.8s
+
+#4 [nautobot internal] load .dockerignore
+#4 transferring context: 326B done
+#4 DONE 0.0s
+
+#5 [nautobot nautobot-base 1/2] FROM ghcr.io/nautobot/nautobot:2.3.6-py3.12@sha256:f6b0ee939035529c1b53cd473a3f7069586e5e0abf4f318dbf3aa6a77b243f8e
+#5 CACHED
+
+#6 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.12@sha256:96544766033cfc039a22cba41c2ab386c593be3afe46ac172b7b702dc940ffcc
+#6 CACHED
+
+#7 [nautobot internal] load build context
+#7 transferring context: 1.59kB done
+#7 DONE 0.0s
+
+#8 [nautobot builder 2/8] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/*
+#8 0.648 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#8 0.797 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#8 0.844 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#8 0.896 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8688 kB]
+#8 1.258 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [2468 B]
+#8 1.303 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [203 kB]
+#8 2.098 Fetched 9147 kB in 2s (4967 kB/s)
+#8 2.098 Reading package lists...
+#8 2.582 Reading package lists...
+#8 3.101 Building dependency tree...
+#8 3.202 Reading state information...
+#8 3.229 Calculating upgrade...
+#8 3.731 The following packages will be upgraded:
+#8 3.731   base-files bsdutils curl libblkid1 libc-bin libc-dev-bin libc6 libc6-dev
+#8 3.731   libcurl3-gnutls libcurl4 libmount1 libnghttp2-14 libnss3 libnss3-dev
+#8 3.731   libpython3.11-minimal libpython3.11-stdlib libsmartcols1 libsqlite3-0
+#8 3.731   libssl-dev libssl3 libsystemd0 libudev1 libuuid1 linux-libc-dev mount
+#8 3.731   node-es-module-lexer node-globby openssl python3.11 python3.11-minimal
+#8 3.731   util-linux util-linux-extra
+#8 3.845 32 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#8 3.845 Need to get 22.7 MB of archives.
+#8 3.845 After this operation, 52.2 kB of additional disk space will be used.
+#8 3.845 Get:1 http://deb.debian.org/debian bookworm/main arm64 base-files arm64 12.4+deb12u8 [70.9 kB]
+#8 3.968 Get:2 http://deb.debian.org/debian bookworm/main arm64 bsdutils arm64 1:2.38.1-5+deb12u2 [94.4 kB]
+#8 4.023 Get:3 http://deb.debian.org/debian bookworm/main arm64 libc6-dev arm64 2.36-9+deb12u9 [1431 kB]
+#8 4.228 Get:4 http://deb.debian.org/debian bookworm/main arm64 libc-dev-bin arm64 2.36-9+deb12u9 [45.9 kB]
+#8 4.229 Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 linux-libc-dev arm64 6.1.119-1 [2050 kB]
+#8 4.281 Get:6 http://deb.debian.org/debian bookworm/main arm64 libc6 arm64 2.36-9+deb12u9 [2325 kB]
+#8 4.378 Get:7 http://deb.debian.org/debian bookworm/main arm64 libsmartcols1 arm64 2.38.1-5+deb12u2 [104 kB]
+#8 4.379 Get:8 http://deb.debian.org/debian bookworm/main arm64 util-linux-extra arm64 2.38.1-5+deb12u2 [112 kB]
+#8 4.381 Get:9 http://deb.debian.org/debian bookworm/main arm64 util-linux arm64 2.38.1-5+deb12u2 [1145 kB]
+#8 4.420 Get:10 http://deb.debian.org/debian bookworm/main arm64 libc-bin arm64 2.36-9+deb12u9 [532 kB]
+#8 4.425 Get:11 http://deb.debian.org/debian bookworm/main arm64 mount arm64 2.38.1-5+deb12u2 [134 kB]
+#8 4.425 Get:12 http://deb.debian.org/debian bookworm/main arm64 libssl-dev arm64 3.0.15-1~deb12u1 [2308 kB]
+#8 4.440 Get:13 http://deb.debian.org/debian bookworm/main arm64 libssl3 arm64 3.0.15-1~deb12u1 [1811 kB]
+#8 4.460 Get:14 http://deb.debian.org/debian bookworm/main arm64 python3.11 arm64 3.11.2-6+deb12u4 [573 kB]
+#8 4.461 Get:15 http://deb.debian.org/debian bookworm/main arm64 libpython3.11-stdlib arm64 3.11.2-6+deb12u4 [1746 kB]
+#8 4.473 Get:16 http://deb.debian.org/debian bookworm/main arm64 python3.11-minimal arm64 3.11.2-6+deb12u4 [1860 kB]
+#8 4.531 Get:17 http://deb.debian.org/debian bookworm/main arm64 libpython3.11-minimal arm64 3.11.2-6+deb12u4 [808 kB]
+#8 4.544 Get:18 http://deb.debian.org/debian bookworm/main arm64 libsqlite3-0 arm64 3.40.1-2+deb12u1 [785 kB]
+#8 4.555 Get:19 http://deb.debian.org/debian bookworm/main arm64 libuuid1 arm64 2.38.1-5+deb12u2 [28.4 kB]
+#8 4.556 Get:20 http://deb.debian.org/debian bookworm/main arm64 libblkid1 arm64 2.38.1-5+deb12u2 [143 kB]
+#8 4.558 Get:21 http://deb.debian.org/debian bookworm/main arm64 libmount1 arm64 2.38.1-5+deb12u2 [159 kB]
+#8 4.559 Get:22 http://deb.debian.org/debian bookworm/main arm64 libsystemd0 arm64 252.31-1~deb12u1 [308 kB]
+#8 4.568 Get:23 http://deb.debian.org/debian bookworm/main arm64 libudev1 arm64 252.31-1~deb12u1 [103 kB]
+#8 4.571 Get:24 http://deb.debian.org/debian bookworm/main arm64 libnghttp2-14 arm64 1.52.0-1+deb12u2 [68.6 kB]
+#8 4.572 Get:25 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u8 [309 kB]
+#8 4.582 Get:26 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u8 [365 kB]
+#8 4.601 Get:27 http://deb.debian.org/debian bookworm/main arm64 libcurl3-gnutls arm64 7.88.1-10+deb12u8 [360 kB]
+#8 4.607 Get:28 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3-dev arm64 2:3.87.1-1+deb12u1 [245 kB]
+#8 4.610 Get:29 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3 arm64 2:3.87.1-1+deb12u1 [1218 kB]
+#8 4.630 Get:30 http://deb.debian.org/debian bookworm/main arm64 node-es-module-lexer all 1.1.0+dfsg-2+deb12u1 [19.7 kB]
+#8 4.630 Get:31 http://deb.debian.org/debian bookworm/main arm64 node-globby all 13.1.3+~cs16.25.40-1+deb12u1 [40.5 kB]
+#8 4.631 Get:32 http://deb.debian.org/debian bookworm/main arm64 openssl arm64 3.0.15-1~deb12u1 [1392 kB]
+#8 4.803 debconf: delaying package configuration, since apt-utils is not installed
+#8 4.831 Fetched 22.7 MB in 1s (24.9 MB/s)
+(Reading database ... 44936 files and directories currently installed.)
+#8 4.899 Preparing to unpack .../base-files_12.4+deb12u8_arm64.deb ...
+#8 4.906 Unpacking base-files (12.4+deb12u8) over (12.4+deb12u7) ...
+#8 4.994 Setting up base-files (12.4+deb12u8) ...
+#8 4.997 Installing new version of config file /etc/debian_version ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 5.080 Preparing to unpack .../bsdutils_1%3a2.38.1-5+deb12u2_arm64.deb ...
+#8 5.087 Unpacking bsdutils (1:2.38.1-5+deb12u2) over (1:2.38.1-5+deb12u1) ...
+#8 5.146 Setting up bsdutils (1:2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 5.191 Preparing to unpack .../libc6-dev_2.36-9+deb12u9_arm64.deb ...
+#8 5.199 Unpacking libc6-dev:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 5.976 Preparing to unpack .../libc-dev-bin_2.36-9+deb12u9_arm64.deb ...
+#8 5.983 Unpacking libc-dev-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 6.014 Preparing to unpack .../linux-libc-dev_6.1.119-1_arm64.deb ...
+#8 6.020 Unpacking linux-libc-dev:arm64 (6.1.119-1) over (6.1.106-3) ...
+#8 7.255 Preparing to unpack .../libc6_2.36-9+deb12u9_arm64.deb ...
+#8 7.318 debconf: unable to initialize frontend: Dialog
+#8 7.318 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#8 7.318 debconf: falling back to frontend: Readline
+#8 7.322 debconf: unable to initialize frontend: Readline
+#8 7.322 debconf: (This frontend requires a controlling tty.)
+#8 7.322 debconf: falling back to frontend: Teletype
+#8 7.350 Unpacking libc6:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 7.888 Setting up libc6:arm64 (2.36-9+deb12u9) ...
+#8 7.939 debconf: unable to initialize frontend: Dialog
+#8 7.939 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#8 7.939 debconf: falling back to frontend: Readline
+#8 7.945 debconf: unable to initialize frontend: Readline
+#8 7.945 debconf: (This frontend requires a controlling tty.)
+#8 7.945 debconf: falling back to frontend: Teletype
+#8 ...
+
+#9 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+#9 0.636 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#9 0.749 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#9 0.791 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#9 0.840 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8688 kB]
+#9 1.172 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [2468 B]
+#9 1.172 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [203 kB]
+#9 1.978 Fetched 9147 kB in 2s (5317 kB/s)
+#9 1.978 Reading package lists...
+#9 2.444 Reading package lists...
+#9 2.910 Building dependency tree...
+#9 3.015 Reading state information...
+#9 3.038 Calculating upgrade...
+#9 3.458 The following packages will be upgraded:
+#9 3.458   base-files bsdutils curl libblkid1 libc-bin libc-dev-bin libc6 libc6-dev
+#9 3.458   libcurl3-gnutls libcurl4 libmount1 libnghttp2-14 libnss3 libnss3-dev
+#9 3.458   libsmartcols1 libsqlite3-0 libssl-dev libssl3 libsystemd0 libudev1 libuuid1
+#9 3.459   linux-libc-dev mount openssl util-linux util-linux-extra
+#9 3.561 26 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#9 3.561 Need to get 17.6 MB of archives.
+#9 3.561 After this operation, 52.2 kB of additional disk space will be used.
+#9 3.561 Get:1 http://deb.debian.org/debian bookworm/main arm64 base-files arm64 12.4+deb12u8 [70.9 kB]
+#9 3.665 Get:2 http://deb.debian.org/debian bookworm/main arm64 bsdutils arm64 1:2.38.1-5+deb12u2 [94.4 kB]
+#9 3.683 Get:3 http://deb.debian.org/debian bookworm/main arm64 libc6-dev arm64 2.36-9+deb12u9 [1431 kB]
+#9 3.830 Get:4 http://deb.debian.org/debian bookworm/main arm64 libc-dev-bin arm64 2.36-9+deb12u9 [45.9 kB]
+#9 3.833 Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 linux-libc-dev arm64 6.1.119-1 [2050 kB]
+#9 3.899 Get:6 http://deb.debian.org/debian bookworm/main arm64 libc6 arm64 2.36-9+deb12u9 [2325 kB]
+#9 3.957 Get:7 http://deb.debian.org/debian bookworm/main arm64 libsmartcols1 arm64 2.38.1-5+deb12u2 [104 kB]
+#9 3.960 Get:8 http://deb.debian.org/debian bookworm/main arm64 util-linux-extra arm64 2.38.1-5+deb12u2 [112 kB]
+#9 3.963 Get:9 http://deb.debian.org/debian bookworm/main arm64 util-linux arm64 2.38.1-5+deb12u2 [1145 kB]
+#9 3.971 Get:10 http://deb.debian.org/debian bookworm/main arm64 libc-bin arm64 2.36-9+deb12u9 [532 kB]
+#9 3.978 Get:11 http://deb.debian.org/debian bookworm/main arm64 mount arm64 2.38.1-5+deb12u2 [134 kB]
+#9 3.980 Get:12 http://deb.debian.org/debian bookworm/main arm64 libblkid1 arm64 2.38.1-5+deb12u2 [143 kB]
+#9 3.982 Get:13 http://deb.debian.org/debian bookworm/main arm64 libmount1 arm64 2.38.1-5+deb12u2 [159 kB]
+#9 3.987 Get:14 http://deb.debian.org/debian bookworm/main arm64 libsystemd0 arm64 252.31-1~deb12u1 [308 kB]
+#9 3.990 Get:15 http://deb.debian.org/debian bookworm/main arm64 libudev1 arm64 252.31-1~deb12u1 [103 kB]
+#9 4.026 Get:16 http://deb.debian.org/debian bookworm/main arm64 libuuid1 arm64 2.38.1-5+deb12u2 [28.4 kB]
+#9 4.027 Get:17 http://deb.debian.org/debian bookworm/main arm64 libnghttp2-14 arm64 1.52.0-1+deb12u2 [68.6 kB]
+#9 4.030 Get:18 http://deb.debian.org/debian bookworm/main arm64 libssl-dev arm64 3.0.15-1~deb12u1 [2308 kB]
+#9 4.062 Get:19 http://deb.debian.org/debian bookworm/main arm64 libssl3 arm64 3.0.15-1~deb12u1 [1811 kB]
+#9 4.088 Get:20 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u8 [309 kB]
+#9 4.091 Get:21 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u8 [365 kB]
+#9 4.098 Get:22 http://deb.debian.org/debian bookworm/main arm64 libcurl3-gnutls arm64 7.88.1-10+deb12u8 [360 kB]
+#9 4.122 Get:23 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3-dev arm64 2:3.87.1-1+deb12u1 [245 kB]
+#9 4.124 Get:24 http://deb.debian.org/debian bookworm/main arm64 libsqlite3-0 arm64 3.40.1-2+deb12u1 [785 kB]
+#9 4.140 Get:25 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3 arm64 2:3.87.1-1+deb12u1 [1218 kB]
+#9 4.154 Get:26 http://deb.debian.org/debian bookworm/main arm64 openssl arm64 3.0.15-1~deb12u1 [1392 kB]
+#9 4.478 debconf: delaying package configuration, since apt-utils is not installed
+#9 4.502 Fetched 17.6 MB in 1s (24.9 MB/s)
+(Reading database ... 13008 files and directories currently installed.)
+#9 4.549 Preparing to unpack .../base-files_12.4+deb12u8_arm64.deb ...
+#9 4.559 Unpacking base-files (12.4+deb12u8) over (12.4+deb12u7) ...
+#9 4.624 Setting up base-files (12.4+deb12u8) ...
+#9 4.626 Installing new version of config file /etc/debian_version ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 4.679 Preparing to unpack .../bsdutils_1%3a2.38.1-5+deb12u2_arm64.deb ...
+#9 4.684 Unpacking bsdutils (1:2.38.1-5+deb12u2) over (1:2.38.1-5+deb12u1) ...
+#9 4.728 Setting up bsdutils (1:2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 4.759 Preparing to unpack .../libc6-dev_2.36-9+deb12u9_arm64.deb ...
+#9 4.763 Unpacking libc6-dev:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 5.525 Preparing to unpack .../libc-dev-bin_2.36-9+deb12u9_arm64.deb ...
+#9 5.531 Unpacking libc-dev-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 5.554 Preparing to unpack .../linux-libc-dev_6.1.119-1_arm64.deb ...
+#9 5.562 Unpacking linux-libc-dev:arm64 (6.1.119-1) over (6.1.106-3) ...
+#9 6.868 Preparing to unpack .../libc6_2.36-9+deb12u9_arm64.deb ...
+#9 6.916 debconf: unable to initialize frontend: Dialog
+#9 6.916 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 6.916 debconf: falling back to frontend: Readline
+#9 6.919 debconf: unable to initialize frontend: Readline
+#9 6.919 debconf: (This frontend requires a controlling tty.)
+#9 6.919 debconf: falling back to frontend: Teletype
+#9 6.944 Unpacking libc6:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 7.566 Setting up libc6:arm64 (2.36-9+deb12u9) ...
+#9 7.626 debconf: unable to initialize frontend: Dialog
+#9 7.626 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 7.626 debconf: falling back to frontend: Readline
+#9 7.630 debconf: unable to initialize frontend: Readline
+#9 7.630 debconf: (This frontend requires a controlling tty.)
+#9 7.630 debconf: falling back to frontend: Teletype
+(Reading database ... 13008 files and directories currently installed.)
+#9 8.699 Preparing to unpack .../libsmartcols1_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.704 Unpacking libsmartcols1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 8.730 Setting up libsmartcols1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 8.752 Preparing to unpack .../util-linux-extra_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.757 Unpacking util-linux-extra (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 8.789 Setting up util-linux-extra (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 8.818 Preparing to unpack .../util-linux_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.822 Unpacking util-linux (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 ...
+
+#8 [nautobot builder 2/8] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/*
+(Reading database ... 44936 files and directories currently installed.)
+#8 9.043 Preparing to unpack .../libsmartcols1_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.047 Unpacking libsmartcols1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 9.076 Setting up libsmartcols1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 9.124 Preparing to unpack .../util-linux-extra_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.132 Unpacking util-linux-extra (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 9.192 Setting up util-linux-extra (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 9.260 Preparing to unpack .../util-linux_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.269 Unpacking util-linux (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 9.574 Setting up util-linux (2.38.1-5+deb12u2) ...
+#8 9.606 update-alternatives: warning: forcing reinstallation of alternative /bin/more because link group pager is broken
+#8 9.610 update-alternatives: warning: skip creation of /usr/share/man/man1/pager.1.gz because associated file /usr/share/man/man1/more.1.gz (of link group pager) doesn't exist
+(Reading database ... 44936 files and directories currently installed.)
+#8 9.728 Preparing to unpack .../libc-bin_2.36-9+deb12u9_arm64.deb ...
+#8 9.732 Unpacking libc-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 9.866 Setting up libc-bin (2.36-9+deb12u9) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 9.963 Preparing to unpack .../0-mount_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.969 Unpacking mount (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 10.02 Preparing to unpack .../1-libssl-dev_3.0.15-1~deb12u1_arm64.deb ...
+#8 10.03 Unpacking libssl-dev:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 10.41 Preparing to unpack .../2-libssl3_3.0.15-1~deb12u1_arm64.deb ...
+#8 10.41 Unpacking libssl3:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 10.55 Preparing to unpack .../3-python3.11_3.11.2-6+deb12u4_arm64.deb ...
+#8 10.66 Unpacking python3.11 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#8 10.70 Preparing to unpack .../4-libpython3.11-stdlib_3.11.2-6+deb12u4_arm64.deb ...
+#8 10.75 Unpacking libpython3.11-stdlib:arm64 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#8 11.49 Preparing to unpack .../5-python3.11-minimal_3.11.2-6+deb12u4_arm64.deb ...
+#8 11.50 Unpacking python3.11-minimal (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#8 11.83 Preparing to unpack .../6-libpython3.11-minimal_3.11.2-6+deb12u4_arm64.deb ...
+#8 11.99 Unpacking libpython3.11-minimal:arm64 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#8 13.01 Preparing to unpack .../7-libsqlite3-0_3.40.1-2+deb12u1_arm64.deb ...
+#8 13.03 Unpacking libsqlite3-0:arm64 (3.40.1-2+deb12u1) over (3.40.1-2) ...
+#8 13.12 Preparing to unpack .../8-libuuid1_2.38.1-5+deb12u2_arm64.deb ...
+#8 13.13 Unpacking libuuid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 13.19 Setting up libuuid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 13.28 Preparing to unpack .../libblkid1_2.38.1-5+deb12u2_arm64.deb ...
+#8 13.29 Unpacking libblkid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 13.40 Setting up libblkid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 13.50 Preparing to unpack .../libmount1_2.38.1-5+deb12u2_arm64.deb ...
+#8 13.51 Unpacking libmount1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 13.60 Setting up libmount1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 13.68 Preparing to unpack .../libsystemd0_252.31-1~deb12u1_arm64.deb ...
+#8 13.69 Unpacking libsystemd0:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#8 13.75 Setting up libsystemd0:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 13.81 Preparing to unpack .../libudev1_252.31-1~deb12u1_arm64.deb ...
+#8 13.83 Unpacking libudev1:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#8 13.91 Setting up libudev1:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 44936 files and directories currently installed.)
+#8 13.97 Preparing to unpack .../0-libnghttp2-14_1.52.0-1+deb12u2_arm64.deb ...
+#8 13.98 Unpacking libnghttp2-14:arm64 (1.52.0-1+deb12u2) over (1.52.0-1+deb12u1) ...
+#8 14.17 Preparing to unpack .../1-curl_7.88.1-10+deb12u8_arm64.deb ...
+#8 14.18 Unpacking curl (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 14.25 Preparing to unpack .../2-libcurl4_7.88.1-10+deb12u8_arm64.deb ...
+#8 14.26 Unpacking libcurl4:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 14.33 Preparing to unpack .../3-libcurl3-gnutls_7.88.1-10+deb12u8_arm64.deb ...
+#8 14.33 Unpacking libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 14.43 Preparing to unpack .../4-libnss3-dev_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#8 14.44 Unpacking libnss3-dev:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#8 14.62 Preparing to unpack .../5-libnss3_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#8 14.63 Unpacking libnss3:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#8 14.74 Preparing to unpack .../6-node-es-module-lexer_1.1.0+dfsg-2+deb12u1_all.deb ...
+#8 14.75 Unpacking node-es-module-lexer (1.1.0+dfsg-2+deb12u1) over (1.1.0+dfsg-2) ...
+#8 14.78 Preparing to unpack .../7-node-globby_13.1.3+~cs16.25.40-1+deb12u1_all.deb ...
+#8 14.78 Unpacking node-globby (13.1.3+~cs16.25.40-1+deb12u1) over (13.1.3+~cs16.25.40-1) ...
+#8 15.03 Preparing to unpack .../8-openssl_3.0.15-1~deb12u1_arm64.deb ...
+#8 15.03 Unpacking openssl (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 15.14 Setting up libsqlite3-0:arm64 (3.40.1-2+deb12u1) ...
+#8 15.15 Setting up node-es-module-lexer (1.1.0+dfsg-2+deb12u1) ...
+#8 15.16 Setting up libssl3:arm64 (3.0.15-1~deb12u1) ...
+#8 15.16 Setting up libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+#8 15.17 Setting up linux-libc-dev:arm64 (6.1.119-1) ...
+#8 15.17 Setting up libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) ...
+#8 15.18 Setting up libnss3:arm64 (2:3.87.1-1+deb12u1) ...
+#8 15.18 Setting up node-globby (13.1.3+~cs16.25.40-1+deb12u1) ...
+#8 15.19 Setting up libssl-dev:arm64 (3.0.15-1~deb12u1) ...
+#8 15.19 Setting up mount (2.38.1-5+deb12u2) ...
+#8 15.20 Setting up libnss3-dev:arm64 (2:3.87.1-1+deb12u1) ...
+#8 15.20 Setting up libcurl4:arm64 (7.88.1-10+deb12u8) ...
+#8 15.21 Setting up libpython3.11-minimal:arm64 (3.11.2-6+deb12u4) ...
+#8 15.21 Setting up curl (7.88.1-10+deb12u8) ...
+#8 15.22 Setting up libc-dev-bin (2.36-9+deb12u9) ...
+#8 15.22 Setting up openssl (3.0.15-1~deb12u1) ...
+#8 15.23 Setting up python3.11-minimal (3.11.2-6+deb12u4) ...
+#8 15.83 Setting up libpython3.11-stdlib:arm64 (3.11.2-6+deb12u4) ...
+#8 15.83 Setting up libc6-dev:arm64 (2.36-9+deb12u9) ...
+#8 15.83 Setting up python3.11 (3.11.2-6+deb12u4) ...
+#8 16.34 Processing triggers for mailcap (3.70+nmu1) ...
+#8 16.35 Processing triggers for libc-bin (2.36-9+deb12u9) ...
+#8 16.40 Reading package lists...
+#8 ...
+
+#9 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+#9 9.038 Setting up util-linux (2.38.1-5+deb12u2) ...
+#9 9.051 update-alternatives: warning: forcing reinstallation of alternative /bin/more because link group pager is broken
+#9 9.051 update-alternatives: warning: skip creation of /usr/share/man/man1/pager.1.gz because associated file /usr/share/man/man1/more.1.gz (of link group pager) doesn't exist
+(Reading database ... 13008 files and directories currently installed.)
+#9 9.155 Preparing to unpack .../libc-bin_2.36-9+deb12u9_arm64.deb ...
+#9 9.162 Unpacking libc-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 9.256 Setting up libc-bin (2.36-9+deb12u9) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 9.330 Preparing to unpack .../mount_2.38.1-5+deb12u2_arm64.deb ...
+#9 9.338 Unpacking mount (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.381 Preparing to unpack .../libblkid1_2.38.1-5+deb12u2_arm64.deb ...
+#9 9.392 Unpacking libblkid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.427 Setting up libblkid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 9.462 Preparing to unpack .../libmount1_2.38.1-5+deb12u2_arm64.deb ...
+#9 9.469 Unpacking libmount1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.503 Setting up libmount1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 9.536 Preparing to unpack .../libsystemd0_252.31-1~deb12u1_arm64.deb ...
+#9 9.553 Unpacking libsystemd0:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#9 9.613 Setting up libsystemd0:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 9.637 Preparing to unpack .../libudev1_252.31-1~deb12u1_arm64.deb ...
+#9 9.642 Unpacking libudev1:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#9 9.675 Setting up libudev1:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 9.704 Preparing to unpack .../libuuid1_2.38.1-5+deb12u2_arm64.deb ...
+#9 9.711 Unpacking libuuid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.733 Setting up libuuid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#9 9.755 Preparing to unpack .../0-libnghttp2-14_1.52.0-1+deb12u2_arm64.deb ...
+#9 9.762 Unpacking libnghttp2-14:arm64 (1.52.0-1+deb12u2) over (1.52.0-1+deb12u1) ...
+#9 9.816 Preparing to unpack .../1-libssl-dev_3.0.15-1~deb12u1_arm64.deb ...
+#9 9.827 Unpacking libssl-dev:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 10.21 Preparing to unpack .../2-libssl3_3.0.15-1~deb12u1_arm64.deb ...
+#9 10.21 Unpacking libssl3:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 10.39 Preparing to unpack .../3-curl_7.88.1-10+deb12u8_arm64.deb ...
+#9 10.40 Unpacking curl (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 10.44 Preparing to unpack .../4-libcurl4_7.88.1-10+deb12u8_arm64.deb ...
+#9 10.44 Unpacking libcurl4:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 10.50 Preparing to unpack .../5-libcurl3-gnutls_7.88.1-10+deb12u8_arm64.deb ...
+#9 10.51 Unpacking libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 10.55 Preparing to unpack .../6-libnss3-dev_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#9 10.56 Unpacking libnss3-dev:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#9 10.73 Preparing to unpack .../7-libsqlite3-0_3.40.1-2+deb12u1_arm64.deb ...
+#9 10.76 Unpacking libsqlite3-0:arm64 (3.40.1-2+deb12u1) over (3.40.1-2) ...
+#9 10.85 Preparing to unpack .../8-libnss3_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#9 10.87 Unpacking libnss3:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#9 11.00 Preparing to unpack .../9-openssl_3.0.15-1~deb12u1_arm64.deb ...
+#9 11.00 Unpacking openssl (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 11.11 Setting up libsqlite3-0:arm64 (3.40.1-2+deb12u1) ...
+#9 11.13 Setting up libssl3:arm64 (3.0.15-1~deb12u1) ...
+#9 11.16 Setting up libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+#9 11.17 Setting up linux-libc-dev:arm64 (6.1.119-1) ...
+#9 11.18 Setting up libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) ...
+#9 11.21 Setting up libnss3:arm64 (2:3.87.1-1+deb12u1) ...
+#9 11.22 Setting up libssl-dev:arm64 (3.0.15-1~deb12u1) ...
+#9 11.23 Setting up mount (2.38.1-5+deb12u2) ...
+#9 11.26 Setting up libnss3-dev:arm64 (2:3.87.1-1+deb12u1) ...
+#9 11.27 Setting up libcurl4:arm64 (7.88.1-10+deb12u8) ...
+#9 11.28 Setting up curl (7.88.1-10+deb12u8) ...
+#9 11.29 Setting up libc-dev-bin (2.36-9+deb12u9) ...
+#9 11.30 Setting up openssl (3.0.15-1~deb12u1) ...
+#9 11.31 Setting up libc6-dev:arm64 (2.36-9+deb12u9) ...
+#9 11.32 Processing triggers for libc-bin (2.36-9+deb12u9) ...
+#9 11.33 Processing triggers for mailcap (3.70+nmu1) ...
+#9 11.38 Reading package lists...
+#9 12.43 Building dependency tree...
+#9 12.84 Reading state information...
+#9 13.19 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#9 13.93 Requirement already satisfied: pip in /usr/local/lib/python3.12/site-packages (24.2)
+#9 14.43 Collecting pip
+#9 14.70   Downloading pip-24.3.1-py3-none-any.whl.metadata (3.7 kB)
+#9 14.70 Requirement already satisfied: wheel in /usr/local/lib/python3.12/site-packages (0.44.0)
+#9 14.76 Collecting wheel
+#9 14.80   Downloading wheel-0.45.1-py3-none-any.whl.metadata (2.3 kB)
+#9 14.85 Downloading pip-24.3.1-py3-none-any.whl (1.8 MB)
+#9 15.09    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 12.8 MB/s eta 0:00:00
+#9 15.13 Downloading wheel-0.45.1-py3-none-any.whl (72 kB)
+#9 15.25 Installing collected packages: wheel, pip
+#9 15.25   Attempting uninstall: wheel
+#9 15.26     Found existing installation: wheel 0.44.0
+#9 15.26     Uninstalling wheel-0.44.0:
+#9 15.32       Successfully uninstalled wheel-0.44.0
+#9 15.37   Attempting uninstall: pip
+#9 15.37     Found existing installation: pip 24.2
+#9 15.43     Uninstalling pip-24.2:
+#9 15.64       Successfully uninstalled pip-24.2
+#9 16.40 Successfully installed pip-24.3.1 wheel-0.45.1
+#9 16.40 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 DONE 16.8s
+
+#8 [nautobot builder 2/8] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/*
+#8 16.40 Reading package lists...
+#8 16.99 Building dependency tree...
+#8 17.08 Reading state information...
+#8 17.21 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#8 DONE 17.3s
+
+#10 [nautobot builder 3/8] COPY ../pyproject.toml ../poetry.lock /source/
+#10 DONE 0.0s
+
+#11 [nautobot builder 4/8] COPY ../plugins /source/plugins
+#11 DONE 0.0s
+
+#12 [nautobot builder 5/8] RUN cd /source &&     poetry install --no-interaction --no-ansi &&     mkdir /tmp/dist &&     poetry export --without-hashes -o /tmp/dist/requirements.txt
+#12 0.520 Skipping virtualenv creation, as specified in config file.
+#12 0.836 Installing dependencies from lock file
+#12 1.024
+#12 1.024 Package operations: 29 installs, 36 updates, 0 removals
+#12 1.024
+#12 1.024   - Updating cffi (1.17.0rc1 -> 1.17.1)
+#12 2.256   - Updating bcrypt (4.2.0 -> 4.2.1)
+#12 2.257   - Updating cryptography (43.0.1 -> 43.0.3)
+#12 3.269   - Updating attrs (23.2.0 -> 24.2.0)
+#12 3.270   - Updating certifi (2024.7.4 -> 2024.8.30)
+#12 3.270   - Updating charset-normalizer (3.3.2 -> 3.4.0)
+#12 3.272   - Updating idna (3.7 -> 3.10)
+#12 3.273   - Updating lxml (5.2.2 -> 5.3.0)
+#12 3.274   - Updating paramiko (3.4.0 -> 3.5.0)
+#12 3.275   - Updating rpds-py (0.19.0 -> 0.21.0)
+#12 3.278   - Updating setuptools (71.1.0 -> 75.6.0)
+#12 3.292   - Updating urllib3 (2.2.2 -> 2.2.3)
+#12 155.9   - Updating amqp (5.2.0 -> 5.3.1)
+#12 156.0   - Updating ncclient (0.6.15 -> 0.6.16)
+#12 156.0   - Updating ntc-templates (6.0.0 -> 6.1.0)
+#12 156.0   - Updating prompt-toolkit (3.0.47 -> 3.0.48)
+#12 156.0   - Updating pyparsing (3.1.2 -> 3.2.0)
+#12 156.0   - Installing ruamel-yaml-clib (0.2.12)
+#12 156.0   - Updating sqlparse (0.5.1 -> 0.5.2)
+#12 156.0   - Updating transitions (0.9.1 -> 0.9.2)
+#12 156.0   - Updating tzdata (2024.1 -> 2024.2)
+#12 157.3   - Updating billiard (4.2.0 -> 4.2.1)
+#12 157.3   - Updating jsonschema-specifications (2023.12.1 -> 2024.10.1)
+#12 157.3   - Updating kombu (5.3.7 -> 5.4.2)
+#12 157.3   - Installing mypy-extensions (1.0.0)
+#12 157.3   - Updating netutils (1.9.1 -> 1.10.0)
+#12 157.3   - Updating pycodestyle (2.12.0 -> 2.12.1)
+#12 157.3   - Updating pyeapi (1.0.2 -> 1.0.4)
+#12 157.3   - Updating pyjwt (2.8.0 -> 2.10.0)
+#12 157.3   - Installing ruamel-yaml (0.18.6)
+#12 157.3   - Updating ttp-templates (0.3.6 -> 0.3.7)
+#12 158.5   - Installing annotated-types (0.7.0)
+#12 158.5   - Installing anyio (4.6.2.post1)
+#12 158.5   - Updating cron-descriptor (1.4.3 -> 1.4.5)
+#12 158.5   - Updating drf-spectacular-sidecar (2024.7.1 -> 2024.11.1)
+#12 158.5   - Installing httpcore (1.0.7)
+#12 158.5   - Downgrading napalm (5.0.0 -> 4.1.0)
+#12 158.5   - Installing nornir (3.4.1)
+#12 158.5   - Downgrading packaging (24.1 -> 23.2)
+#12 158.5   - Installing pydantic-core (2.27.1)
+#12 158.5   - Updating redis (5.0.7 -> 5.2.0)
+#12 159.1   - Installing decorator (5.1.1)
+#12 159.1   - Installing httpx (0.27.0)
+#12 159.1   - Installing nornir-jinja2 (0.2.0)
+#12 159.1   - Installing nornir-napalm (0.4.0)
+#12 159.1   - Installing nornir-netmiko (1.0.1)
+#12 159.1   - Installing nornir-utils (0.2.0)
+#12 159.1   - Installing ordered-set (4.1.0)
+#12 159.1   - Updating psycopg2-binary (2.9.9 -> 2.9.10)
+#12 159.1   - Installing py (1.11.0)
+#12 159.1   - Installing pydantic (2.10.2)
+#12 159.2   - Installing pynautobot (2.4.2)
+#12 159.2   - Updating pyuwsgi (2.0.26 -> 2.0.28.post1)
+#12 164.6   - Installing deepdiff (6.7.1)
+#12 164.6   - Installing diffsync (2.0.1)
+#12 164.6   - Installing jmespath (1.0.1)
+#12 164.6   - Updating nautobot (2.3.6 /source/dist/nautobot-2.3.6-py3-none-any.whl -> 2.3.6)
+#12 164.6   - Installing nornir-nautobot (3.2.0)
+#12 164.6   - Installing retry (0.9.2)
+#12 164.7 Installing /usr/local/lib/python3.12/site-packages/LICENSE over existing file
+#12 164.7 Installing /usr/local/lib/python3.12/site-packages/README.md over existing file
+#12 167.1   - Installing jdiff (0.0.6)
+#12 167.1   - Installing nautobot-plugin-nornir (2.1.0)
+#12 167.1   - Installing nautobot-ssot (3.2.0)
+#12 167.1   - Installing zipp (3.21.0)
+#12 167.2 Installing /usr/local/lib/python3.12/site-packages/CHANGELOG.md over existing file
+#12 167.2 Installing /usr/local/lib/python3.12/site-packages/LICENSE over existing file
+#12 167.8   - Installing nautobot-device-onboarding (4.1.0)
+#12 167.8   - Installing toml (0.10.2)
+#12 168.1
+#12 168.1 Installing the current project: nautobot-docker-compose (0.1.1)
+#12 168.1
+#12 168.1 Warning: The current project could not be installed: No file/folder found for package nautobot-docker-compose
+#12 168.1 If you do not want to install the current project use --no-root.
+#12 168.1 If you want to use Poetry only for dependency management but not for packaging, you can disable package mode by setting package-mode = false in your pyproject.toml file.
+#12 168.1 In a future version of Poetry this warning will become an error!
+#12 168.5 Warning: poetry-plugin-export will not be installed by default in a future version of Poetry.
+#12 168.5 In order to avoid a breaking change and make your automation forward-compatible, please install poetry-plugin-export explicitly. See https://python-poetry.org/docs/plugins/#using-plugins for details on how to install a plugin.
+#12 168.5 To disable this warning run 'poetry config warnings.export false'.
+#12 DONE 169.0s
+
+#13 [nautobot builder 6/8] COPY ../jobs /opt/nautobot/jobs
+#13 DONE 0.0s
+
+#14 [nautobot builder 7/8] COPY ../config/nautobot_config.py /opt/nautobot/nautobot_config.py
+#14 DONE 0.0s
+
+#15 [nautobot builder 8/8] WORKDIR /source
+#15 DONE 0.0s
+
+#16 [nautobot nautobot 1/5] COPY --from=builder /tmp/dist /tmp/dist
+#16 DONE 0.0s
+
+#17 [nautobot nautobot 2/5] COPY --from=builder /opt/nautobot /opt/nautobot
+#17 DONE 0.0s
+
+#18 [nautobot nautobot 3/5] COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+#18 DONE 6.1s
+
+#19 [nautobot nautobot 4/5] COPY --from=builder /usr/local/bin /usr/local/bin
+#19 DONE 0.1s
+
+#20 [nautobot nautobot 5/5] RUN pyuwsgi --cflags | sed 's/ /\n/g' | grep -e "^-DUWSGI_SSL$"
+#20 0.201 -DUWSGI_SSL
+#20 DONE 0.2s
+
+#21 [nautobot] exporting to image
+#21 exporting layers
+#21 exporting layers 2.2s done
+#21 writing image sha256:6ffc4469fd728c7fef9da4b20cd8a64547b3b0c45fb34a557e51dc1544253a62 done
+#21 naming to docker.io/yourrepo/nautobot-docker-compose:local done
+#21 DONE 2.2s
+
+#22 [nautobot] resolving provenance for metadata file
+#22 DONE 0.0s
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke stop debug
+Stopping Nautobot...
+Running docker compose command "down"
+ Container nautobot-docker-compose-celery_worker-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopped
+ Container nautobot-docker-compose-celery_beat-1  Removing
+ Container nautobot-docker-compose-celery_worker-1  Stopped
+ Container nautobot-docker-compose-celery_worker-1  Removing
+ Container nautobot-docker-compose-celery_beat-1  Removed
+ Container nautobot-docker-compose-celery_worker-1  Removed
+ Container nautobot-docker-compose-nautobot-1  Stopping
+ Container nautobot-docker-compose-nautobot-1  Stopped
+ Container nautobot-docker-compose-nautobot-1  Removing
+ Container nautobot-docker-compose-nautobot-1  Removed
+ Container nautobot-docker-compose-db-1  Stopping
+ Container nautobot-docker-compose-redis-1  Stopping
+ Container nautobot-docker-compose-redis-1  Stopped
+ Container nautobot-docker-compose-redis-1  Removing
+ Container nautobot-docker-compose-db-1  Stopped
+ Container nautobot-docker-compose-db-1  Removing
+ Container nautobot-docker-compose-db-1  Removed
+ Container nautobot-docker-compose-redis-1  Removed
+ Network nautobot-docker-compose_default  Removing
+ Network nautobot-docker-compose_default  Removed
+Starting Nautobot in debug mode...
+Running docker compose command "up"
+ Network nautobot-docker-compose_default  Creating
+ Network nautobot-docker-compose_default  Created
+ Container nautobot-docker-compose-db-1  Creating
+ Container nautobot-docker-compose-redis-1  Creating
+ Container nautobot-docker-compose-redis-1  Created
+ Container nautobot-docker-compose-db-1  Created
+ Container nautobot-docker-compose-nautobot-1  Creating
+ Container nautobot-docker-compose-nautobot-1  Created
+ Container nautobot-docker-compose-celery_beat-1  Creating
+ Container nautobot-docker-compose-celery_worker-1  Creating
+ Container nautobot-docker-compose-celery_worker-1  Created
+ Container nautobot-docker-compose-celery_beat-1  Created
+Attaching to celery_beat-1, celery_worker-1, db-1, nautobot-1, redis-1
+redis-1          | 1:C 27 Nov 2024 01:45:05.707 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis-1          | 1:C 27 Nov 2024 01:45:05.707 # Redis version=6.2.16, bits=64, commit=00000000, modified=0, pid=1, just started
+redis-1          | 1:C 27 Nov 2024 01:45:05.707 # Configuration loaded
+redis-1          | 1:M 27 Nov 2024 01:45:05.707 * monotonic clock: POSIX clock_gettime
+redis-1          | 1:M 27 Nov 2024 01:45:05.710 * Running mode=standalone, port=6379.
+redis-1          | 1:M 27 Nov 2024 01:45:05.710 # Server initialized
+redis-1          | 1:M 27 Nov 2024 01:45:05.712 * Ready to accept connections
+db-1             |
+db-1             | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db-1             |
+db-1             | 2024-11-27 01:45:05.975 UTC [1] LOG:  starting PostgreSQL 13.18 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 13.2.1_git20240309) 13.2.1 20240309, 64-bit
+db-1             | 2024-11-27 01:45:05.976 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1             | 2024-11-27 01:45:05.977 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1             | 2024-11-27 01:45:05.982 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1             | 2024-11-27 01:45:05.991 UTC [27] LOG:  database system was shut down at 2024-11-27 01:39:36 UTC
+db-1             | 2024-11-27 01:45:06.002 UTC [1] LOG:  database system is ready to accept connections
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (0s / 30s)
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+nautobot-1       |     plugin = importlib.import_module(plugin_name)
+nautobot-1       |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+nautobot-1       |     return _bootstrap._gcd_import(name[level:], package, level)
+nautobot-1       |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nautobot-1       |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+nautobot-1       | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+nautobot-1       |
+nautobot-1       | The above exception was the direct cause of the following exception:
+nautobot-1       |
+nautobot-1       | Traceback (most recent call last):
+nautobot-1       |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+nautobot-1       |     sys.exit(main())
+nautobot-1       |              ^^^^^^
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+nautobot-1       |     load_settings(args.config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+nautobot-1       |     _preprocess_settings(module, config_path)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+nautobot-1       |     load_plugins(settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+nautobot-1       |     load_plugin(plugin_name, settings)
+nautobot-1       |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+nautobot-1       |     raise PluginNotFound(
+nautobot-1       | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+celery_beat-1    | Traceback (most recent call last):
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+celery_beat-1    |     plugin = importlib.import_module(plugin_name)
+celery_beat-1    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_beat-1    |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+celery_beat-1    |     return _bootstrap._gcd_import(name[level:], package, level)
+celery_beat-1    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+celery_beat-1    | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+celery_beat-1    |
+celery_beat-1    | The above exception was the direct cause of the following exception:
+celery_beat-1    |
+celery_beat-1    | Traceback (most recent call last):
+celery_beat-1    |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+celery_beat-1    |     sys.exit(main())
+celery_beat-1    |              ^^^^^^
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+celery_beat-1    |     load_settings(args.config_path)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+celery_beat-1    |     _preprocess_settings(module, config_path)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+celery_beat-1    |     load_plugins(settings)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+celery_beat-1    |     load_plugin(plugin_name, settings)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+celery_beat-1    |     raise PluginNotFound(
+celery_beat-1    | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+celery_worker-1  | Traceback (most recent call last):
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+celery_worker-1  |     plugin = importlib.import_module(plugin_name)
+celery_worker-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_worker-1  |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+celery_worker-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+celery_worker-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_worker-1  |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+celery_worker-1  |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+celery_worker-1  |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+celery_worker-1  | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+celery_worker-1  |
+celery_worker-1  | The above exception was the direct cause of the following exception:
+celery_worker-1  |
+celery_worker-1  | Traceback (most recent call last):
+celery_worker-1  |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+celery_worker-1  |     sys.exit(main())
+celery_worker-1  |              ^^^^^^
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+celery_worker-1  |     load_settings(args.config_path)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+celery_worker-1  |     _preprocess_settings(module, config_path)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+celery_worker-1  |     load_plugins(settings)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+celery_worker-1  |     load_plugin(plugin_name, settings)
+celery_worker-1  |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+celery_worker-1  |     raise PluginNotFound(
+celery_worker-1  | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+nautobot-1       | ⏳ Waiting on DB... (3s / 30s)
+celery_worker-1  |
+celery_beat-1    |
+celery_worker-1 exited with code 1
+celery_beat-1 exited with code 1
+Gracefully stopping... (press Ctrl+C again to force)
+ Container nautobot-docker-compose-celery_worker-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopped
+ Container nautobot-docker-compose-celery_worker-1  Stopped
+ Container nautobot-docker-compose-nautobot-1  Stopping
+ Container nautobot-docker-compose-nautobot-1  Stopped
+ Container nautobot-docker-compose-redis-1  Stopping
+ Container nautobot-docker-compose-db-1  Stopping
+ Container nautobot-docker-compose-db-1  Stopped
+ Container nautobot-docker-compose-redis-1  Stopped
+canceled
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$

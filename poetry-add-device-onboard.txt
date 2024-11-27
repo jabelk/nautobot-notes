@@ -1,0 +1,855 @@
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ poetry add nautobot-device-onboarding
+Using version ^4.1.0 for nautobot-device-onboarding
+
+Updating dependencies
+Resolving dependencies... Downloading https://files.pythonhosted.org/packages/31/fe/91cf7ce5045bf0b181
+Resolving dependencies... Downloading https://files.pythonhosted.org/packages/32/af/23dd251e108807a31a
+Resolving dependencies... (13.4s)
+
+Package operations: 51 installs, 2 updates, 0 removals
+
+  - Installing bcrypt (4.2.1)
+  - Installing future (1.0.0)
+  - Installing pynacl (1.5.0)
+  - Installing lxml (5.3.0)
+  - Installing paramiko (3.5.0)
+  - Updating setuptools (75.1.0 -> 75.6.0)
+  - Installing textfsm (1.1.3)
+  - Installing ruamel-yaml-clib (0.2.12)
+  - Installing ntc-templates (6.1.0): Installing...
+  - Installing pyparsing (3.2.0)
+  - Installing pyserial (3.5)
+  - Installing ncclient (0.6.16): Preparing...
+  - Installing ntc-templates (6.1.0)
+  - Installing pyparsing (3.2.0)
+  - Installing pyserial (3.5)
+  - Installing ncclient (0.6.16)
+  - Installing scp (0.15.0)
+  - Installing transitions (0.9.2)
+  - Installing ttp (0.9.5)
+  - Installing yamlordereddictloader (0.4.2)
+  - Installing exceptiongroup (1.2.2)
+  - Installing netmiko (4.4.0)
+  - Installing pyeapi (1.0.4)
+  - Installing sniffio (1.3.1)
+  - Installing ttp-templates (0.3.7)
+  - Installing h11 (0.14.0)
+  - Installing junos-eznc (2.7.1)
+  - Installing mypy-extensions (1.0.0)
+  - Installing ruamel-yaml (0.18.6)
+  - Installing annotated-types (0.7.0)
+  - Installing anyio (4.6.2.post1)
+  - Installing colorama (0.4.6)
+  - Installing httpcore (1.0.7)
+  - Installing napalm (4.1.0)
+  - Installing nornir (3.4.1)
+  - Downgrading packaging (24.2 -> 23.2)
+  - Installing pydantic-core (2.27.1)
+  - Installing decorator (5.1.1)
+  - Installing httpx (0.27.0)
+  - Installing nornir-jinja2 (0.2.0)
+  - Installing nornir-napalm (0.4.0)
+  - Installing nornir-netmiko (1.0.1)
+  - Installing nornir-utils (0.2.0)
+  - Installing ordered-set (4.1.0)
+  - Installing py (1.11.0)
+  - Installing pydantic (2.10.2)
+  - Installing pynautobot (2.4.2)
+  - Installing diffsync (2.0.1): Installing...
+  - Installing retry (0.9.2)
+  - Installing deepdiff (6.7.1)
+  - Installing jmespath (1.0.1)
+  - Installing diffsync (2.0.1)
+  - Installing retry (0.9.2)
+  - Installing deepdiff (6.7.1)
+  - Installing jmespath (1.0.1)
+  - Installing nornir-nautobot (3.2.0)
+  - Installing jdiff (0.0.6): Installing...
+  - Installing nautobot-plugin-nornir (2.1.0): Downloading... 0%
+  - Installing nautobot-ssot (3.2.0): Downloading... 0%
+  - Installing zipp (3.21.0): Pending...
+  - Installing jdiff (0.0.6)
+  - Installing nautobot-plugin-nornir (2.1.0)
+  - Installing nautobot-ssot (3.2.0)
+  - Installing zipp (3.21.0)
+  - Installing nautobot-device-onboarding (4.1.0)
+
+Writing lock file
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke build --no-cache
+Building Nautobot 2.3.6 with Python 3.12...
+Running docker compose command "build --no-cache"
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [nautobot internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.32kB done
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 3)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 14)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 54)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 3)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 14)
+#1 DONE 0.0s
+
+#2 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot-dev:2.3.6-py3.12
+#2 ...
+
+#3 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot:2.3.6-py3.12
+#3 DONE 1.0s
+
+#2 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot-dev:2.3.6-py3.12
+#2 DONE 1.0s
+
+#4 [nautobot internal] load .dockerignore
+#4 transferring context: 326B done
+#4 DONE 0.0s
+
+#5 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.12@sha256:96544766033cfc039a22cba41c2ab386c593be3afe46ac172b7b702dc940ffcc
+#5 CACHED
+
+#6 [nautobot nautobot-base 1/2] FROM ghcr.io/nautobot/nautobot:2.3.6-py3.12@sha256:f6b0ee939035529c1b53cd473a3f7069586e5e0abf4f318dbf3aa6a77b243f8e
+#6 CACHED
+
+#7 [nautobot internal] load build context
+#7 transferring context: 238.92kB 0.0s done
+#7 DONE 0.0s
+
+#8 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+#8 0.645 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#8 0.764 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#8 0.808 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#8 0.867 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8688 kB]
+#8 1.163 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [2468 B]
+#8 1.229 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [203 kB]
+#8 1.969 Fetched 9147 kB in 2s (5367 kB/s)
+#8 1.969 Reading package lists...
+#8 2.550 Reading package lists...
+#8 2.973 Building dependency tree...
+#8 3.098 Reading state information...
+#8 3.132 Calculating upgrade...
+#8 3.579 The following packages will be upgraded:
+#8 3.579   base-files bsdutils curl libblkid1 libc-bin libc-dev-bin libc6 libc6-dev
+#8 3.579   libcurl3-gnutls libcurl4 libmount1 libnghttp2-14 libnss3 libnss3-dev
+#8 3.579   libsmartcols1 libsqlite3-0 libssl-dev libssl3 libsystemd0 libudev1 libuuid1
+#8 3.579   linux-libc-dev mount openssl util-linux util-linux-extra
+#8 3.684 26 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#8 3.684 Need to get 17.6 MB of archives.
+#8 3.684 After this operation, 52.2 kB of additional disk space will be used.
+#8 3.684 Get:1 http://deb.debian.org/debian bookworm/main arm64 base-files arm64 12.4+deb12u8 [70.9 kB]
+#8 3.777 Get:2 http://deb.debian.org/debian bookworm/main arm64 bsdutils arm64 1:2.38.1-5+deb12u2 [94.4 kB]
+#8 3.797 Get:3 http://deb.debian.org/debian bookworm/main arm64 libc6-dev arm64 2.36-9+deb12u9 [1431 kB]
+#8 3.954 Get:4 http://deb.debian.org/debian bookworm/main arm64 libc-dev-bin arm64 2.36-9+deb12u9 [45.9 kB]
+#8 3.955 Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 linux-libc-dev arm64 6.1.119-1 [2050 kB]
+#8 4.013 Get:6 http://deb.debian.org/debian bookworm/main arm64 libc6 arm64 2.36-9+deb12u9 [2325 kB]
+#8 4.063 Get:7 http://deb.debian.org/debian bookworm/main arm64 libsmartcols1 arm64 2.38.1-5+deb12u2 [104 kB]
+#8 4.064 Get:8 http://deb.debian.org/debian bookworm/main arm64 util-linux-extra arm64 2.38.1-5+deb12u2 [112 kB]
+#8 4.066 Get:9 http://deb.debian.org/debian bookworm/main arm64 util-linux arm64 2.38.1-5+deb12u2 [1145 kB]
+#8 4.084 Get:10 http://deb.debian.org/debian bookworm/main arm64 libc-bin arm64 2.36-9+deb12u9 [532 kB]
+#8 4.088 Get:11 http://deb.debian.org/debian bookworm/main arm64 mount arm64 2.38.1-5+deb12u2 [134 kB]
+#8 4.089 Get:12 http://deb.debian.org/debian bookworm/main arm64 libblkid1 arm64 2.38.1-5+deb12u2 [143 kB]
+#8 4.103 Get:13 http://deb.debian.org/debian bookworm/main arm64 libmount1 arm64 2.38.1-5+deb12u2 [159 kB]
+#8 4.105 Get:14 http://deb.debian.org/debian bookworm/main arm64 libsystemd0 arm64 252.31-1~deb12u1 [308 kB]
+#8 4.107 Get:15 http://deb.debian.org/debian bookworm/main arm64 libudev1 arm64 252.31-1~deb12u1 [103 kB]
+#8 4.127 Get:16 http://deb.debian.org/debian bookworm/main arm64 libuuid1 arm64 2.38.1-5+deb12u2 [28.4 kB]
+#8 4.128 Get:17 http://deb.debian.org/debian bookworm/main arm64 libnghttp2-14 arm64 1.52.0-1+deb12u2 [68.6 kB]
+#8 4.130 Get:18 http://deb.debian.org/debian bookworm/main arm64 libssl-dev arm64 3.0.15-1~deb12u1 [2308 kB]
+#8 4.159 Get:19 http://deb.debian.org/debian bookworm/main arm64 libssl3 arm64 3.0.15-1~deb12u1 [1811 kB]
+#8 4.209 Get:20 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u8 [309 kB]
+#8 4.212 Get:21 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u8 [365 kB]
+#8 4.216 Get:22 http://deb.debian.org/debian bookworm/main arm64 libcurl3-gnutls arm64 7.88.1-10+deb12u8 [360 kB]
+#8 4.221 Get:23 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3-dev arm64 2:3.87.1-1+deb12u1 [245 kB]
+#8 4.221 Get:24 http://deb.debian.org/debian bookworm/main arm64 libsqlite3-0 arm64 3.40.1-2+deb12u1 [785 kB]
+#8 4.230 Get:25 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3 arm64 2:3.87.1-1+deb12u1 [1218 kB]
+#8 4.255 Get:26 http://deb.debian.org/debian bookworm/main arm64 openssl arm64 3.0.15-1~deb12u1 [1392 kB]
+#8 4.432 debconf: delaying package configuration, since apt-utils is not installed
+#8 4.454 Fetched 17.6 MB in 1s (24.3 MB/s)
+(Reading database ... 13008 files and directories currently installed.)
+#8 4.486 Preparing to unpack .../base-files_12.4+deb12u8_arm64.deb ...
+#8 4.492 Unpacking base-files (12.4+deb12u8) over (12.4+deb12u7) ...
+#8 4.550 Setting up base-files (12.4+deb12u8) ...
+#8 4.552 Installing new version of config file /etc/debian_version ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 4.591 Preparing to unpack .../bsdutils_1%3a2.38.1-5+deb12u2_arm64.deb ...
+#8 4.597 Unpacking bsdutils (1:2.38.1-5+deb12u2) over (1:2.38.1-5+deb12u1) ...
+#8 4.633 Setting up bsdutils (1:2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 4.656 Preparing to unpack .../libc6-dev_2.36-9+deb12u9_arm64.deb ...
+#8 4.660 Unpacking libc6-dev:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 5.393 Preparing to unpack .../libc-dev-bin_2.36-9+deb12u9_arm64.deb ...
+#8 5.400 Unpacking libc-dev-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 5.431 Preparing to unpack .../linux-libc-dev_6.1.119-1_arm64.deb ...
+#8 5.440 Unpacking linux-libc-dev:arm64 (6.1.119-1) over (6.1.106-3) ...
+#8 6.698 Preparing to unpack .../libc6_2.36-9+deb12u9_arm64.deb ...
+#8 6.750 debconf: unable to initialize frontend: Dialog
+#8 6.750 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#8 6.750 debconf: falling back to frontend: Readline
+#8 6.755 debconf: unable to initialize frontend: Readline
+#8 6.755 debconf: (This frontend requires a controlling tty.)
+#8 6.755 debconf: falling back to frontend: Teletype
+#8 6.781 Unpacking libc6:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 7.384 Setting up libc6:arm64 (2.36-9+deb12u9) ...
+#8 7.438 debconf: unable to initialize frontend: Dialog
+#8 7.438 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#8 7.438 debconf: falling back to frontend: Readline
+#8 7.441 debconf: unable to initialize frontend: Readline
+#8 7.441 debconf: (This frontend requires a controlling tty.)
+#8 7.441 debconf: falling back to frontend: Teletype
+(Reading database ... 13008 files and directories currently installed.)
+#8 8.504 Preparing to unpack .../libsmartcols1_2.38.1-5+deb12u2_arm64.deb ...
+#8 8.508 Unpacking libsmartcols1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 8.535 Setting up libsmartcols1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 8.559 Preparing to unpack .../util-linux-extra_2.38.1-5+deb12u2_arm64.deb ...
+#8 8.564 Unpacking util-linux-extra (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 8.597 Setting up util-linux-extra (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 8.625 Preparing to unpack .../util-linux_2.38.1-5+deb12u2_arm64.deb ...
+#8 8.635 Unpacking util-linux (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 8.878 Setting up util-linux (2.38.1-5+deb12u2) ...
+#8 8.894 update-alternatives: warning: forcing reinstallation of alternative /bin/more because link group pager is broken
+#8 8.896 update-alternatives: warning: skip creation of /usr/share/man/man1/pager.1.gz because associated file /usr/share/man/man1/more.1.gz (of link group pager) doesn't exist
+(Reading database ... 13008 files and directories currently installed.)
+#8 8.983 Preparing to unpack .../libc-bin_2.36-9+deb12u9_arm64.deb ...
+#8 8.989 Unpacking libc-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 9.084 Setting up libc-bin (2.36-9+deb12u9) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 9.192 Preparing to unpack .../mount_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.198 Unpacking mount (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 9.237 Preparing to unpack .../libblkid1_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.251 Unpacking libblkid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 9.287 Setting up libblkid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 9.311 Preparing to unpack .../libmount1_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.315 Unpacking libmount1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 9.341 Setting up libmount1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 9.362 Preparing to unpack .../libsystemd0_252.31-1~deb12u1_arm64.deb ...
+#8 9.368 Unpacking libsystemd0:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#8 9.409 Setting up libsystemd0:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 9.445 Preparing to unpack .../libudev1_252.31-1~deb12u1_arm64.deb ...
+#8 9.452 Unpacking libudev1:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#8 9.479 Setting up libudev1:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 9.505 Preparing to unpack .../libuuid1_2.38.1-5+deb12u2_arm64.deb ...
+#8 9.512 Unpacking libuuid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 9.534 Setting up libuuid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 9.557 Preparing to unpack .../0-libnghttp2-14_1.52.0-1+deb12u2_arm64.deb ...
+#8 9.563 Unpacking libnghttp2-14:arm64 (1.52.0-1+deb12u2) over (1.52.0-1+deb12u1) ...
+#8 9.586 Preparing to unpack .../1-libssl-dev_3.0.15-1~deb12u1_arm64.deb ...
+#8 9.592 Unpacking libssl-dev:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 9.890 Preparing to unpack .../2-libssl3_3.0.15-1~deb12u1_arm64.deb ...
+#8 9.896 Unpacking libssl3:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 10.01 Preparing to unpack .../3-curl_7.88.1-10+deb12u8_arm64.deb ...
+#8 ...
+
+#9 [nautobot builder 2/8] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/*
+#9 0.655 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#9 0.796 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#9 0.842 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#9 0.888 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8688 kB]
+#9 1.207 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [2468 B]
+#9 1.248 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [203 kB]
+#9 2.011 Fetched 9147 kB in 2s (5251 kB/s)
+#9 2.011 Reading package lists...
+#9 2.573 Reading package lists...
+#9 3.027 Building dependency tree...
+#9 3.152 Reading state information...
+#9 3.185 Calculating upgrade...
+#9 3.679 The following packages will be upgraded:
+#9 3.679   base-files bsdutils curl libblkid1 libc-bin libc-dev-bin libc6 libc6-dev
+#9 3.679   libcurl3-gnutls libcurl4 libmount1 libnghttp2-14 libnss3 libnss3-dev
+#9 3.679   libpython3.11-minimal libpython3.11-stdlib libsmartcols1 libsqlite3-0
+#9 3.679   libssl-dev libssl3 libsystemd0 libudev1 libuuid1 linux-libc-dev mount
+#9 3.679   node-es-module-lexer node-globby openssl python3.11 python3.11-minimal
+#9 3.679   util-linux util-linux-extra
+#9 3.786 32 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#9 3.786 Need to get 22.7 MB of archives.
+#9 3.786 After this operation, 52.2 kB of additional disk space will be used.
+#9 3.786 Get:1 http://deb.debian.org/debian bookworm/main arm64 base-files arm64 12.4+deb12u8 [70.9 kB]
+#9 3.882 Get:2 http://deb.debian.org/debian bookworm/main arm64 bsdutils arm64 1:2.38.1-5+deb12u2 [94.4 kB]
+#9 3.900 Get:3 http://deb.debian.org/debian bookworm/main arm64 libc6-dev arm64 2.36-9+deb12u9 [1431 kB]
+#9 4.100 Get:4 http://deb.debian.org/debian bookworm/main arm64 libc-dev-bin arm64 2.36-9+deb12u9 [45.9 kB]
+#9 4.101 Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 linux-libc-dev arm64 6.1.119-1 [2050 kB]
+#9 4.190 Get:6 http://deb.debian.org/debian bookworm/main arm64 libc6 arm64 2.36-9+deb12u9 [2325 kB]
+#9 4.253 Get:7 http://deb.debian.org/debian bookworm/main arm64 libsmartcols1 arm64 2.38.1-5+deb12u2 [104 kB]
+#9 4.256 Get:8 http://deb.debian.org/debian bookworm/main arm64 util-linux-extra arm64 2.38.1-5+deb12u2 [112 kB]
+#9 4.261 Get:9 http://deb.debian.org/debian bookworm/main arm64 util-linux arm64 2.38.1-5+deb12u2 [1145 kB]
+#9 4.277 Get:10 http://deb.debian.org/debian bookworm/main arm64 libc-bin arm64 2.36-9+deb12u9 [532 kB]
+#9 4.281 Get:11 http://deb.debian.org/debian bookworm/main arm64 mount arm64 2.38.1-5+deb12u2 [134 kB]
+#9 4.292 Get:12 http://deb.debian.org/debian bookworm/main arm64 libssl-dev arm64 3.0.15-1~deb12u1 [2308 kB]
+#9 4.330 Get:13 http://deb.debian.org/debian bookworm/main arm64 libssl3 arm64 3.0.15-1~deb12u1 [1811 kB]
+#9 4.399 Get:14 http://deb.debian.org/debian bookworm/main arm64 python3.11 arm64 3.11.2-6+deb12u4 [573 kB]
+#9 4.412 Get:15 http://deb.debian.org/debian bookworm/main arm64 libpython3.11-stdlib arm64 3.11.2-6+deb12u4 [1746 kB]
+#9 4.432 Get:16 http://deb.debian.org/debian bookworm/main arm64 python3.11-minimal arm64 3.11.2-6+deb12u4 [1860 kB]
+#9 4.477 Get:17 http://deb.debian.org/debian bookworm/main arm64 libpython3.11-minimal arm64 3.11.2-6+deb12u4 [808 kB]
+#9 4.490 Get:18 http://deb.debian.org/debian bookworm/main arm64 libsqlite3-0 arm64 3.40.1-2+deb12u1 [785 kB]
+#9 4.502 Get:19 http://deb.debian.org/debian bookworm/main arm64 libuuid1 arm64 2.38.1-5+deb12u2 [28.4 kB]
+#9 4.503 Get:20 http://deb.debian.org/debian bookworm/main arm64 libblkid1 arm64 2.38.1-5+deb12u2 [143 kB]
+#9 4.504 Get:21 http://deb.debian.org/debian bookworm/main arm64 libmount1 arm64 2.38.1-5+deb12u2 [159 kB]
+#9 4.504 Get:22 http://deb.debian.org/debian bookworm/main arm64 libsystemd0 arm64 252.31-1~deb12u1 [308 kB]
+#9 4.507 Get:23 http://deb.debian.org/debian bookworm/main arm64 libudev1 arm64 252.31-1~deb12u1 [103 kB]
+#9 4.511 Get:24 http://deb.debian.org/debian bookworm/main arm64 libnghttp2-14 arm64 1.52.0-1+deb12u2 [68.6 kB]
+#9 4.512 Get:25 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u8 [309 kB]
+#9 4.531 Get:26 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u8 [365 kB]
+#9 4.553 Get:27 http://deb.debian.org/debian bookworm/main arm64 libcurl3-gnutls arm64 7.88.1-10+deb12u8 [360 kB]
+#9 4.559 Get:28 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3-dev arm64 2:3.87.1-1+deb12u1 [245 kB]
+#9 4.561 Get:29 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3 arm64 2:3.87.1-1+deb12u1 [1218 kB]
+#9 4.578 Get:30 http://deb.debian.org/debian bookworm/main arm64 node-es-module-lexer all 1.1.0+dfsg-2+deb12u1 [19.7 kB]
+#9 4.579 Get:31 http://deb.debian.org/debian bookworm/main arm64 node-globby all 13.1.3+~cs16.25.40-1+deb12u1 [40.5 kB]
+#9 4.579 Get:32 http://deb.debian.org/debian bookworm/main arm64 openssl arm64 3.0.15-1~deb12u1 [1392 kB]
+#9 4.736 debconf: delaying package configuration, since apt-utils is not installed
+#9 4.768 Fetched 22.7 MB in 1s (25.0 MB/s)
+(Reading database ... 44936 files and directories currently installed.)
+#9 4.830 Preparing to unpack .../base-files_12.4+deb12u8_arm64.deb ...
+#9 4.835 Unpacking base-files (12.4+deb12u8) over (12.4+deb12u7) ...
+#9 4.916 Setting up base-files (12.4+deb12u8) ...
+#9 4.920 Installing new version of config file /etc/debian_version ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 4.984 Preparing to unpack .../bsdutils_1%3a2.38.1-5+deb12u2_arm64.deb ...
+#9 4.992 Unpacking bsdutils (1:2.38.1-5+deb12u2) over (1:2.38.1-5+deb12u1) ...
+#9 5.045 Setting up bsdutils (1:2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 5.088 Preparing to unpack .../libc6-dev_2.36-9+deb12u9_arm64.deb ...
+#9 5.094 Unpacking libc6-dev:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 5.824 Preparing to unpack .../libc-dev-bin_2.36-9+deb12u9_arm64.deb ...
+#9 5.829 Unpacking libc-dev-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 5.856 Preparing to unpack .../linux-libc-dev_6.1.119-1_arm64.deb ...
+#9 5.861 Unpacking linux-libc-dev:arm64 (6.1.119-1) over (6.1.106-3) ...
+#9 7.073 Preparing to unpack .../libc6_2.36-9+deb12u9_arm64.deb ...
+#9 7.119 debconf: unable to initialize frontend: Dialog
+#9 7.119 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 7.119 debconf: falling back to frontend: Readline
+#9 7.123 debconf: unable to initialize frontend: Readline
+#9 7.123 debconf: (This frontend requires a controlling tty.)
+#9 7.123 debconf: falling back to frontend: Teletype
+#9 7.148 Unpacking libc6:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 7.648 Setting up libc6:arm64 (2.36-9+deb12u9) ...
+#9 7.708 debconf: unable to initialize frontend: Dialog
+#9 7.708 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 7.708 debconf: falling back to frontend: Readline
+#9 7.712 debconf: unable to initialize frontend: Readline
+#9 7.712 debconf: (This frontend requires a controlling tty.)
+#9 7.712 debconf: falling back to frontend: Teletype
+(Reading database ... 44936 files and directories currently installed.)
+#9 8.787 Preparing to unpack .../libsmartcols1_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.796 Unpacking libsmartcols1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 8.832 Setting up libsmartcols1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 8.874 Preparing to unpack .../util-linux-extra_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.884 Unpacking util-linux-extra (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 8.924 Setting up util-linux-extra (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 8.964 Preparing to unpack .../util-linux_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.968 Unpacking util-linux (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.277 Setting up util-linux (2.38.1-5+deb12u2) ...
+#9 9.294 update-alternatives: warning: forcing reinstallation of alternative /bin/more because link group pager is broken
+#9 9.295 update-alternatives: warning: skip creation of /usr/share/man/man1/pager.1.gz because associated file /usr/share/man/man1/more.1.gz (of link group pager) doesn't exist
+(Reading database ... 44936 files and directories currently installed.)
+#9 9.401 Preparing to unpack .../libc-bin_2.36-9+deb12u9_arm64.deb ...
+#9 9.406 Unpacking libc-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 9.500 Setting up libc-bin (2.36-9+deb12u9) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 9.559 Preparing to unpack .../0-mount_2.38.1-5+deb12u2_arm64.deb ...
+#9 9.565 Unpacking mount (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.602 Preparing to unpack .../1-libssl-dev_3.0.15-1~deb12u1_arm64.deb ...
+#9 9.608 Unpacking libssl-dev:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 9.893 Preparing to unpack .../2-libssl3_3.0.15-1~deb12u1_arm64.deb ...
+#9 9.900 Unpacking libssl3:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 10.02 Preparing to unpack .../3-python3.11_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.11 Unpacking python3.11 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 ...
+
+#8 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+#8 10.02 Unpacking curl (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 10.05 Preparing to unpack .../4-libcurl4_7.88.1-10+deb12u8_arm64.deb ...
+#8 10.06 Unpacking libcurl4:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 10.11 Preparing to unpack .../5-libcurl3-gnutls_7.88.1-10+deb12u8_arm64.deb ...
+#8 10.12 Unpacking libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 10.15 Preparing to unpack .../6-libnss3-dev_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#8 10.16 Unpacking libnss3-dev:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#8 10.33 Preparing to unpack .../7-libsqlite3-0_3.40.1-2+deb12u1_arm64.deb ...
+#8 10.34 Unpacking libsqlite3-0:arm64 (3.40.1-2+deb12u1) over (3.40.1-2) ...
+#8 10.40 Preparing to unpack .../8-libnss3_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#8 10.40 Unpacking libnss3:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#8 10.50 Preparing to unpack .../9-openssl_3.0.15-1~deb12u1_arm64.deb ...
+#8 10.50 Unpacking openssl (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 10.60 Setting up libsqlite3-0:arm64 (3.40.1-2+deb12u1) ...
+#8 10.61 Setting up libssl3:arm64 (3.0.15-1~deb12u1) ...
+#8 10.61 Setting up libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+#8 10.62 Setting up linux-libc-dev:arm64 (6.1.119-1) ...
+#8 10.63 Setting up libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) ...
+#8 10.63 Setting up libnss3:arm64 (2:3.87.1-1+deb12u1) ...
+#8 10.63 Setting up libssl-dev:arm64 (3.0.15-1~deb12u1) ...
+#8 10.64 Setting up mount (2.38.1-5+deb12u2) ...
+#8 10.64 Setting up libnss3-dev:arm64 (2:3.87.1-1+deb12u1) ...
+#8 10.65 Setting up libcurl4:arm64 (7.88.1-10+deb12u8) ...
+#8 10.65 Setting up curl (7.88.1-10+deb12u8) ...
+#8 10.65 Setting up libc-dev-bin (2.36-9+deb12u9) ...
+#8 10.66 Setting up openssl (3.0.15-1~deb12u1) ...
+#8 10.66 Setting up libc6-dev:arm64 (2.36-9+deb12u9) ...
+#8 10.67 Processing triggers for libc-bin (2.36-9+deb12u9) ...
+#8 10.67 Processing triggers for mailcap (3.70+nmu1) ...
+#8 10.70 Reading package lists...
+#8 11.16 Building dependency tree...
+#8 11.27 Reading state information...
+#8 11.41 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#8 11.70 Requirement already satisfied: pip in /usr/local/lib/python3.12/site-packages (24.2)
+#8 11.90 Collecting pip
+#8 12.18   Downloading pip-24.3.1-py3-none-any.whl.metadata (3.7 kB)
+#8 12.18 Requirement already satisfied: wheel in /usr/local/lib/python3.12/site-packages (0.44.0)
+#8 12.24 Collecting wheel
+#8 12.29   Downloading wheel-0.45.1-py3-none-any.whl.metadata (2.3 kB)
+#8 12.33 Downloading pip-24.3.1-py3-none-any.whl (1.8 MB)
+#8 12.55    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 14.9 MB/s eta 0:00:00
+#8 12.59 Downloading wheel-0.45.1-py3-none-any.whl (72 kB)
+#8 12.70 Installing collected packages: wheel, pip
+#8 12.70   Attempting uninstall: wheel
+#8 12.70     Found existing installation: wheel 0.44.0
+#8 12.71     Uninstalling wheel-0.44.0:
+#8 12.73       Successfully uninstalled wheel-0.44.0
+#8 12.77   Attempting uninstall: pip
+#8 12.77     Found existing installation: pip 24.2
+#8 12.79     Uninstalling pip-24.2:
+#8 12.97       Successfully uninstalled pip-24.2
+#8 13.62 Successfully installed pip-24.3.1 wheel-0.45.1
+#8 13.62 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 DONE 13.9s
+
+#9 [nautobot builder 2/8] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/*
+#9 10.14 Preparing to unpack .../4-libpython3.11-stdlib_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.17 Unpacking libpython3.11-stdlib:arm64 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 10.61 Preparing to unpack .../5-python3.11-minimal_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.62 Unpacking python3.11-minimal (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 10.78 Preparing to unpack .../6-libpython3.11-minimal_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.83 Unpacking libpython3.11-minimal:arm64 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 11.10 Preparing to unpack .../7-libsqlite3-0_3.40.1-2+deb12u1_arm64.deb ...
+#9 11.10 Unpacking libsqlite3-0:arm64 (3.40.1-2+deb12u1) over (3.40.1-2) ...
+#9 11.16 Preparing to unpack .../8-libuuid1_2.38.1-5+deb12u2_arm64.deb ...
+#9 11.17 Unpacking libuuid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 11.19 Setting up libuuid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.23 Preparing to unpack .../libblkid1_2.38.1-5+deb12u2_arm64.deb ...
+#9 11.23 Unpacking libblkid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 11.27 Setting up libblkid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.30 Preparing to unpack .../libmount1_2.38.1-5+deb12u2_arm64.deb ...
+#9 11.30 Unpacking libmount1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 11.33 Setting up libmount1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.37 Preparing to unpack .../libsystemd0_252.31-1~deb12u1_arm64.deb ...
+#9 11.38 Unpacking libsystemd0:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#9 11.42 Setting up libsystemd0:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.45 Preparing to unpack .../libudev1_252.31-1~deb12u1_arm64.deb ...
+#9 11.46 Unpacking libudev1:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#9 11.48 Setting up libudev1:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.52 Preparing to unpack .../0-libnghttp2-14_1.52.0-1+deb12u2_arm64.deb ...
+#9 11.53 Unpacking libnghttp2-14:arm64 (1.52.0-1+deb12u2) over (1.52.0-1+deb12u1) ...
+#9 11.55 Preparing to unpack .../1-curl_7.88.1-10+deb12u8_arm64.deb ...
+#9 11.56 Unpacking curl (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 11.59 Preparing to unpack .../2-libcurl4_7.88.1-10+deb12u8_arm64.deb ...
+#9 11.60 Unpacking libcurl4:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 11.64 Preparing to unpack .../3-libcurl3-gnutls_7.88.1-10+deb12u8_arm64.deb ...
+#9 11.65 Unpacking libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 11.68 Preparing to unpack .../4-libnss3-dev_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#9 11.68 Unpacking libnss3-dev:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#9 11.81 Preparing to unpack .../5-libnss3_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#9 11.81 Unpacking libnss3:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#9 11.90 Preparing to unpack .../6-node-es-module-lexer_1.1.0+dfsg-2+deb12u1_all.deb ...
+#9 11.90 Unpacking node-es-module-lexer (1.1.0+dfsg-2+deb12u1) over (1.1.0+dfsg-2) ...
+#9 11.93 Preparing to unpack .../7-node-globby_13.1.3+~cs16.25.40-1+deb12u1_all.deb ...
+#9 11.93 Unpacking node-globby (13.1.3+~cs16.25.40-1+deb12u1) over (13.1.3+~cs16.25.40-1) ...
+#9 12.09 Preparing to unpack .../8-openssl_3.0.15-1~deb12u1_arm64.deb ...
+#9 12.09 Unpacking openssl (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 12.17 Setting up libsqlite3-0:arm64 (3.40.1-2+deb12u1) ...
+#9 12.18 Setting up node-es-module-lexer (1.1.0+dfsg-2+deb12u1) ...
+#9 12.18 Setting up libssl3:arm64 (3.0.15-1~deb12u1) ...
+#9 12.19 Setting up libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+#9 12.19 Setting up linux-libc-dev:arm64 (6.1.119-1) ...
+#9 12.19 Setting up libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) ...
+#9 12.20 Setting up libnss3:arm64 (2:3.87.1-1+deb12u1) ...
+#9 12.20 Setting up node-globby (13.1.3+~cs16.25.40-1+deb12u1) ...
+#9 12.20 Setting up libssl-dev:arm64 (3.0.15-1~deb12u1) ...
+#9 12.21 Setting up mount (2.38.1-5+deb12u2) ...
+#9 12.21 Setting up libnss3-dev:arm64 (2:3.87.1-1+deb12u1) ...
+#9 12.22 Setting up libcurl4:arm64 (7.88.1-10+deb12u8) ...
+#9 12.22 Setting up libpython3.11-minimal:arm64 (3.11.2-6+deb12u4) ...
+#9 12.23 Setting up curl (7.88.1-10+deb12u8) ...
+#9 12.23 Setting up libc-dev-bin (2.36-9+deb12u9) ...
+#9 12.23 Setting up openssl (3.0.15-1~deb12u1) ...
+#9 12.24 Setting up python3.11-minimal (3.11.2-6+deb12u4) ...
+#9 12.67 Setting up libpython3.11-stdlib:arm64 (3.11.2-6+deb12u4) ...
+#9 12.68 Setting up libc6-dev:arm64 (2.36-9+deb12u9) ...
+#9 12.68 Setting up python3.11 (3.11.2-6+deb12u4) ...
+#9 13.18 Processing triggers for mailcap (3.70+nmu1) ...
+#9 13.19 Processing triggers for libc-bin (2.36-9+deb12u9) ...
+#9 13.22 Reading package lists...
+#9 13.70 Building dependency tree...
+#9 13.82 Reading state information...
+#9 13.98 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#9 DONE 14.0s
+
+#10 [nautobot builder 3/8] COPY ../pyproject.toml ../poetry.lock /source/
+#10 DONE 0.0s
+
+#11 [nautobot builder 4/8] COPY ../plugins /source/plugins
+#11 DONE 0.0s
+
+#12 [nautobot builder 5/8] RUN cd /source &&     poetry install --no-interaction --no-ansi &&     mkdir /tmp/dist &&     poetry export --without-hashes -o /tmp/dist/requirements.txt
+#12 0.489 Skipping virtualenv creation, as specified in config file.
+#12 0.771 Installing dependencies from lock file
+#12 0.954
+#12 0.954 Package operations: 29 installs, 36 updates, 0 removals
+#12 0.954
+#12 0.954   - Updating cffi (1.17.0rc1 -> 1.17.1)
+#12 1.972   - Updating bcrypt (4.2.0 -> 4.2.1)
+#12 1.973   - Updating cryptography (43.0.1 -> 43.0.3)
+#12 2.745   - Updating attrs (23.2.0 -> 24.2.0)
+#12 2.746   - Updating certifi (2024.7.4 -> 2024.8.30)
+#12 2.746   - Updating charset-normalizer (3.3.2 -> 3.4.0)
+#12 2.748   - Updating idna (3.7 -> 3.10)
+#12 2.749   - Updating lxml (5.2.2 -> 5.3.0)
+#12 2.749   - Updating paramiko (3.4.0 -> 3.5.0)
+#12 2.750   - Updating rpds-py (0.19.0 -> 0.21.0)
+#12 2.750   - Updating setuptools (71.1.0 -> 75.6.0)
+#12 2.751   - Updating urllib3 (2.2.2 -> 2.2.3)
+#12 158.2   - Updating amqp (5.2.0 -> 5.3.1)
+#12 158.2   - Updating ncclient (0.6.15 -> 0.6.16)
+#12 158.2   - Updating ntc-templates (6.0.0 -> 6.1.0)
+#12 158.2   - Updating prompt-toolkit (3.0.47 -> 3.0.48)
+#12 158.2   - Updating pyparsing (3.1.2 -> 3.2.0)
+#12 158.2   - Installing ruamel-yaml-clib (0.2.12)
+#12 158.2   - Updating sqlparse (0.5.1 -> 0.5.2)
+#12 158.2   - Updating transitions (0.9.1 -> 0.9.2)
+#12 158.2   - Updating tzdata (2024.1 -> 2024.2)
+#12 159.8   - Updating billiard (4.2.0 -> 4.2.1)
+#12 159.8   - Updating jsonschema-specifications (2023.12.1 -> 2024.10.1)
+#12 159.8   - Updating kombu (5.3.7 -> 5.4.2)
+#12 159.8   - Installing mypy-extensions (1.0.0)
+#12 159.8   - Updating netutils (1.9.1 -> 1.10.0)
+#12 159.8   - Updating pycodestyle (2.12.0 -> 2.12.1)
+#12 159.8   - Updating pyeapi (1.0.2 -> 1.0.4)
+#12 159.8   - Updating pyjwt (2.8.0 -> 2.10.0)
+#12 159.8   - Installing ruamel-yaml (0.18.6)
+#12 159.8   - Updating ttp-templates (0.3.6 -> 0.3.7)
+#12 161.1   - Installing annotated-types (0.7.0)
+#12 161.1   - Installing anyio (4.6.2.post1)
+#12 161.1   - Updating cron-descriptor (1.4.3 -> 1.4.5)
+#12 161.1   - Updating drf-spectacular-sidecar (2024.7.1 -> 2024.11.1)
+#12 161.1   - Installing httpcore (1.0.7)
+#12 161.1   - Downgrading napalm (5.0.0 -> 4.1.0)
+#12 161.1   - Installing nornir (3.4.1)
+#12 161.1   - Downgrading packaging (24.1 -> 23.2)
+#12 161.1   - Installing pydantic-core (2.27.1)
+#12 161.1   - Updating redis (5.0.7 -> 5.2.0)
+#12 161.8   - Installing decorator (5.1.1)
+#12 161.8   - Installing httpx (0.27.0)
+#12 161.8   - Installing nornir-jinja2 (0.2.0)
+#12 161.8   - Installing nornir-napalm (0.4.0)
+#12 161.8   - Installing nornir-netmiko (1.0.1)
+#12 161.8   - Installing nornir-utils (0.2.0)
+#12 161.8   - Installing ordered-set (4.1.0)
+#12 161.8   - Updating psycopg2-binary (2.9.9 -> 2.9.10)
+#12 161.8   - Installing py (1.11.0)
+#12 161.8   - Installing pydantic (2.10.2)
+#12 161.8   - Installing pynautobot (2.4.2)
+#12 161.8   - Updating pyuwsgi (2.0.26 -> 2.0.28.post1)
+#12 167.7   - Installing deepdiff (6.7.1)
+#12 167.7   - Installing diffsync (2.0.1)
+#12 167.7   - Installing jmespath (1.0.1)
+#12 167.7   - Updating nautobot (2.3.6 /source/dist/nautobot-2.3.6-py3-none-any.whl -> 2.3.6)
+#12 167.7   - Installing nornir-nautobot (3.2.0)
+#12 167.7   - Installing retry (0.9.2)
+#12 167.8 Installing /usr/local/lib/python3.12/site-packages/LICENSE over existing file
+#12 167.8 Installing /usr/local/lib/python3.12/site-packages/README.md over existing file
+#12 170.7   - Installing jdiff (0.0.6)
+#12 170.7   - Installing nautobot-plugin-nornir (2.1.0)
+#12 170.7   - Installing nautobot-ssot (3.2.0)
+#12 170.7   - Installing zipp (3.21.0)
+#12 170.8 Installing /usr/local/lib/python3.12/site-packages/CHANGELOG.md over existing file
+#12 170.8 Installing /usr/local/lib/python3.12/site-packages/LICENSE over existing file
+#12 171.6   - Installing nautobot-device-onboarding (4.1.0)
+#12 171.6   - Installing toml (0.10.2)
+#12 171.8
+#12 171.8 Installing the current project: nautobot-docker-compose (0.1.1)
+#12 171.8 Warning: The current project could not be installed: No file/folder found for package nautobot-docker-compose
+#12 171.8 If you do not want to install the current project use --no-root.
+#12 171.8 If you want to use Poetry only for dependency management but not for packaging, you can disable package mode by setting package-mode = false in your pyproject.toml file.
+#12 171.8 In a future version of Poetry this warning will become an error!
+#12 171.8
+#12 172.3 Warning: poetry-plugin-export will not be installed by default in a future version of Poetry.
+#12 172.3 In order to avoid a breaking change and make your automation forward-compatible, please install poetry-plugin-export explicitly. See https://python-poetry.org/docs/plugins/#using-plugins for details on how to install a plugin.
+#12 172.3 To disable this warning run 'poetry config warnings.export false'.
+#12 DONE 172.9s
+
+#13 [nautobot builder 6/8] COPY ../jobs /opt/nautobot/jobs
+#13 DONE 0.0s
+
+#14 [nautobot builder 7/8] COPY ../config/nautobot_config.py /opt/nautobot/nautobot_config.py
+#14 DONE 0.0s
+
+#15 [nautobot builder 8/8] WORKDIR /source
+#15 DONE 0.0s
+
+#16 [nautobot nautobot 1/5] COPY --from=builder /tmp/dist /tmp/dist
+#16 DONE 0.0s
+
+#17 [nautobot nautobot 2/5] COPY --from=builder /opt/nautobot /opt/nautobot
+#17 DONE 0.0s
+
+#18 [nautobot nautobot 3/5] COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+#18 DONE 7.3s
+
+#19 [nautobot nautobot 4/5] COPY --from=builder /usr/local/bin /usr/local/bin
+#19 DONE 0.1s
+
+#20 [nautobot nautobot 5/5] RUN pyuwsgi --cflags | sed 's/ /\n/g' | grep -e "^-DUWSGI_SSL$"
+#20 0.186 -DUWSGI_SSL
+#20 DONE 0.2s
+
+#21 [nautobot] exporting to image
+#21 exporting layers
+#21 exporting layers 2.4s done
+#21 writing image sha256:5b55f0dc73554e35e979a8e649829549d112610d43b7580b95a3429a0190eaa1 done
+#21 naming to docker.io/yourrepo/nautobot-docker-compose:local done
+#21 DONE 2.4s
+
+#22 [nautobot] resolving provenance for metadata file
+#22 DONE 0.0s
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke stop start
+Stopping Nautobot...
+Running docker compose command "down"
+ Container nautobot-docker-compose-celery_beat-1  Stopping
+ Container nautobot-docker-compose-celery_worker-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopped
+ Container nautobot-docker-compose-celery_beat-1  Removing
+ Container nautobot-docker-compose-celery_beat-1  Removed
+ Container nautobot-docker-compose-celery_worker-1  Stopped
+ Container nautobot-docker-compose-celery_worker-1  Removing
+ Container nautobot-docker-compose-celery_worker-1  Removed
+ Container nautobot-docker-compose-nautobot-1  Stopping
+ Container nautobot-docker-compose-nautobot-1  Stopped
+ Container nautobot-docker-compose-nautobot-1  Removing
+ Container nautobot-docker-compose-nautobot-1  Removed
+ Container nautobot-docker-compose-db-1  Stopping
+ Container nautobot-docker-compose-redis-1  Stopping
+ Container nautobot-docker-compose-db-1  Stopped
+ Container nautobot-docker-compose-db-1  Removing
+ Container nautobot-docker-compose-redis-1  Stopped
+ Container nautobot-docker-compose-redis-1  Removing
+ Container nautobot-docker-compose-db-1  Removed
+ Container nautobot-docker-compose-redis-1  Removed
+ Network nautobot-docker-compose_default  Removing
+ Network nautobot-docker-compose_default  Removed
+Starting Nautobot in detached mode...
+Running docker compose command "up --detach"
+ Network nautobot-docker-compose_default  Creating
+ Network nautobot-docker-compose_default  Created
+ Container nautobot-docker-compose-db-1  Creating
+ Container nautobot-docker-compose-redis-1  Creating
+ Container nautobot-docker-compose-db-1  Created
+ Container nautobot-docker-compose-redis-1  Created
+ Container nautobot-docker-compose-nautobot-1  Creating
+ Container nautobot-docker-compose-nautobot-1  Created
+ Container nautobot-docker-compose-celery_worker-1  Creating
+ Container nautobot-docker-compose-celery_beat-1  Creating
+ Container nautobot-docker-compose-celery_worker-1  Created
+ Container nautobot-docker-compose-celery_beat-1  Created
+ Container nautobot-docker-compose-redis-1  Starting
+ Container nautobot-docker-compose-db-1  Starting
+ Container nautobot-docker-compose-redis-1  Started
+ Container nautobot-docker-compose-db-1  Started
+ Container nautobot-docker-compose-nautobot-1  Starting
+ Container nautobot-docker-compose-nautobot-1  Started
+ Container nautobot-docker-compose-nautobot-1  Waiting
+ Container nautobot-docker-compose-nautobot-1  Waiting
+ Container nautobot-docker-compose-nautobot-1  Healthy
+ Container nautobot-docker-compose-celery_beat-1  Starting
+ Container nautobot-docker-compose-nautobot-1  Healthy
+ Container nautobot-docker-compose-celery_worker-1  Starting
+ Container nautobot-docker-compose-celery_worker-1  Started
+ Container nautobot-docker-compose-celery_beat-1  Started
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ docker container ls
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS                    PORTS      NAMES
+cc26f6638a1b   postgres:13-alpine   "docker-entrypoint.s…"   15 minutes ago   Up 15 minutes (healthy)   5432/tcp   nautobot-docker-compose-db-1
+8231dc95a2db   redis:6-alpine       "docker-entrypoint.s…"   15 minutes ago   Up 15 minutes             6379/tcp   nautobot-docker-compose-redis-1
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ pip3 install nautobot-device-onboarding
+Requirement already satisfied: nautobot-device-onboarding in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (4.1.0)
+Requirement already satisfied: jdiff<0.0.7,>=0.0.6 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (0.0.6)
+Requirement already satisfied: napalm<5,>=2.5.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (4.1.0)
+Requirement already satisfied: nautobot<3.0.0,>=2.2.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (2.3.6)
+Requirement already satisfied: nautobot-plugin-nornir<3.0.0,>=2.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (2.1.0)
+Requirement already satisfied: nautobot-ssot<4.0.0,>=3.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (3.2.0)
+Requirement already satisfied: netutils<2.0.0,>=1.9.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (1.10.0)
+Requirement already satisfied: ntc-templates<7.0.0,>=6.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (6.1.0)
+Requirement already satisfied: zipp<4.0.0,>=3.4.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-device-onboarding) (3.21.0)
+Requirement already satisfied: deepdiff<7.0,>=5.5.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from jdiff<0.0.7,>=0.0.6->nautobot-device-onboarding) (6.7.1)
+Requirement already satisfied: jmespath<2.0.0,>=1.0.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from jdiff<0.0.7,>=0.0.6->nautobot-device-onboarding) (1.0.1)
+Requirement already satisfied: setuptools>=38.4.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (75.6.0)
+Requirement already satisfied: cffi>=1.11.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (1.17.1)
+Requirement already satisfied: paramiko>=2.6.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (3.5.0)
+Requirement already satisfied: requests>=2.7.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (2.32.3)
+Requirement already satisfied: future in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (1.0.0)
+Requirement already satisfied: textfsm in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (1.1.3)
+Requirement already satisfied: jinja2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (3.1.4)
+Requirement already satisfied: netaddr in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (1.3.0)
+Requirement already satisfied: pyYAML in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (6.0.2)
+Requirement already satisfied: pyeapi>=0.8.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (1.0.4)
+Requirement already satisfied: netmiko>=4.1.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (4.4.0)
+Requirement already satisfied: junos-eznc>=2.6.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (2.7.1)
+Requirement already satisfied: scp in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (0.15.0)
+Requirement already satisfied: lxml>=4.3.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (5.3.0)
+Requirement already satisfied: ncclient in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (0.6.16)
+Requirement already satisfied: ttp in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (0.9.5)
+Requirement already satisfied: ttp-templates in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (0.3.7)
+Requirement already satisfied: typing-extensions>=4.3.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from napalm<5,>=2.5.0->nautobot-device-onboarding) (4.12.2)
+Requirement already satisfied: Django<4.3.0,>=4.2.16 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.2.16)
+Requirement already satisfied: GitPython<3.2.0,>=3.1.43 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.1.43)
+Requirement already satisfied: Markdown<3.7,>=3.6 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.6)
+Requirement already satisfied: MarkupSafe<2.2.0,>=2.1.5 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.1.5)
+Requirement already satisfied: Pillow<10.4.0,>=10.3.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (10.3.0)
+Requirement already satisfied: celery<5.4.0,>=5.3.6 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.3.6)
+Requirement already satisfied: django-ajax-tables<1.2.0,>=1.1.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (1.1.1)
+Requirement already satisfied: django-celery-beat<2.7.0,>=2.6.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.6.0)
+Requirement already satisfied: django-celery-results<2.6.0,>=2.5.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.5.1)
+Requirement already satisfied: django-constance<3.2.0,>=3.1.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.1.0)
+Requirement already satisfied: django-cors-headers<4.5.0,>=4.4.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.4.0)
+Requirement already satisfied: django-db-file-storage<0.6.0.0,>=0.5.6.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.5.6.1)
+Requirement already satisfied: django-extensions<3.3.0,>=3.2.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.2.3)
+Requirement already satisfied: django-filter<24.3,>=24.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (24.2)
+Requirement already satisfied: django-health-check<3.19.0,>=3.18.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.18.3)
+Requirement already satisfied: django-jinja<2.12.0,>=2.11.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.11.0)
+Requirement already satisfied: django-prometheus<2.4.0,>=2.3.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.3.1)
+Requirement already satisfied: django-redis<5.5.0,>=5.4.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.4.0)
+Requirement already satisfied: django-silk<5.2.0,>=5.1.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.1.0)
+Requirement already satisfied: django-structlog<9.0.0,>=8.1.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-structlog[celery]<9.0.0,>=8.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (8.1.0)
+Requirement already satisfied: django-tables2<2.8.0,>=2.7.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.7.0)
+Requirement already satisfied: django-taggit<5.1.0,>=5.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.0.1)
+Requirement already satisfied: django-timezone-field<7.1,>=7.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (7.0)
+Requirement already satisfied: django-tree-queries<0.20.0,>=0.19.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.19.0)
+Requirement already satisfied: django-webserver<1.3.0,>=1.2.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (1.2.0)
+Requirement already satisfied: djangorestframework<3.16.0,>=3.15.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.15.2)
+Requirement already satisfied: drf-react-template-framework<0.0.18,>=0.0.17 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.0.17)
+Requirement already satisfied: drf-spectacular<0.28.0,>=0.27.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from drf-spectacular[sidecar]<0.28.0,>=0.27.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.27.2)
+Requirement already satisfied: emoji<2.13.0,>=2.12.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.12.1)
+Requirement already satisfied: graphene-django<2.17.0,>=2.16.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.16.0)
+Requirement already satisfied: graphene-django-optimizer<0.9.0,>=0.8.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.8.0)
+Requirement already satisfied: jsonschema<5.0.0,>=4.7.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.23.0)
+Requirement already satisfied: nh3<0.3.0,>=0.2.15 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.2.18)
+Requirement already satisfied: packaging>=23.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (23.2)
+Requirement already satisfied: prometheus-client<0.21.0,>=0.20.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.20.0)
+Requirement already satisfied: psycopg2-binary<2.10.0,>=2.9.9 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.9.10)
+Requirement already satisfied: python-slugify<8.1.0,>=8.0.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (8.0.4)
+Requirement already satisfied: pyuwsgi<2.1.0,>=2.0.26 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.0.28.post1)
+Requirement already satisfied: social-auth-app-django<5.5.0,>=5.4.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.4.2)
+Requirement already satisfied: svgwrite<1.5.0,>=1.4.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (1.4.3)
+Requirement already satisfied: nornir-nautobot<4.0.0,>=3.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (3.2.0)
+Requirement already satisfied: diffsync<3.0.0,>=2.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (2.0.1)
+Requirement already satisfied: retry<0.10.0,>=0.9.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (0.9.2)
+Requirement already satisfied: billiard<5.0,>=4.2.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.2.1)
+Requirement already satisfied: click-didyoumean>=0.3.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.3.1)
+Requirement already satisfied: click-plugins>=1.1.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (1.1.1)
+Requirement already satisfied: click-repl>=0.2.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.3.0)
+Requirement already satisfied: click<9.0,>=8.1.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (8.1.7)
+Requirement already satisfied: kombu<6.0,>=5.3.4 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.4.2)
+Requirement already satisfied: python-dateutil>=2.8.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.9.0.post0)
+Requirement already satisfied: tzdata>=2022.7 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2024.2)
+Requirement already satisfied: vine<6.0,>=5.1.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.1.0)
+Requirement already satisfied: pycparser in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from cffi>=1.11.3->napalm<5,>=2.5.0->nautobot-device-onboarding) (2.22)
+Requirement already satisfied: ordered-set<4.2.0,>=4.0.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from deepdiff<7.0,>=5.5.0->jdiff<0.0.7,>=0.0.6->nautobot-device-onboarding) (4.1.0)
+Requirement already satisfied: colorama<0.5.0,>=0.4.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from diffsync<3.0.0,>=2.0.0->nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (0.4.6)
+Requirement already satisfied: pydantic<3.0.0,>=2.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from diffsync<3.0.0,>=2.0.0->nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (2.10.2)
+Requirement already satisfied: structlog>=20.1.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from diffsync<3.0.0,>=2.0.0->nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (24.4.0)
+Requirement already satisfied: asgiref<4,>=3.6.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from Django<4.3.0,>=4.2.16->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.8.1)
+Requirement already satisfied: sqlparse>=0.3.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from Django<4.3.0,>=4.2.16->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.5.2)
+Requirement already satisfied: python-crontab>=2.3.4 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-celery-beat<2.7.0,>=2.6.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.2.0)
+Requirement already satisfied: cron-descriptor>=1.2.32 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-celery-beat<2.7.0,>=2.6.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (1.4.5)
+Requirement already satisfied: django-picklefield in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-constance<3.2.0,>=3.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.2)
+Requirement already satisfied: redis!=4.0.0,!=4.0.1,>=3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-redis<5.5.0,>=5.4.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.2.0)
+Requirement already satisfied: autopep8 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-silk<5.2.0,>=5.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.3.1)
+Requirement already satisfied: gprof2dot>=2017.09.19 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-silk<5.2.0,>=5.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2024.6.6)
+Requirement already satisfied: django-ipware>=6.0.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-structlog<9.0.0,>=8.1.0->django-structlog[celery]<9.0.0,>=8.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (7.0.1)
+Requirement already satisfied: uritemplate>=2.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from drf-spectacular<0.28.0,>=0.27.2->drf-spectacular[sidecar]<0.28.0,>=0.27.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.1.1)
+Requirement already satisfied: inflection>=0.3.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from drf-spectacular<0.28.0,>=0.27.2->drf-spectacular[sidecar]<0.28.0,>=0.27.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.5.1)
+Requirement already satisfied: drf-spectacular-sidecar in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from drf-spectacular[sidecar]<0.28.0,>=0.27.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2024.11.1)
+Requirement already satisfied: gitdb<5,>=4.0.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from GitPython<3.2.0,>=3.1.43->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.0.11)
+Requirement already satisfied: graphene<3,>=2.1.7 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.1.9)
+Requirement already satisfied: graphql-core<3,>=2.1.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.3.2)
+Requirement already satisfied: singledispatch>=3.4.0.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.1.0)
+Requirement already satisfied: promise>=2.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.3)
+Requirement already satisfied: text-unidecode in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (1.3)
+Requirement already satisfied: attrs>=22.2.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from jsonschema<5.0.0,>=4.7.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (24.2.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from jsonschema<5.0.0,>=4.7.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2024.10.1)
+Requirement already satisfied: referencing>=0.28.4 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from jsonschema<5.0.0,>=4.7.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.35.1)
+Requirement already satisfied: rpds-py>=0.7.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from jsonschema<5.0.0,>=4.7.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.21.0)
+Requirement already satisfied: six in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from junos-eznc>=2.6.3->napalm<5,>=2.5.0->nautobot-device-onboarding) (1.16.0)
+Requirement already satisfied: pyserial in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from junos-eznc>=2.6.3->napalm<5,>=2.5.0->nautobot-device-onboarding) (3.5)
+Requirement already satisfied: yamlordereddictloader in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from junos-eznc>=2.6.3->napalm<5,>=2.5.0->nautobot-device-onboarding) (0.4.2)
+Requirement already satisfied: pyparsing in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from junos-eznc>=2.6.3->napalm<5,>=2.5.0->nautobot-device-onboarding) (3.2.0)
+Requirement already satisfied: transitions in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from junos-eznc>=2.6.3->napalm<5,>=2.5.0->nautobot-device-onboarding) (0.9.2)
+Requirement already satisfied: httpx<=0.27.0,>=0.23.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (0.27.0)
+Requirement already satisfied: nornir<4.0.0,>=3.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (3.4.1)
+Requirement already satisfied: nornir-jinja2<0.3.0,>=0.2.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (0.2.0)
+Requirement already satisfied: nornir-napalm<1.0.0,>=0.4.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (0.4.0)
+Requirement already satisfied: nornir-netmiko<2,>=1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (1.0.1)
+Requirement already satisfied: nornir-utils<1,>=0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (0.2.0)
+Requirement already satisfied: pynautobot>=2.0.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (2.4.2)
+Requirement already satisfied: bcrypt>=3.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from paramiko>=2.6.0->napalm<5,>=2.5.0->nautobot-device-onboarding) (4.2.1)
+Requirement already satisfied: cryptography>=3.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from paramiko>=2.6.0->napalm<5,>=2.5.0->nautobot-device-onboarding) (43.0.3)
+Requirement already satisfied: pynacl>=1.5 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from paramiko>=2.6.0->napalm<5,>=2.5.0->nautobot-device-onboarding) (1.5.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from requests>=2.7.0->napalm<5,>=2.5.0->nautobot-device-onboarding) (3.4.0)
+Requirement already satisfied: idna<4,>=2.5 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from requests>=2.7.0->napalm<5,>=2.5.0->nautobot-device-onboarding) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from requests>=2.7.0->napalm<5,>=2.5.0->nautobot-device-onboarding) (2.2.3)
+Requirement already satisfied: certifi>=2017.4.17 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from requests>=2.7.0->napalm<5,>=2.5.0->nautobot-device-onboarding) (2024.8.30)
+Requirement already satisfied: decorator>=3.4.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from retry<0.10.0,>=0.9.2->nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (5.1.1)
+Requirement already satisfied: py<2.0.0,>=1.4.26 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from retry<0.10.0,>=0.9.2->nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (1.11.0)
+Requirement already satisfied: social-auth-core>=4.4.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from social-auth-app-django<5.5.0,>=5.4.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (4.5.4)
+Requirement already satisfied: prompt-toolkit>=3.0.36 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from click-repl>=0.2.0->celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.0.48)
+Requirement already satisfied: python-ipware>=2.0.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from django-ipware>=6.0.2->django-structlog<9.0.0,>=8.1.0->django-structlog[celery]<9.0.0,>=8.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.0.0)
+Requirement already satisfied: smmap<6,>=3.0.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from gitdb<5,>=4.0.1->GitPython<3.2.0,>=3.1.43->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.0.1)
+Requirement already satisfied: graphql-relay<3,>=2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphene<3,>=2.1.7->graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.0.1)
+Requirement already satisfied: aniso8601<=7,>=3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphene<3,>=2.1.7->graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (7.0.0)
+Requirement already satisfied: rx<2,>=1.6 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from graphql-core<3,>=2.1.0->graphene-django<2.17.0,>=2.16.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (1.6.3)
+Requirement already satisfied: anyio in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from httpx<=0.27.0,>=0.23.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (4.6.2.post1)
+Requirement already satisfied: httpcore==1.* in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from httpx<=0.27.0,>=0.23.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (1.0.7)
+Requirement already satisfied: sniffio in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from httpx<=0.27.0,>=0.23.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (1.3.1)
+Requirement already satisfied: h11<0.15,>=0.13 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from httpcore==1.*->httpx<=0.27.0,>=0.23.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (0.14.0)
+Requirement already satisfied: amqp<6.0.0,>=5.1.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from kombu<6.0,>=5.3.4->celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.3.1)
+Requirement already satisfied: mypy_extensions<2.0.0,>=1.0.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir<4.0.0,>=3.0.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (1.0.0)
+Requirement already satisfied: ruamel.yaml>=0.17 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from nornir<4.0.0,>=3.0.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (0.18.6)
+Requirement already satisfied: annotated-types>=0.6.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from pydantic<3.0.0,>=2.0.0->diffsync<3.0.0,>=2.0.0->nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (0.7.0)
+Requirement already satisfied: pydantic-core==2.27.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from pydantic<3.0.0,>=2.0.0->diffsync<3.0.0,>=2.0.0->nautobot-ssot<4.0.0,>=3.0.0->nautobot-device-onboarding) (2.27.1)
+Requirement already satisfied: async-timeout>=4.0.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from redis!=4.0.0,!=4.0.1,>=3->django-redis<5.5.0,>=5.4.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (5.0.1)
+Requirement already satisfied: oauthlib>=1.0.3 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from social-auth-core>=4.4.1->social-auth-app-django<5.5.0,>=5.4.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.2.2)
+Requirement already satisfied: requests-oauthlib>=0.6.1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from social-auth-core>=4.4.1->social-auth-app-django<5.5.0,>=5.4.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.0.0)
+Requirement already satisfied: PyJWT>=2.7.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from social-auth-core>=4.4.1->social-auth-app-django<5.5.0,>=5.4.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.10.0)
+Requirement already satisfied: defusedxml>=0.5.0rc1 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from social-auth-core>=4.4.1->social-auth-app-django<5.5.0,>=5.4.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.7.1)
+Requirement already satisfied: python3-openid>=3.0.10 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from social-auth-core>=4.4.1->social-auth-app-django<5.5.0,>=5.4.2->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (3.2.0)
+Requirement already satisfied: pycodestyle>=2.12.0 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from autopep8->django-silk<5.2.0,>=5.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.12.1)
+Requirement already satisfied: tomli in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from autopep8->django-silk<5.2.0,>=5.1.0->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (2.1.0)
+Requirement already satisfied: wcwidth in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from prompt-toolkit>=3.0.36->click-repl>=0.2.0->celery<5.4.0,>=5.3.6->nautobot<3.0.0,>=2.2.3->nautobot-device-onboarding) (0.2.13)
+Requirement already satisfied: ruamel.yaml.clib>=0.2.7 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from ruamel.yaml>=0.17->nornir<4.0.0,>=3.0.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (0.2.12)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages (from anyio->httpx<=0.27.0,>=0.23.0->nornir-nautobot<4.0.0,>=3.0.0->nautobot-plugin-nornir<3.0.0,>=2.0.0->nautobot-device-onboarding) (1.2.2)
+
+[notice] A new release of pip is available: 24.2 -> 24.3.1
+[notice] To update, run: pip install --upgrade pip
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ nautobot-server post_upgrade
+Traceback (most recent call last):
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/bin/nautobot-server", line 8, in <module>
+    sys.exit(main())
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+    load_settings(args.config_path)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/cli/__init__.py", line 131, in load_settings
+    raise FileNotFoundError(
+FileNotFoundError: Configuration file not found at /Users/jabelk/.nautobot/nautobot_config.py - Please provide a valid --config-path path, or use 'nautobot-server init' to create a new configuration.
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$

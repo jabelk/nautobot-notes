@@ -1,0 +1,1026 @@
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ poetry env info
+
+Virtualenv
+Python:         3.10.4
+Implementation: CPython
+Path:           /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10
+Executable:     /Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/bin/python
+Valid:          True
+
+Base
+Platform:   darwin
+OS:         posix
+Python:     3.10.4
+Path:       /Users/jabelk/.pyenv/versions/3.10.4
+Executable: /Users/jabelk/.pyenv/versions/3.10.4/bin/python3.10
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke cli
+Running docker compose command "ps --services --filter status=running"
+Running docker compose command "run --entrypoint 'bash' nautobot"
+[+] Creating 2/0
+ ✔ Container nautobot-docker-compose-redis-1  Cre...                                             0.0s
+ ✔ Container nautobot-docker-compose-db-1     Create...                                          0.0s
+[+] Running 2/2
+ ✔ Container nautobot-docker-compose-redis-1  Sta...                                             0.3s
+ ✔ Container nautobot-docker-compose-db-1     Starte...                                          0.3s
+nautobot@5ee7bebececd:~$ python -c "import nautobot_golden_config"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'nautobot_golden_config'
+nautobot@5ee7bebececd:~$ exit
+exit
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ cat local_requirements.txt
+nautobot-golden-config
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ cat invoke.yml
+---
+nautobot_docker_compose:
+  project_name: "nautobot-docker-compose"
+  python_ver: "3.12"
+  local: false
+  compose_dir: "environments/"
+  compose_files:
+    - "docker-compose.postgres.yml"
+    - "docker-compose.base.yml"
+    - "docker-compose.local.yml"
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ ls environments/
+Dockerfile			docker-compose.base.yml		docker-compose.postgres.yml
+Dockerfile-LDAP			docker-compose.ldap.yml		local.env
+creds.env			docker-compose.local.yml	local.example.env
+creds.example.env		docker-compose.mysql.yml
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ cat docker-compose.base.yml
+cat: docker-compose.base.yml: No such file or directory
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ cat environments/docker-compose.base.yml
+---
+x-nautobot-build: &nautobot-build
+  build:
+    args:
+      NAUTOBOT_VERSION: "${NAUTOBOT_VERSION}"
+      PYTHON_VER: "${PYTHON_VER}"
+    context: "../"
+    target: "nautobot"
+    dockerfile: "environments/Dockerfile"
+x-nautobot-base: &nautobot-base
+  image: "yourrepo/nautobot-docker-compose:local"
+  env_file:
+    - "local.env"
+    - "creds.env"
+  tty: true
+
+services:
+  nautobot:
+    depends_on:
+      - "db"
+      - "redis"
+    <<: [*nautobot-base, *nautobot-build]
+    # volumes:
+    #   - "./nautobot.key:/opt/nautobot/nautobot.key:ro"
+    #   - "./nautobot.crt:/opt/nautobot/nautobot.crt:ro"
+  celery_worker:
+    entrypoint:
+      - "sh"
+      - "-c"  # this is to evaluate the $NAUTOBOT_LOG_LEVEL from the env
+      - "nautobot-server celery worker -l $$NAUTOBOT_LOG_LEVEL --events"  ## $$ because of docker-compose
+    depends_on:
+      nautobot:
+        condition: "service_healthy"
+    healthcheck:
+      interval: "30s"
+      timeout: "10s"
+      start_period: "30s"
+      retries: 3
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          "nautobot-server celery inspect ping --destination celery@$$HOSTNAME"  ## $$ because of docker-compose
+        ]
+    <<: *nautobot-base
+  celery_beat:
+    entrypoint:
+      - "sh"
+      - "-c"  # this is to evaluate the $NAUTOBOT_LOG_LEVEL from the env
+      - "nautobot-server celery beat -l $$NAUTOBOT_LOG_LEVEL"  ## $$ because of docker-compose
+    depends_on:
+      nautobot:
+        condition: "service_healthy"
+    healthcheck:
+      disable: true
+    <<: *nautobot-base
+  redis:
+    image: "redis:6-alpine"
+    command:
+      - "sh"
+      - "-c"  # this is to evaluate the $NAUTOBOT_REDIS_PASSWORD from the env
+      - "redis-server --appendonly yes --requirepass $$NAUTOBOT_REDIS_PASSWORD"
+    env_file:
+      - "local.env"
+      - "creds.env"
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ cat environments/docker-compose.base.yml
+---
+x-nautobot-build: &nautobot-build
+  build:
+    args:
+      NAUTOBOT_VERSION: "${NAUTOBOT_VERSION}"
+      PYTHON_VER: "${PYTHON_VER}"
+    context: "../"
+    target: "nautobot"
+    dockerfile: "environments/Dockerfile"
+x-nautobot-base: &nautobot-base
+  image: "yourrepo/nautobot-docker-compose:local"
+  env_file:
+    - "local.env"
+    - "creds.env"
+  tty: true
+
+services:
+  nautobot:
+    depends_on:
+      - "db"
+      - "redis"
+    <<: [*nautobot-base, *nautobot-build]
+    # volumes:
+    #   - "./nautobot.key:/opt/nautobot/nautobot.key:ro"
+    #   - "./nautobot.crt:/opt/nautobot/nautobot.crt:ro"
+  celery_worker:
+    entrypoint:
+      - "sh"
+      - "-c"  # this is to evaluate the $NAUTOBOT_LOG_LEVEL from the env
+      - "nautobot-server celery worker -l $$NAUTOBOT_LOG_LEVEL --events"  ## $$ because of docker-compose
+    depends_on:
+      nautobot:
+        condition: "service_healthy"
+    healthcheck:
+      interval: "30s"
+      timeout: "10s"
+      start_period: "30s"
+      retries: 3
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          "nautobot-server celery inspect ping --destination celery@$$HOSTNAME"  ## $$ because of docker-compose
+        ]
+    <<: *nautobot-base
+  celery_beat:
+    entrypoint:
+      - "sh"
+      - "-c"  # this is to evaluate the $NAUTOBOT_LOG_LEVEL from the env
+      - "nautobot-server celery beat -l $$NAUTOBOT_LOG_LEVEL"  ## $$ because of docker-compose
+    depends_on:
+      nautobot:
+        condition: "service_healthy"
+    healthcheck:
+      disable: true
+    <<: *nautobot-base
+  redis:
+    image: "redis:6-alpine"
+    command:
+      - "sh"
+      - "-c"  # this is to evaluate the $NAUTOBOT_REDIS_PASSWORD from the env
+      - "redis-server --appendonly yes --requirepass $$NAUTOBOT_REDIS_PASSWORD"
+    env_file:
+      - "local.env"
+      - "creds.env"
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ cat environments/docker-compose.local.yml
+---
+services:
+  nautobot:
+    command: "nautobot-server runserver 0.0.0.0:8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "../config/nautobot_config.py:/opt/nautobot/nautobot_config.py"
+      - "../jobs:/opt/nautobot/jobs"
+    healthcheck:
+      interval: "30s"
+      timeout: "10s"
+      start_period: "60s"
+      retries: 3
+      test: ["CMD", "true"]  # Due to layering, disable: true won't work. Instead, change the test
+  celery_worker:
+    volumes:
+      - "../config/nautobot_config.py:/opt/nautobot/nautobot_config.py"
+      - "../jobs:/opt/nautobot/jobs"
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ cat environments/docker-compose.postgres.yml
+---
+services:
+  db:
+    image: "postgres:13-alpine"
+    env_file:
+      - "local.env"
+      - "creds.env"
+    command:
+      - "-c"
+      - "max_connections=1000"
+    volumes:
+      # - "./nautobot.sql:/tmp/nautobot.sql"
+      - "postgres_data:/var/lib/postgresql/data"
+    healthcheck:
+      test: "pg_isready --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB"
+      interval: "10s"
+      timeout: "5s"
+      retries: 10
+
+volumes:
+  postgres_data: {}
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke build --no-cache
+Building Nautobot 2.3.6 with Python 3.10...
+Running docker compose command "build --no-cache"
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [nautobot internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.36kB done
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 3)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 14)
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 55)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 3)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VERSION}-py${PYTHON_VER} results in empty or invalid base image name (line 14)
+#1 DONE 0.0s
+
+#2 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot:2.3.6-py3.10
+#2 DONE 1.8s
+
+#3 [nautobot internal] load metadata for ghcr.io/nautobot/nautobot-dev:2.3.6-py3.10
+#3 DONE 1.9s
+
+#4 [nautobot internal] load .dockerignore
+#4 transferring context: 326B done
+#4 DONE 0.0s
+
+#5 [nautobot internal] load build context
+#5 transferring context: 291.39kB 0.0s done
+#5 DONE 0.0s
+
+#6 [nautobot nautobot-base 1/2] FROM ghcr.io/nautobot/nautobot:2.3.6-py3.10@sha256:577607b9ad855f27c2f487b6a120d3a3a5b1f1fc6338566f726e8365fab09d3c
+#6 resolve ghcr.io/nautobot/nautobot:2.3.6-py3.10@sha256:577607b9ad855f27c2f487b6a120d3a3a5b1f1fc6338566f726e8365fab09d3c 0.0s done
+#6 sha256:1cd341a0721679457ab8a1007362830a43901644e78835011a23282ffde45529 0B / 249B 0.1s
+#6 sha256:cfa9976892c4924e0e7a4a25c3d01eac23099974783ce47430e5d7115611c532 10.88kB / 10.88kB done
+#6 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 0B / 15.44MB 0.1s
+#6 sha256:56d5908a5b7c55e0edc2704e9ff3161ff0e9acd580b919b4f66736656a530d6b 3.34kB / 3.34kB done
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 0B / 79.91MB 0.1s
+#6 sha256:577607b9ad855f27c2f487b6a120d3a3a5b1f1fc6338566f726e8365fab09d3c 1.61kB / 1.61kB done
+#6 sha256:1cd341a0721679457ab8a1007362830a43901644e78835011a23282ffde45529 249B / 249B 0.6s done
+#6 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 1.05MB / 15.44MB 0.7s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 6.29MB / 79.91MB 0.7s
+#6 sha256:a0d0ca6e40e447dd7c65759eafb7763c456e78d1b579b4d723bc2d1bb425fb93 0B / 4.54MB 0.7s
+#6 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 2.10MB / 15.44MB 0.8s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 11.53MB / 79.91MB 0.8s
+#6 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 7.34MB / 15.44MB 1.0s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 17.83MB / 79.91MB 1.0s
+#6 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 10.49MB / 15.44MB 1.1s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 22.02MB / 79.91MB 1.1s
+#6 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 13.63MB / 15.44MB 1.2s
+#6 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 15.44MB / 15.44MB 1.2s done
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 30.41MB / 79.91MB 1.3s
+#6 sha256:d6db3a48c02469c7cb88b5c69ce7f8880907fff1a46d90902bbf9fea79033e3e 0B / 1.20kB 1.3s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 35.65MB / 79.91MB 1.4s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 39.85MB / 79.91MB 1.5s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 46.14MB / 79.91MB 1.6s
+#6 sha256:d6db3a48c02469c7cb88b5c69ce7f8880907fff1a46d90902bbf9fea79033e3e 1.20kB / 1.20kB 1.6s done
+#6 sha256:c0571038468f4af6a13e2cf639d7f03f960e832751817c50ff75abf1b6a41be3 0B / 1.42kB 1.6s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 55.57MB / 79.91MB 1.8s
+#6 sha256:a0d0ca6e40e447dd7c65759eafb7763c456e78d1b579b4d723bc2d1bb425fb93 2.10MB / 4.54MB 1.8s
+#6 extracting sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 0.4s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 60.89MB / 79.91MB 1.9s
+#6 sha256:a0d0ca6e40e447dd7c65759eafb7763c456e78d1b579b4d723bc2d1bb425fb93 4.54MB / 4.54MB 1.9s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 67.11MB / 79.91MB 2.0s
+#6 sha256:a0d0ca6e40e447dd7c65759eafb7763c456e78d1b579b4d723bc2d1bb425fb93 4.54MB / 4.54MB 1.9s done
+#6 sha256:c0571038468f4af6a13e2cf639d7f03f960e832751817c50ff75abf1b6a41be3 1.42kB / 1.42kB 2.0s done
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 72.09MB / 79.91MB 2.1s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 77.59MB / 79.91MB 2.2s
+#6 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 79.91MB / 79.91MB 2.4s done
+#6 extracting sha256:1cd341a0721679457ab8a1007362830a43901644e78835011a23282ffde45529
+#6 extracting sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 1.7s
+#6 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0B / 32B 4.1s
+#6 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B 4.3s done
+#6 extracting sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 2.8s done
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 0B / 69.71MB 5.5s
+#6 extracting sha256:a0d0ca6e40e447dd7c65759eafb7763c456e78d1b579b4d723bc2d1bb425fb93
+#6 extracting sha256:a0d0ca6e40e447dd7c65759eafb7763c456e78d1b579b4d723bc2d1bb425fb93 0.3s done
+#6 extracting sha256:d6db3a48c02469c7cb88b5c69ce7f8880907fff1a46d90902bbf9fea79033e3e done
+#6 extracting sha256:c0571038468f4af6a13e2cf639d7f03f960e832751817c50ff75abf1b6a41be3 done
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 5.40MB / 69.71MB 6.1s
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 11.53MB / 69.71MB 6.2s
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 16.78MB / 69.71MB 6.3s
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 22.02MB / 69.71MB 6.4s
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 30.41MB / 69.71MB 6.6s
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 38.80MB / 69.71MB 6.9s
+#6 ...
+
+#7 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.10@sha256:dc20a03e8f758b8df2403c15f8f8441ad1eba86fd4111d47f08b9a36a705ee18
+#7 resolve ghcr.io/nautobot/nautobot-dev:2.3.6-py3.10@sha256:dc20a03e8f758b8df2403c15f8f8441ad1eba86fd4111d47f08b9a36a705ee18 0.0s done
+#7 sha256:7cce3af4467e5baf5f5ae9f38f365ce2523e4590397654f5844ba7e119a1028d 13.79kB / 13.79kB done
+#7 sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 79.91MB / 79.91MB 2.4s done
+#7 sha256:dc20a03e8f758b8df2403c15f8f8441ad1eba86fd4111d47f08b9a36a705ee18 1.61kB / 1.61kB done
+#7 sha256:527aaae89cfbeec10b4231738b2ef260fc782ccd874664f20483664a45496a18 4.68kB / 4.68kB done
+#7 sha256:1cd341a0721679457ab8a1007362830a43901644e78835011a23282ffde45529 249B / 249B 0.6s done
+#7 sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 15.44MB / 15.44MB 1.2s done
+#7 sha256:a0d0ca6e40e447dd7c65759eafb7763c456e78d1b579b4d723bc2d1bb425fb93 4.54MB / 4.54MB 1.9s done
+#7 extracting sha256:0947c264eb8a114516fca29b30c6ddcf09a52db65ac0638802feaada11321a41 1.1s done
+#7 sha256:d6db3a48c02469c7cb88b5c69ce7f8880907fff1a46d90902bbf9fea79033e3e 1.20kB / 1.20kB 1.6s done
+#7 sha256:c0571038468f4af6a13e2cf639d7f03f960e832751817c50ff75abf1b6a41be3 1.42kB / 1.42kB 2.0s done
+#7 sha256:ff26729556539142a942a1ec712704908fb3e02304072715e3df027559c10218 136.03MB / 136.03MB 5.5s done
+#7 sha256:4852932ecaa50f344f0d10cb3719ae2854345fd1ac08efc5e6ba1ea69564f4a8 4.43MB / 4.43MB 2.7s done
+#7 sha256:e0e597dd50c31dbba257a9b89c37453ff43613009f4f47565084b7cf1980da8b 6.50MB / 6.50MB 3.0s done
+#7 extracting sha256:1cd341a0721679457ab8a1007362830a43901644e78835011a23282ffde45529 done
+#7 extracting sha256:978794eb146af82523e27bc6e076c46ae150aadef8fe5bee6488cd6f1bb5a9e9 2.8s done
+#7 sha256:eca0b4c52cac84ef35eb36590607c08ad7142bc6cac82feb7ae6b691c7966f7d 23.39MB / 23.39MB 3.9s done
+#7 sha256:895c5d2cb106f7ef654c90bfb2ea2a0240acd37553549e9191c9cac9704fb8fc 266B / 266B 3.4s done
+#7 sha256:25d261d9f5d7f1717d05643fa6e71da60b28ac508931ce64b58f24cdfb0d5a8c 92.77kB / 92.77kB 4.1s done
+#7 sha256:1cee3a6314776d026168a04d11eeb06e35db480750ef54595904958d66e77c01 374.61kB / 374.61kB 4.3s done
+#7 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B 4.3s done
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 19.92MB / 46.88MB 7.0s
+#7 sha256:efe07ec7262b6174f82f694e0509051063a78e0cbd98022256403defc2c287ab 3.94kB / 3.94kB 4.6s done
+#7 sha256:b5c4a48005dafb94e26273027dd725e4b1f83300bf853d28a8f82c61b899856d 44.36MB / 44.36MB 6.1s done
+#7 extracting sha256:d6db3a48c02469c7cb88b5c69ce7f8880907fff1a46d90902bbf9fea79033e3e done
+#7 extracting sha256:c0571038468f4af6a13e2cf639d7f03f960e832751817c50ff75abf1b6a41be3 done
+#7 extracting sha256:ff26729556539142a942a1ec712704908fb3e02304072715e3df027559c10218 1.0s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 14.68MB / 37.10MB 7.0s
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 23.07MB / 46.88MB 7.1s
+#7 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 42.99MB / 69.71MB 7.1s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 18.87MB / 37.10MB 7.2s
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 26.21MB / 46.88MB 7.3s
+#7 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 48.23MB / 69.71MB 7.3s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 20.97MB / 37.10MB 7.3s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 24.12MB / 37.10MB 7.4s
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 29.36MB / 46.88MB 7.5s
+#7 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 54.53MB / 69.71MB 7.5s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 26.21MB / 37.10MB 7.5s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 29.36MB / 37.10MB 7.6s
+#7 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 60.82MB / 69.71MB 7.7s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 33.55MB / 37.10MB 7.7s
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 32.51MB / 46.88MB 7.8s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 36.70MB / 37.10MB 7.8s
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 37.75MB / 46.88MB 8.0s
+#7 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 69.71MB / 69.71MB 8.0s
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 42.50MB / 46.88MB 8.2s
+#7 sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 37.10MB / 37.10MB 8.1s done
+#7 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 69.71MB / 69.71MB 8.2s done
+#7 sha256:e8446443bed56edb3babec8ba35b1c1c878ce72b12f0ab97305e976049e4cf78 0B / 9.00kB 8.3s
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 45.09MB / 46.88MB 8.4s
+#7 sha256:e8446443bed56edb3babec8ba35b1c1c878ce72b12f0ab97305e976049e4cf78 9.00kB / 9.00kB 8.5s done
+#7 sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 46.88MB / 46.88MB 8.6s done
+#7 extracting sha256:ff26729556539142a942a1ec712704908fb3e02304072715e3df027559c10218 7.7s
+#7 ...
+
+#6 [nautobot nautobot-base 1/2] FROM ghcr.io/nautobot/nautobot:2.3.6-py3.10@sha256:577607b9ad855f27c2f487b6a120d3a3a5b1f1fc6338566f726e8365fab09d3c
+#6 sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 69.71MB / 69.71MB 8.2s done
+#6 sha256:d9a2853e8a4d20ac932ef6849bd943ba29c6ec21d65b54034817b8023d885408 46.73MB / 46.73MB 9.8s done
+#6 sha256:90d1dd1eaf9dfe39376c70f7d19f8c519026dd9d1ea6aa22c08dac192efec372 1.36kB / 1.36kB 8.9s done
+#6 sha256:d582ff45dadacb2ad4649a8f55db2b557205b873de2262f28b5f67b7b86a156f 9.00kB / 9.00kB 9.0s done
+#6 sha256:e91f7689b6dfe4f92dba1f43fe18e3ee8040357902f1d864d69dee653b859428 37.11MB / 37.11MB 10.6s done
+#6 sha256:6eb7d567b603bf49f022e4dbc61dcaaf9075b477fd973c954a79e489ebe653d9 3.67kB / 3.67kB 9.4s done
+#6 sha256:0b97100df5c932968e3e80046b6cb2b66c8f9694b9bf1bb2cd114c23597deddc 1.32kB / 1.32kB 9.9s done
+#6 extracting sha256:d9a2853e8a4d20ac932ef6849bd943ba29c6ec21d65b54034817b8023d885408 5.2s done
+#6 extracting sha256:90d1dd1eaf9dfe39376c70f7d19f8c519026dd9d1ea6aa22c08dac192efec372 done
+#6 extracting sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 0.5s done
+#6 extracting sha256:d582ff45dadacb2ad4649a8f55db2b557205b873de2262f28b5f67b7b86a156f done
+#6 extracting sha256:e91f7689b6dfe4f92dba1f43fe18e3ee8040357902f1d864d69dee653b859428 1.1s
+#6 ...
+
+#7 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.10@sha256:dc20a03e8f758b8df2403c15f8f8441ad1eba86fd4111d47f08b9a36a705ee18
+#7 extracting sha256:ff26729556539142a942a1ec712704908fb3e02304072715e3df027559c10218 11.8s done
+#7 extracting sha256:4852932ecaa50f344f0d10cb3719ae2854345fd1ac08efc5e6ba1ea69564f4a8
+#7 ...
+
+#6 [nautobot nautobot-base 1/2] FROM ghcr.io/nautobot/nautobot:2.3.6-py3.10@sha256:577607b9ad855f27c2f487b6a120d3a3a5b1f1fc6338566f726e8365fab09d3c
+#6 extracting sha256:e91f7689b6dfe4f92dba1f43fe18e3ee8040357902f1d864d69dee653b859428 1.9s done
+#6 extracting sha256:6eb7d567b603bf49f022e4dbc61dcaaf9075b477fd973c954a79e489ebe653d9 done
+#6 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 done
+#6 extracting sha256:0b97100df5c932968e3e80046b6cb2b66c8f9694b9bf1bb2cd114c23597deddc done
+#6 DONE 18.2s
+
+#7 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.10@sha256:dc20a03e8f758b8df2403c15f8f8441ad1eba86fd4111d47f08b9a36a705ee18
+#7 extracting sha256:4852932ecaa50f344f0d10cb3719ae2854345fd1ac08efc5e6ba1ea69564f4a8 1.0s done
+#7 extracting sha256:e0e597dd50c31dbba257a9b89c37453ff43613009f4f47565084b7cf1980da8b
+#7 extracting sha256:e0e597dd50c31dbba257a9b89c37453ff43613009f4f47565084b7cf1980da8b 0.1s done
+#7 extracting sha256:eca0b4c52cac84ef35eb36590607c08ad7142bc6cac82feb7ae6b691c7966f7d 0.1s
+#7 extracting sha256:eca0b4c52cac84ef35eb36590607c08ad7142bc6cac82feb7ae6b691c7966f7d 1.3s done
+#7 extracting sha256:895c5d2cb106f7ef654c90bfb2ea2a0240acd37553549e9191c9cac9704fb8fc
+#7 extracting sha256:895c5d2cb106f7ef654c90bfb2ea2a0240acd37553549e9191c9cac9704fb8fc done
+#7 extracting sha256:25d261d9f5d7f1717d05643fa6e71da60b28ac508931ce64b58f24cdfb0d5a8c done
+#7 extracting sha256:1cee3a6314776d026168a04d11eeb06e35db480750ef54595904958d66e77c01 done
+#7 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 done
+#7 extracting sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385
+#7 extracting sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 5.0s
+#7 extracting sha256:00f7ab8728bbb25233ffb54762edc11bd9f3e1b8d4aa65619003f5406140e385 5.3s done
+#7 extracting sha256:efe07ec7262b6174f82f694e0509051063a78e0cbd98022256403defc2c287ab
+#7 extracting sha256:efe07ec7262b6174f82f694e0509051063a78e0cbd98022256403defc2c287ab done
+#7 extracting sha256:b5c4a48005dafb94e26273027dd725e4b1f83300bf853d28a8f82c61b899856d 0.1s
+#7 ...
+
+#8 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+#8 0.753 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#8 0.894 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#8 0.940 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#8 0.986 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8688 kB]
+#8 1.272 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [2468 B]
+#8 1.321 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [203 kB]
+#8 2.197 Fetched 9147 kB in 2s (4740 kB/s)
+#8 2.197 Reading package lists...
+#8 2.804 Reading package lists...
+#8 3.351 Building dependency tree...
+#8 3.492 Reading state information...
+#8 3.556 Calculating upgrade...
+#8 4.099 The following packages will be upgraded:
+#8 4.099   base-files bsdutils curl libblkid1 libc-bin libc-dev-bin libc6 libc6-dev
+#8 4.099   libcurl3-gnutls libcurl4 libmount1 libnghttp2-14 libnss3 libnss3-dev
+#8 4.099   libsmartcols1 libsqlite3-0 libssl-dev libssl3 libsystemd0 libudev1 libuuid1
+#8 4.100   linux-libc-dev mount openssl util-linux util-linux-extra
+#8 4.196 26 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#8 4.196 Need to get 17.6 MB of archives.
+#8 4.196 After this operation, 52.2 kB of additional disk space will be used.
+#8 4.196 Get:1 http://deb.debian.org/debian bookworm/main arm64 base-files arm64 12.4+deb12u8 [70.9 kB]
+#8 4.279 Get:2 http://deb.debian.org/debian bookworm/main arm64 bsdutils arm64 1:2.38.1-5+deb12u2 [94.4 kB]
+#8 4.293 Get:3 http://deb.debian.org/debian bookworm/main arm64 libc6-dev arm64 2.36-9+deb12u9 [1431 kB]
+#8 4.455 Get:4 http://deb.debian.org/debian bookworm/main arm64 libc-dev-bin arm64 2.36-9+deb12u9 [45.9 kB]
+#8 4.455 Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 linux-libc-dev arm64 6.1.119-1 [2050 kB]
+#8 4.514 Get:6 http://deb.debian.org/debian bookworm/main arm64 libc6 arm64 2.36-9+deb12u9 [2325 kB]
+#8 4.574 Get:7 http://deb.debian.org/debian bookworm/main arm64 libsmartcols1 arm64 2.38.1-5+deb12u2 [104 kB]
+#8 4.575 Get:8 http://deb.debian.org/debian bookworm/main arm64 util-linux-extra arm64 2.38.1-5+deb12u2 [112 kB]
+#8 4.576 Get:9 http://deb.debian.org/debian bookworm/main arm64 util-linux arm64 2.38.1-5+deb12u2 [1145 kB]
+#8 4.594 Get:10 http://deb.debian.org/debian bookworm/main arm64 libc-bin arm64 2.36-9+deb12u9 [532 kB]
+#8 4.599 Get:11 http://deb.debian.org/debian bookworm/main arm64 mount arm64 2.38.1-5+deb12u2 [134 kB]
+#8 4.601 Get:12 http://deb.debian.org/debian bookworm/main arm64 libblkid1 arm64 2.38.1-5+deb12u2 [143 kB]
+#8 4.603 Get:13 http://deb.debian.org/debian bookworm/main arm64 libmount1 arm64 2.38.1-5+deb12u2 [159 kB]
+#8 4.605 Get:14 http://deb.debian.org/debian bookworm/main arm64 libsystemd0 arm64 252.31-1~deb12u1 [308 kB]
+#8 4.608 Get:15 http://deb.debian.org/debian bookworm/main arm64 libudev1 arm64 252.31-1~deb12u1 [103 kB]
+#8 4.633 Get:16 http://deb.debian.org/debian bookworm/main arm64 libuuid1 arm64 2.38.1-5+deb12u2 [28.4 kB]
+#8 4.634 Get:17 http://deb.debian.org/debian bookworm/main arm64 libnghttp2-14 arm64 1.52.0-1+deb12u2 [68.6 kB]
+#8 4.638 Get:18 http://deb.debian.org/debian bookworm/main arm64 libssl-dev arm64 3.0.15-1~deb12u1 [2308 kB]
+#8 4.681 Get:19 http://deb.debian.org/debian bookworm/main arm64 libssl3 arm64 3.0.15-1~deb12u1 [1811 kB]
+#8 4.706 Get:20 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u8 [309 kB]
+#8 4.709 Get:21 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u8 [365 kB]
+#8 4.713 Get:22 http://deb.debian.org/debian bookworm/main arm64 libcurl3-gnutls arm64 7.88.1-10+deb12u8 [360 kB]
+#8 4.719 Get:23 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3-dev arm64 2:3.87.1-1+deb12u1 [245 kB]
+#8 4.723 Get:24 http://deb.debian.org/debian bookworm/main arm64 libsqlite3-0 arm64 3.40.1-2+deb12u1 [785 kB]
+#8 4.733 Get:25 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3 arm64 2:3.87.1-1+deb12u1 [1218 kB]
+#8 4.747 Get:26 http://deb.debian.org/debian bookworm/main arm64 openssl arm64 3.0.15-1~deb12u1 [1392 kB]
+#8 4.912 debconf: delaying package configuration, since apt-utils is not installed
+#8 4.936 Fetched 17.6 MB in 1s (26.7 MB/s)
+(Reading database ... 13008 files and directories currently installed.)
+#8 4.965 Preparing to unpack .../base-files_12.4+deb12u8_arm64.deb ...
+#8 4.975 Unpacking base-files (12.4+deb12u8) over (12.4+deb12u7) ...
+#8 5.063 Setting up base-files (12.4+deb12u8) ...
+#8 5.067 Installing new version of config file /etc/debian_version ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 5.118 Preparing to unpack .../bsdutils_1%3a2.38.1-5+deb12u2_arm64.deb ...
+#8 5.128 Unpacking bsdutils (1:2.38.1-5+deb12u2) over (1:2.38.1-5+deb12u1) ...
+#8 5.194 Setting up bsdutils (1:2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 5.228 Preparing to unpack .../libc6-dev_2.36-9+deb12u9_arm64.deb ...
+#8 5.233 Unpacking libc6-dev:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 6.725 Preparing to unpack .../libc-dev-bin_2.36-9+deb12u9_arm64.deb ...
+#8 6.734 Unpacking libc-dev-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 6.786 Preparing to unpack .../linux-libc-dev_6.1.119-1_arm64.deb ...
+#8 6.797 Unpacking linux-libc-dev:arm64 (6.1.119-1) over (6.1.106-3) ...
+#8 8.268 Preparing to unpack .../libc6_2.36-9+deb12u9_arm64.deb ...
+#8 8.324 debconf: unable to initialize frontend: Dialog
+#8 8.324 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#8 8.324 debconf: falling back to frontend: Readline
+#8 8.329 debconf: unable to initialize frontend: Readline
+#8 8.329 debconf: (This frontend requires a controlling tty.)
+#8 8.329 debconf: falling back to frontend: Teletype
+#8 8.355 Unpacking libc6:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 9.039 Setting up libc6:arm64 (2.36-9+deb12u9) ...
+#8 9.105 debconf: unable to initialize frontend: Dialog
+#8 9.105 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#8 9.105 debconf: falling back to frontend: Readline
+#8 9.110 debconf: unable to initialize frontend: Readline
+#8 9.110 debconf: (This frontend requires a controlling tty.)
+#8 9.110 debconf: falling back to frontend: Teletype
+#8 ...
+
+#7 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.10@sha256:dc20a03e8f758b8df2403c15f8f8441ad1eba86fd4111d47f08b9a36a705ee18
+#7 extracting sha256:b5c4a48005dafb94e26273027dd725e4b1f83300bf853d28a8f82c61b899856d 5.1s
+#7 extracting sha256:b5c4a48005dafb94e26273027dd725e4b1f83300bf853d28a8f82c61b899856d 5.8s done
+#7 extracting sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b
+#7 extracting sha256:11ecedd5a6253a6b3b5b13964c6fb55ddd3a95d10d079621f938e1a6cf0e999b 0.5s done
+#7 extracting sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b
+#7 ...
+
+#8 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+(Reading database ... 13008 files and directories currently installed.)
+#8 10.18 Preparing to unpack .../libsmartcols1_2.38.1-5+deb12u2_arm64.deb ...
+#8 10.19 Unpacking libsmartcols1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 10.23 Setting up libsmartcols1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 10.26 Preparing to unpack .../util-linux-extra_2.38.1-5+deb12u2_arm64.deb ...
+#8 10.26 Unpacking util-linux-extra (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 10.30 Setting up util-linux-extra (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 10.34 Preparing to unpack .../util-linux_2.38.1-5+deb12u2_arm64.deb ...
+#8 10.35 Unpacking util-linux (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 10.64 Setting up util-linux (2.38.1-5+deb12u2) ...
+#8 10.66 update-alternatives: warning: forcing reinstallation of alternative /bin/more because link group pager is broken
+#8 10.66 update-alternatives: warning: skip creation of /usr/share/man/man1/pager.1.gz because associated file /usr/share/man/man1/more.1.gz (of link group pager) doesn't exist
+(Reading database ... 13008 files and directories currently installed.)
+#8 10.76 Preparing to unpack .../libc-bin_2.36-9+deb12u9_arm64.deb ...
+#8 10.77 Unpacking libc-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#8 10.86 Setting up libc-bin (2.36-9+deb12u9) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 10.95 Preparing to unpack .../mount_2.38.1-5+deb12u2_arm64.deb ...
+#8 10.96 Unpacking mount (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 10.99 Preparing to unpack .../libblkid1_2.38.1-5+deb12u2_arm64.deb ...
+#8 11.00 Unpacking libblkid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 11.04 Setting up libblkid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 11.07 Preparing to unpack .../libmount1_2.38.1-5+deb12u2_arm64.deb ...
+#8 11.08 Unpacking libmount1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 11.11 Setting up libmount1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 11.15 Preparing to unpack .../libsystemd0_252.31-1~deb12u1_arm64.deb ...
+#8 11.15 Unpacking libsystemd0:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#8 11.20 Setting up libsystemd0:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 11.23 Preparing to unpack .../libudev1_252.31-1~deb12u1_arm64.deb ...
+#8 11.23 Unpacking libudev1:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#8 11.26 Setting up libudev1:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 11.30 Preparing to unpack .../libuuid1_2.38.1-5+deb12u2_arm64.deb ...
+#8 11.30 Unpacking libuuid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#8 11.33 Setting up libuuid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 13008 files and directories currently installed.)
+#8 11.36 Preparing to unpack .../0-libnghttp2-14_1.52.0-1+deb12u2_arm64.deb ...
+#8 11.36 Unpacking libnghttp2-14:arm64 (1.52.0-1+deb12u2) over (1.52.0-1+deb12u1) ...
+#8 11.39 Preparing to unpack .../1-libssl-dev_3.0.15-1~deb12u1_arm64.deb ...
+#8 11.40 Unpacking libssl-dev:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 11.78 Preparing to unpack .../2-libssl3_3.0.15-1~deb12u1_arm64.deb ...
+#8 11.79 Unpacking libssl3:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 11.93 Preparing to unpack .../3-curl_7.88.1-10+deb12u8_arm64.deb ...
+#8 11.93 Unpacking curl (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 11.97 Preparing to unpack .../4-libcurl4_7.88.1-10+deb12u8_arm64.deb ...
+#8 11.98 Unpacking libcurl4:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 12.02 Preparing to unpack .../5-libcurl3-gnutls_7.88.1-10+deb12u8_arm64.deb ...
+#8 12.03 Unpacking libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#8 12.08 Preparing to unpack .../6-libnss3-dev_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#8 12.09 Unpacking libnss3-dev:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#8 12.30 Preparing to unpack .../7-libsqlite3-0_3.40.1-2+deb12u1_arm64.deb ...
+#8 12.30 Unpacking libsqlite3-0:arm64 (3.40.1-2+deb12u1) over (3.40.1-2) ...
+#8 12.37 Preparing to unpack .../8-libnss3_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#8 12.38 Unpacking libnss3:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#8 12.49 Preparing to unpack .../9-openssl_3.0.15-1~deb12u1_arm64.deb ...
+#8 12.50 Unpacking openssl (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#8 12.61 Setting up libsqlite3-0:arm64 (3.40.1-2+deb12u1) ...
+#8 12.62 Setting up libssl3:arm64 (3.0.15-1~deb12u1) ...
+#8 12.63 Setting up libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+#8 12.64 Setting up linux-libc-dev:arm64 (6.1.119-1) ...
+#8 12.64 Setting up libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) ...
+#8 12.65 Setting up libnss3:arm64 (2:3.87.1-1+deb12u1) ...
+#8 12.66 Setting up libssl-dev:arm64 (3.0.15-1~deb12u1) ...
+#8 12.67 Setting up mount (2.38.1-5+deb12u2) ...
+#8 12.68 Setting up libnss3-dev:arm64 (2:3.87.1-1+deb12u1) ...
+#8 12.68 Setting up libcurl4:arm64 (7.88.1-10+deb12u8) ...
+#8 12.69 Setting up curl (7.88.1-10+deb12u8) ...
+#8 12.70 Setting up libc-dev-bin (2.36-9+deb12u9) ...
+#8 12.71 Setting up openssl (3.0.15-1~deb12u1) ...
+#8 12.72 Setting up libc6-dev:arm64 (2.36-9+deb12u9) ...
+#8 12.72 Processing triggers for libc-bin (2.36-9+deb12u9) ...
+#8 12.74 Processing triggers for mailcap (3.70+nmu1) ...
+#8 12.78 Reading package lists...
+#8 13.44 Building dependency tree...
+#8 13.58 Reading state information...
+#8 13.75 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#8 14.27 Requirement already satisfied: pip in /usr/local/lib/python3.10/site-packages (24.2)
+#8 14.63 Collecting pip
+#8 15.09   Downloading pip-24.3.1-py3-none-any.whl.metadata (3.7 kB)
+#8 15.09 Requirement already satisfied: wheel in /usr/local/lib/python3.10/site-packages (0.44.0)
+#8 15.16 Collecting wheel
+#8 15.20   Downloading wheel-0.45.1-py3-none-any.whl.metadata (2.3 kB)
+#8 15.25 Downloading pip-24.3.1-py3-none-any.whl (1.8 MB)
+#8 ...
+
+#7 [nautobot builder 1/8] FROM ghcr.io/nautobot/nautobot-dev:2.3.6-py3.10@sha256:dc20a03e8f758b8df2403c15f8f8441ad1eba86fd4111d47f08b9a36a705ee18
+#7 extracting sha256:6a03114f80dc80cf8bfe58438ede2046909c5c6091044c9d6b425241fdc06d6b 1.4s done
+#7 extracting sha256:e8446443bed56edb3babec8ba35b1c1c878ce72b12f0ab97305e976049e4cf78
+#7 extracting sha256:e8446443bed56edb3babec8ba35b1c1c878ce72b12f0ab97305e976049e4cf78 done
+#7 DONE 34.7s
+
+#8 [nautobot nautobot-base 2/2] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/* &&     pip --no-cache-dir install --upgrade pip wheel
+#8 15.47    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 14.4 MB/s eta 0:00:00
+#8 15.52 Downloading wheel-0.45.1-py3-none-any.whl (72 kB)
+#8 15.66 Installing collected packages: wheel, pip
+#8 15.66   Attempting uninstall: wheel
+#8 15.66     Found existing installation: wheel 0.44.0
+#8 15.66     Uninstalling wheel-0.44.0:
+#8 15.70       Successfully uninstalled wheel-0.44.0
+#8 15.73   Attempting uninstall: pip
+#8 15.73     Found existing installation: pip 24.2
+#8 15.77     Uninstalling pip-24.2:
+#8 16.34       Successfully uninstalled pip-24.2
+#8 16.93 Successfully installed pip-24.3.1 wheel-0.45.1
+#8 16.93 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 DONE 17.9s
+
+#9 [nautobot builder 2/8] RUN apt-get update &&     apt-get upgrade -y &&     apt-get autoremove -y &&     apt-get clean all &&     rm -rf /var/lib/apt/lists/*
+#9 0.257 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#9 0.394 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#9 0.585 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#9 0.634 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8688 kB]
+#9 0.953 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [2468 B]
+#9 0.995 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [203 kB]
+#9 1.931 Fetched 9147 kB in 2s (5173 kB/s)
+#9 1.931 Reading package lists...
+#9 2.510 Reading package lists...
+#9 2.993 Building dependency tree...
+#9 3.116 Reading state information...
+#9 3.145 Calculating upgrade...
+#9 3.648 The following packages will be upgraded:
+#9 3.648   base-files bsdutils curl libblkid1 libc-bin libc-dev-bin libc6 libc6-dev
+#9 3.648   libcurl3-gnutls libcurl4 libmount1 libnghttp2-14 libnss3 libnss3-dev
+#9 3.649   libpython3.11-minimal libpython3.11-stdlib libsmartcols1 libsqlite3-0
+#9 3.649   libssl-dev libssl3 libsystemd0 libudev1 libuuid1 linux-libc-dev mount
+#9 3.649   node-es-module-lexer node-globby openssl python3.11 python3.11-minimal
+#9 3.649   util-linux util-linux-extra
+#9 3.751 32 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#9 3.751 Need to get 22.7 MB of archives.
+#9 3.751 After this operation, 52.2 kB of additional disk space will be used.
+#9 3.751 Get:1 http://deb.debian.org/debian bookworm/main arm64 base-files arm64 12.4+deb12u8 [70.9 kB]
+#9 3.842 Get:2 http://deb.debian.org/debian bookworm/main arm64 bsdutils arm64 1:2.38.1-5+deb12u2 [94.4 kB]
+#9 3.858 Get:3 http://deb.debian.org/debian bookworm/main arm64 libc6-dev arm64 2.36-9+deb12u9 [1431 kB]
+#9 4.022 Get:4 http://deb.debian.org/debian bookworm/main arm64 libc-dev-bin arm64 2.36-9+deb12u9 [45.9 kB]
+#9 4.022 Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 linux-libc-dev arm64 6.1.119-1 [2050 kB]
+#9 4.073 Get:6 http://deb.debian.org/debian bookworm/main arm64 libc6 arm64 2.36-9+deb12u9 [2325 kB]
+#9 4.134 Get:7 http://deb.debian.org/debian bookworm/main arm64 libsmartcols1 arm64 2.38.1-5+deb12u2 [104 kB]
+#9 4.137 Get:8 http://deb.debian.org/debian bookworm/main arm64 util-linux-extra arm64 2.38.1-5+deb12u2 [112 kB]
+#9 4.138 Get:9 http://deb.debian.org/debian bookworm/main arm64 util-linux arm64 2.38.1-5+deb12u2 [1145 kB]
+#9 4.155 Get:10 http://deb.debian.org/debian bookworm/main arm64 libc-bin arm64 2.36-9+deb12u9 [532 kB]
+#9 4.162 Get:11 http://deb.debian.org/debian bookworm/main arm64 mount arm64 2.38.1-5+deb12u2 [134 kB]
+#9 4.164 Get:12 http://deb.debian.org/debian bookworm/main arm64 libssl-dev arm64 3.0.15-1~deb12u1 [2308 kB]
+#9 4.241 Get:13 http://deb.debian.org/debian bookworm/main arm64 libssl3 arm64 3.0.15-1~deb12u1 [1811 kB]
+#9 4.260 Get:14 http://deb.debian.org/debian bookworm/main arm64 python3.11 arm64 3.11.2-6+deb12u4 [573 kB]
+#9 4.267 Get:15 http://deb.debian.org/debian bookworm/main arm64 libpython3.11-stdlib arm64 3.11.2-6+deb12u4 [1746 kB]
+#9 4.344 Get:16 http://deb.debian.org/debian bookworm/main arm64 python3.11-minimal arm64 3.11.2-6+deb12u4 [1860 kB]
+#9 4.362 Get:17 http://deb.debian.org/debian bookworm/main arm64 libpython3.11-minimal arm64 3.11.2-6+deb12u4 [808 kB]
+#9 4.375 Get:18 http://deb.debian.org/debian bookworm/main arm64 libsqlite3-0 arm64 3.40.1-2+deb12u1 [785 kB]
+#9 4.383 Get:19 http://deb.debian.org/debian bookworm/main arm64 libuuid1 arm64 2.38.1-5+deb12u2 [28.4 kB]
+#9 4.384 Get:20 http://deb.debian.org/debian bookworm/main arm64 libblkid1 arm64 2.38.1-5+deb12u2 [143 kB]
+#9 4.397 Get:21 http://deb.debian.org/debian bookworm/main arm64 libmount1 arm64 2.38.1-5+deb12u2 [159 kB]
+#9 4.405 Get:22 http://deb.debian.org/debian bookworm/main arm64 libsystemd0 arm64 252.31-1~deb12u1 [308 kB]
+#9 4.421 Get:23 http://deb.debian.org/debian bookworm/main arm64 libudev1 arm64 252.31-1~deb12u1 [103 kB]
+#9 4.422 Get:24 http://deb.debian.org/debian bookworm/main arm64 libnghttp2-14 arm64 1.52.0-1+deb12u2 [68.6 kB]
+#9 4.424 Get:25 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u8 [309 kB]
+#9 4.427 Get:26 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u8 [365 kB]
+#9 4.471 Get:27 http://deb.debian.org/debian bookworm/main arm64 libcurl3-gnutls arm64 7.88.1-10+deb12u8 [360 kB]
+#9 4.476 Get:28 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3-dev arm64 2:3.87.1-1+deb12u1 [245 kB]
+#9 4.477 Get:29 http://deb.debian.org/debian-security bookworm-security/main arm64 libnss3 arm64 2:3.87.1-1+deb12u1 [1218 kB]
+#9 4.490 Get:30 http://deb.debian.org/debian bookworm/main arm64 node-es-module-lexer all 1.1.0+dfsg-2+deb12u1 [19.7 kB]
+#9 4.490 Get:31 http://deb.debian.org/debian bookworm/main arm64 node-globby all 13.1.3+~cs16.25.40-1+deb12u1 [40.5 kB]
+#9 4.494 Get:32 http://deb.debian.org/debian bookworm/main arm64 openssl arm64 3.0.15-1~deb12u1 [1392 kB]
+#9 4.692 debconf: delaying package configuration, since apt-utils is not installed
+#9 4.721 Fetched 22.7 MB in 1s (26.4 MB/s)
+(Reading database ... 44936 files and directories currently installed.)
+#9 4.793 Preparing to unpack .../base-files_12.4+deb12u8_arm64.deb ...
+#9 4.797 Unpacking base-files (12.4+deb12u8) over (12.4+deb12u7) ...
+#9 4.860 Setting up base-files (12.4+deb12u8) ...
+#9 4.861 Installing new version of config file /etc/debian_version ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 4.922 Preparing to unpack .../bsdutils_1%3a2.38.1-5+deb12u2_arm64.deb ...
+#9 4.928 Unpacking bsdutils (1:2.38.1-5+deb12u2) over (1:2.38.1-5+deb12u1) ...
+#9 4.971 Setting up bsdutils (1:2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 5.002 Preparing to unpack .../libc6-dev_2.36-9+deb12u9_arm64.deb ...
+#9 5.008 Unpacking libc6-dev:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 5.674 Preparing to unpack .../libc-dev-bin_2.36-9+deb12u9_arm64.deb ...
+#9 5.679 Unpacking libc-dev-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 5.706 Preparing to unpack .../linux-libc-dev_6.1.119-1_arm64.deb ...
+#9 5.714 Unpacking linux-libc-dev:arm64 (6.1.119-1) over (6.1.106-3) ...
+#9 6.766 Preparing to unpack .../libc6_2.36-9+deb12u9_arm64.deb ...
+#9 6.810 debconf: unable to initialize frontend: Dialog
+#9 6.810 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 6.810 debconf: falling back to frontend: Readline
+#9 6.814 debconf: unable to initialize frontend: Readline
+#9 6.814 debconf: (This frontend requires a controlling tty.)
+#9 6.814 debconf: falling back to frontend: Teletype
+#9 6.837 Unpacking libc6:arm64 (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 7.360 Setting up libc6:arm64 (2.36-9+deb12u9) ...
+#9 7.412 debconf: unable to initialize frontend: Dialog
+#9 7.412 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#9 7.412 debconf: falling back to frontend: Readline
+#9 7.415 debconf: unable to initialize frontend: Readline
+#9 7.415 debconf: (This frontend requires a controlling tty.)
+#9 7.415 debconf: falling back to frontend: Teletype
+(Reading database ... 44936 files and directories currently installed.)
+#9 8.506 Preparing to unpack .../libsmartcols1_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.516 Unpacking libsmartcols1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 8.550 Setting up libsmartcols1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 8.610 Preparing to unpack .../util-linux-extra_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.621 Unpacking util-linux-extra (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 8.910 Setting up util-linux-extra (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 8.957 Preparing to unpack .../util-linux_2.38.1-5+deb12u2_arm64.deb ...
+#9 8.964 Unpacking util-linux (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.228 Setting up util-linux (2.38.1-5+deb12u2) ...
+#9 9.242 update-alternatives: warning: forcing reinstallation of alternative /bin/more because link group pager is broken
+#9 9.242 update-alternatives: warning: skip creation of /usr/share/man/man1/pager.1.gz because associated file /usr/share/man/man1/more.1.gz (of link group pager) doesn't exist
+(Reading database ... 44936 files and directories currently installed.)
+#9 9.342 Preparing to unpack .../libc-bin_2.36-9+deb12u9_arm64.deb ...
+#9 9.346 Unpacking libc-bin (2.36-9+deb12u9) over (2.36-9+deb12u8) ...
+#9 9.433 Setting up libc-bin (2.36-9+deb12u9) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 9.502 Preparing to unpack .../0-mount_2.38.1-5+deb12u2_arm64.deb ...
+#9 9.508 Unpacking mount (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 9.548 Preparing to unpack .../1-libssl-dev_3.0.15-1~deb12u1_arm64.deb ...
+#9 9.556 Unpacking libssl-dev:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 9.838 Preparing to unpack .../2-libssl3_3.0.15-1~deb12u1_arm64.deb ...
+#9 9.842 Unpacking libssl3:arm64 (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 9.958 Preparing to unpack .../3-python3.11_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.03 Unpacking python3.11 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 10.07 Preparing to unpack .../4-libpython3.11-stdlib_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.09 Unpacking libpython3.11-stdlib:arm64 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 10.54 Preparing to unpack .../5-python3.11-minimal_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.54 Unpacking python3.11-minimal (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 10.70 Preparing to unpack .../6-libpython3.11-minimal_3.11.2-6+deb12u4_arm64.deb ...
+#9 10.75 Unpacking libpython3.11-minimal:arm64 (3.11.2-6+deb12u4) over (3.11.2-6+deb12u3) ...
+#9 11.14 Preparing to unpack .../7-libsqlite3-0_3.40.1-2+deb12u1_arm64.deb ...
+#9 11.15 Unpacking libsqlite3-0:arm64 (3.40.1-2+deb12u1) over (3.40.1-2) ...
+#9 11.21 Preparing to unpack .../8-libuuid1_2.38.1-5+deb12u2_arm64.deb ...
+#9 11.22 Unpacking libuuid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 11.24 Setting up libuuid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.28 Preparing to unpack .../libblkid1_2.38.1-5+deb12u2_arm64.deb ...
+#9 11.29 Unpacking libblkid1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 11.32 Setting up libblkid1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.36 Preparing to unpack .../libmount1_2.38.1-5+deb12u2_arm64.deb ...
+#9 11.36 Unpacking libmount1:arm64 (2.38.1-5+deb12u2) over (2.38.1-5+deb12u1) ...
+#9 11.40 Setting up libmount1:arm64 (2.38.1-5+deb12u2) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.44 Preparing to unpack .../libsystemd0_252.31-1~deb12u1_arm64.deb ...
+#9 11.44 Unpacking libsystemd0:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#9 11.48 Setting up libsystemd0:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.52 Preparing to unpack .../libudev1_252.31-1~deb12u1_arm64.deb ...
+#9 11.53 Unpacking libudev1:arm64 (252.31-1~deb12u1) over (252.30-1~deb12u2) ...
+#9 11.55 Setting up libudev1:arm64 (252.31-1~deb12u1) ...
+(Reading database ... 44936 files and directories currently installed.)
+#9 11.58 Preparing to unpack .../0-libnghttp2-14_1.52.0-1+deb12u2_arm64.deb ...
+#9 11.59 Unpacking libnghttp2-14:arm64 (1.52.0-1+deb12u2) over (1.52.0-1+deb12u1) ...
+#9 11.61 Preparing to unpack .../1-curl_7.88.1-10+deb12u8_arm64.deb ...
+#9 11.62 Unpacking curl (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 11.65 Preparing to unpack .../2-libcurl4_7.88.1-10+deb12u8_arm64.deb ...
+#9 11.66 Unpacking libcurl4:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 11.70 Preparing to unpack .../3-libcurl3-gnutls_7.88.1-10+deb12u8_arm64.deb ...
+#9 11.71 Unpacking libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) over (7.88.1-10+deb12u7) ...
+#9 11.74 Preparing to unpack .../4-libnss3-dev_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#9 11.75 Unpacking libnss3-dev:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#9 11.88 Preparing to unpack .../5-libnss3_2%3a3.87.1-1+deb12u1_arm64.deb ...
+#9 11.89 Unpacking libnss3:arm64 (2:3.87.1-1+deb12u1) over (2:3.87.1-1) ...
+#9 11.99 Preparing to unpack .../6-node-es-module-lexer_1.1.0+dfsg-2+deb12u1_all.deb ...
+#9 12.00 Unpacking node-es-module-lexer (1.1.0+dfsg-2+deb12u1) over (1.1.0+dfsg-2) ...
+#9 12.07 Preparing to unpack .../7-node-globby_13.1.3+~cs16.25.40-1+deb12u1_all.deb ...
+#9 12.09 Unpacking node-globby (13.1.3+~cs16.25.40-1+deb12u1) over (13.1.3+~cs16.25.40-1) ...
+#9 12.70 Preparing to unpack .../8-openssl_3.0.15-1~deb12u1_arm64.deb ...
+#9 12.71 Unpacking openssl (3.0.15-1~deb12u1) over (3.0.14-1~deb12u2) ...
+#9 12.83 Setting up libsqlite3-0:arm64 (3.40.1-2+deb12u1) ...
+#9 12.85 Setting up node-es-module-lexer (1.1.0+dfsg-2+deb12u1) ...
+#9 12.86 Setting up libssl3:arm64 (3.0.15-1~deb12u1) ...
+#9 12.89 Setting up libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+#9 12.90 Setting up linux-libc-dev:arm64 (6.1.119-1) ...
+#9 12.92 Setting up libcurl3-gnutls:arm64 (7.88.1-10+deb12u8) ...
+#9 12.93 Setting up libnss3:arm64 (2:3.87.1-1+deb12u1) ...
+#9 12.95 Setting up node-globby (13.1.3+~cs16.25.40-1+deb12u1) ...
+#9 12.97 Setting up libssl-dev:arm64 (3.0.15-1~deb12u1) ...
+#9 12.99 Setting up mount (2.38.1-5+deb12u2) ...
+#9 13.01 Setting up libnss3-dev:arm64 (2:3.87.1-1+deb12u1) ...
+#9 13.03 Setting up libcurl4:arm64 (7.88.1-10+deb12u8) ...
+#9 13.04 Setting up libpython3.11-minimal:arm64 (3.11.2-6+deb12u4) ...
+#9 13.06 Setting up curl (7.88.1-10+deb12u8) ...
+#9 13.08 Setting up libc-dev-bin (2.36-9+deb12u9) ...
+#9 13.10 Setting up openssl (3.0.15-1~deb12u1) ...
+#9 13.11 Setting up python3.11-minimal (3.11.2-6+deb12u4) ...
+#9 13.53 Setting up libpython3.11-stdlib:arm64 (3.11.2-6+deb12u4) ...
+#9 13.55 Setting up libc6-dev:arm64 (2.36-9+deb12u9) ...
+#9 13.56 Setting up python3.11 (3.11.2-6+deb12u4) ...
+#9 14.00 Processing triggers for mailcap (3.70+nmu1) ...
+#9 14.03 Processing triggers for libc-bin (2.36-9+deb12u9) ...
+#9 14.09 Reading package lists...
+#9 14.60 Building dependency tree...
+#9 14.70 Reading state information...
+#9 14.84 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#9 DONE 14.9s
+
+#10 [nautobot builder 3/8] COPY ../pyproject.toml ../poetry.lock /source/
+#10 DONE 0.1s
+
+#11 [nautobot builder 4/8] COPY ../plugins /source/plugins
+#11 DONE 0.0s
+
+#12 [nautobot builder 5/8] RUN cd /source &&     poetry install --no-interaction --no-ansi &&     poetry add nautobot-golden-config &&     mkdir /tmp/dist &&     poetry export --without-hashes -o /tmp/dist/requirements.txt
+#12 0.712 Skipping virtualenv creation, as specified in config file.
+#12 1.283 Installing dependencies from lock file
+#12 1.639
+#12 1.639 Package operations: 41 installs, 38 updates, 0 removals
+#12 1.639
+#12 1.640   - Updating cffi (1.17.0rc1 -> 1.17.1)
+#12 3.251   - Updating bcrypt (4.2.0 -> 4.2.1)
+#12 3.252   - Updating cryptography (43.0.1 -> 43.0.3)
+#12 4.280   - Updating attrs (23.2.0 -> 24.2.0)
+#12 4.282   - Updating certifi (2024.7.4 -> 2024.8.30)
+#12 4.282   - Updating charset-normalizer (3.3.2 -> 3.4.0)
+#12 4.284   - Updating idna (3.7 -> 3.10)
+#12 4.286   - Updating lxml (5.2.2 -> 5.3.0)
+#12 4.287   - Updating paramiko (3.4.0 -> 3.5.0)
+#12 4.288   - Updating rpds-py (0.19.0 -> 0.21.0)
+#12 4.288   - Updating setuptools (71.1.0 -> 75.6.0)
+#12 4.290   - Updating urllib3 (2.2.2 -> 2.2.3)
+#12 146.6   - Updating amqp (5.2.0 -> 5.3.1)
+#12 146.6   - Updating ncclient (0.6.15 -> 0.6.16)
+#12 146.6   - Updating ntc-templates (6.0.0 -> 6.1.0)
+#12 146.6   - Updating prompt-toolkit (3.0.47 -> 3.0.48)
+#12 146.6   - Updating pyparsing (3.1.2 -> 3.2.0)
+#12 146.6   - Installing ruamel-yaml-clib (0.2.12)
+#12 146.6   - Updating sqlparse (0.5.1 -> 0.5.2)
+#12 146.6   - Updating transitions (0.9.1 -> 0.9.2)
+#12 146.6   - Updating tzdata (2024.1 -> 2024.2)
+#12 147.9   - Updating async-timeout (4.0.3 -> 5.0.1)
+#12 147.9   - Updating billiard (4.2.0 -> 4.2.1)
+#12 147.9   - Updating jsonschema-specifications (2023.12.1 -> 2024.10.1)
+#12 147.9   - Updating kombu (5.3.7 -> 5.4.2)
+#12 147.9   - Installing mypy-extensions (1.0.0)
+#12 147.9   - Updating netutils (1.9.1 -> 1.10.0)
+#12 147.9   - Updating pycodestyle (2.12.0 -> 2.12.1)
+#12 147.9   - Updating pyeapi (1.0.2 -> 1.0.4)
+#12 147.9   - Updating pyjwt (2.8.0 -> 2.10.0)
+#12 147.9   - Installing ruamel-yaml (0.18.6)
+#12 147.9   - Updating tomli (2.0.1 -> 2.1.0)
+#12 147.9   - Updating ttp-templates (0.3.6 -> 0.3.7)
+#12 149.2   - Installing annotated-types (0.7.0)
+#12 149.2   - Installing anyio (4.6.2.post1)
+#12 149.2   - Updating cron-descriptor (1.4.3 -> 1.4.5)
+#12 149.2   - Updating drf-spectacular-sidecar (2024.7.1 -> 2024.11.1)
+#12 149.2   - Installing httpcore (1.0.7)
+#12 149.2   - Downgrading napalm (5.0.0 -> 4.1.0)
+#12 149.2   - Installing nornir (3.4.1)
+#12 149.2   - Downgrading packaging (24.1 -> 23.2)
+#12 149.2   - Installing pydantic-core (2.27.1)
+#12 149.2   - Updating redis (5.0.7 -> 5.2.0)
+#12 149.8   - Installing decorator (5.1.1)
+#12 149.8   - Installing httpx (0.27.0)
+#12 149.8   - Installing nornir-jinja2 (0.2.0)
+#12 149.8   - Installing nornir-napalm (0.4.0)
+#12 149.8   - Installing nornir-netmiko (1.0.1)
+#12 149.8   - Installing nornir-utils (0.2.0)
+#12 149.8   - Installing numpy (2.1.3)
+#12 149.8   - Installing ordered-set (4.1.0)
+#12 149.9   - Updating psycopg2-binary (2.9.9 -> 2.9.10)
+#12 149.9   - Installing py (1.11.0)
+#12 149.9   - Installing pydantic (2.10.2)
+#12 149.9   - Installing pynautobot (2.4.2)
+#12 150.0   - Updating pyuwsgi (2.0.26 -> 2.0.28.post1)
+#12 156.4   - Installing contourpy (1.3.1)
+#12 156.4   - Installing cycler (0.12.1)
+#12 156.4   - Installing deepdiff (6.7.1)
+#12 156.4   - Installing diffsync (2.0.1)
+#12 156.4   - Installing fonttools (4.55.0)
+#12 156.4   - Installing jmespath (1.0.1)
+#12 156.4   - Installing kiwisolver (1.4.7)
+#12 156.4   - Updating nautobot (2.3.6 /source/dist/nautobot-2.3.6-py3-none-any.whl -> 2.3.6)
+#12 156.4   - Installing nornir-nautobot (3.2.0)
+#12 156.4   - Installing retry (0.9.2)
+#12 156.4   - Installing types-pyyaml (6.0.12.20240917)
+#12 156.5 Installing /usr/local/lib/python3.10/site-packages/LICENSE over existing file
+#12 156.5 Installing /usr/local/lib/python3.10/site-packages/README.md over existing file
+#12 159.0   - Installing django-pivot (1.9.0)
+#12 159.0   - Installing hier-config (2.3.0)
+#12 159.0   - Installing jdiff (0.0.6)
+#12 159.0   - Installing matplotlib (3.9.2)
+#12 159.0   - Installing nautobot-capacity-metrics (3.1.1)
+#12 159.0   - Installing nautobot-plugin-nornir (2.1.0)
+#12 159.0   - Installing nautobot-ssot (3.2.0)
+#12 159.0   - Installing toml (0.10.2)
+#12 159.0   - Installing xmldiff (2.7.0)
+#12 159.0   - Installing zipp (3.21.0)
+#12 159.1 Installing /usr/local/lib/python3.10/site-packages/CHANGELOG.md over existing file
+#12 159.1 Installing /usr/local/lib/python3.10/site-packages/LICENSE over existing file
+#12 160.1   - Installing nautobot-device-onboarding (4.1.0)
+#12 160.1   - Installing nautobot-golden-config (2.1.2)
+#12 160.5
+#12 160.5 Installing the current project: nautobot-docker-compose (0.1.1)
+#12 160.6
+#12 160.6 Warning: The current project could not be installed: No file/folder found for package nautobot-docker-compose
+#12 160.6 If you do not want to install the current project use --no-root.
+#12 160.6 If you want to use Poetry only for dependency management but not for packaging, you can disable package mode by setting package-mode = false in your pyproject.toml file.
+#12 160.6 In a future version of Poetry this warning will become an error!
+#12 161.3 Skipping virtualenv creation, as specified in config file.
+#12 161.6 The following packages are already present in the pyproject.toml and will be skipped:
+#12 161.6
+#12 161.6   - nautobot-golden-config
+#12 161.6
+#12 161.6 If you want to update it to the latest compatible version, you can use `poetry update package`.
+#12 161.6 If you prefer to upgrade it to the latest available version, you can use `poetry add package@latest`.
+#12 161.6
+#12 161.6 Nothing to add.
+#12 161.9 Warning: poetry-plugin-export will not be installed by default in a future version of Poetry.
+#12 161.9 In order to avoid a breaking change and make your automation forward-compatible, please install poetry-plugin-export explicitly. See https://python-poetry.org/docs/plugins/#using-plugins for details on how to install a plugin.
+#12 161.9 To disable this warning run 'poetry config warnings.export false'.
+#12 DONE 162.6s
+
+#13 [nautobot builder 6/8] COPY ../jobs /opt/nautobot/jobs
+#13 DONE 0.1s
+
+#14 [nautobot builder 7/8] COPY ../config/nautobot_config.py /opt/nautobot/nautobot_config.py
+#14 DONE 0.0s
+
+#15 [nautobot builder 8/8] WORKDIR /source
+#15 DONE 0.0s
+
+#16 [nautobot nautobot 1/5] COPY --from=builder /tmp/dist /tmp/dist
+#16 DONE 0.0s
+
+#17 [nautobot nautobot 2/5] COPY --from=builder /opt/nautobot /opt/nautobot
+#17 DONE 0.0s
+
+#18 [nautobot nautobot 3/5] COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+#18 DONE 9.1s
+
+#19 [nautobot nautobot 4/5] COPY --from=builder /usr/local/bin /usr/local/bin
+#19 DONE 0.1s
+
+#20 [nautobot nautobot 5/5] RUN pyuwsgi --cflags | sed 's/ /\n/g' | grep -e "^-DUWSGI_SSL$"
+#20 0.161 -DUWSGI_SSL
+#20 DONE 0.2s
+
+#21 [nautobot] exporting to image
+#21 exporting layers
+#21 exporting layers 2.7s done
+#21 writing image sha256:f5a2c7d37251386b40da3252c924991417b7af24a619a8dfba9adba7d5afb379 done
+#21 naming to docker.io/yourrepo/nautobot-docker-compose:local done
+#21 DONE 2.7s
+
+#22 [nautobot] resolving provenance for metadata file
+#22 DONE 0.0s
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke stop start
+Stopping Nautobot...
+Running docker compose command "down"
+ Container nautobot-docker-compose-celery_worker-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopping
+ Container nautobot-docker-compose-celery_worker-1  Stopped
+ Container nautobot-docker-compose-celery_worker-1  Removing
+ Container nautobot-docker-compose-celery_beat-1  Stopped
+ Container nautobot-docker-compose-celery_beat-1  Removing
+ Container nautobot-docker-compose-celery_worker-1  Removed
+ Container nautobot-docker-compose-celery_beat-1  Removed
+ Container nautobot-docker-compose-nautobot-1  Stopping
+ Container nautobot-docker-compose-nautobot-1  Stopped
+ Container nautobot-docker-compose-nautobot-1  Removing
+ Container nautobot-docker-compose-nautobot-1  Removed
+ Container nautobot-docker-compose-db-1  Stopping
+ Container nautobot-docker-compose-redis-1  Stopping
+ Container nautobot-docker-compose-redis-1  Stopped
+ Container nautobot-docker-compose-redis-1  Removing
+ Container nautobot-docker-compose-redis-1  Removed
+ Container nautobot-docker-compose-db-1  Stopped
+ Container nautobot-docker-compose-db-1  Removing
+ Container nautobot-docker-compose-db-1  Removed
+ Network nautobot-docker-compose_default  Removing
+ Network nautobot-docker-compose_default  Removed
+Starting Nautobot in detached mode...
+Running docker compose command "up --detach"
+ Network nautobot-docker-compose_default  Creating
+ Network nautobot-docker-compose_default  Created
+time="2024-11-26T19:24:15-08:00" level=warning msg="Found orphan containers ([nautobot-docker-compose-nautobot-run-bfb8b3117d24]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container nautobot-docker-compose-db-1  Creating
+ Container nautobot-docker-compose-redis-1  Creating
+ Container nautobot-docker-compose-db-1  Created
+ Container nautobot-docker-compose-redis-1  Created
+ Container nautobot-docker-compose-nautobot-1  Creating
+ Container nautobot-docker-compose-nautobot-1  Created
+ Container nautobot-docker-compose-celery_worker-1  Creating
+ Container nautobot-docker-compose-celery_beat-1  Creating
+ Container nautobot-docker-compose-celery_worker-1  Created
+ Container nautobot-docker-compose-celery_beat-1  Created
+ Container nautobot-docker-compose-db-1  Starting
+ Container nautobot-docker-compose-redis-1  Starting
+ Container nautobot-docker-compose-redis-1  Started
+ Container nautobot-docker-compose-db-1  Started
+ Container nautobot-docker-compose-nautobot-1  Starting
+ Container nautobot-docker-compose-nautobot-1  Started
+ Container nautobot-docker-compose-nautobot-1  Waiting
+ Container nautobot-docker-compose-nautobot-1  Waiting
+ Container nautobot-docker-compose-nautobot-1  Healthy
+ Container nautobot-docker-compose-celery_beat-1  Starting
+ Container nautobot-docker-compose-nautobot-1  Healthy
+ Container nautobot-docker-compose-celery_worker-1  Starting
+ Container nautobot-docker-compose-celery_worker-1  Started
+ Container nautobot-docker-compose-celery_beat-1  Started
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ docker ls
+docker: 'ls' is not a docker command.
+See 'docker --help'
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ docker container ls
+CONTAINER ID   IMAGE                                    COMMAND                  CREATED          STATUS                    PORTS                              NAMES
+d1c0b2af3bf7   yourrepo/nautobot-docker-compose:local   "sh -c 'nautobot-ser…"   32 seconds ago   Up 25 seconds (healthy)   8080/tcp, 8443/tcp                 nautobot-docker-compose-celery_worker-1
+af6eb95ce54a   yourrepo/nautobot-docker-compose:local   "sh -c 'nautobot-ser…"   32 seconds ago   Up 25 seconds             8080/tcp, 8443/tcp                 nautobot-docker-compose-celery_beat-1
+acb095d97568   yourrepo/nautobot-docker-compose:local   "/docker-entrypoint.…"   32 seconds ago   Up 30 seconds (healthy)   0.0.0.0:8080->8080/tcp, 8443/tcp   nautobot-docker-compose-nautobot-1
+c5d41d88d206   redis:6-alpine                           "docker-entrypoint.s…"   32 seconds ago   Up 31 seconds             6379/tcp                           nautobot-docker-compose-redis-1
+ebd8fa70a37f   postgres:13-alpine                       "docker-entrypoint.s…"   32 seconds ago   Up 31 seconds (healthy)   5432/tcp                           nautobot-docker-compose-db-1
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ ~~~

@@ -1,0 +1,280 @@
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ nautobot-server post_upgrade
+Traceback (most recent call last):
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/bin/nautobot-server", line 8, in <module>
+    sys.exit(main())
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+    load_settings(args.config_path)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/cli/__init__.py", line 131, in load_settings
+    raise FileNotFoundError(
+FileNotFoundError: Configuration file not found at /Users/jabelk/.nautobot/nautobot_config.py - Please provide a valid --config-path path, or use 'nautobot-server init' to create a new configuration.
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ nautobot-server init
+Nautobot would like to send anonymized installation metrics to the project's maintainers.
+These metrics include the installed Nautobot version, the Python version in use, an anonymous
+"deployment ID", and a list of one-way-hashed names of enabled Nautobot Apps and their versions.
+Allow Nautobot to send these metrics? [y/n]: n
+Installation metrics will not be sent by default.
+Configuration file created at /Users/jabelk/.nautobot/nautobot_config.py
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ nautobot-server post_upgrade
+Performing database migrations...
+Traceback (most recent call last):
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/base/base.py", line 289, in ensure_connection
+    self.connect()
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/base/base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/bin/nautobot-server", line 8, in <module>
+    sys.exit(main())
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/cli/__init__.py", line 293, in main
+    execute_from_command_line([sys.argv[0], *unparsed_args])
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/__init__.py", line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/base.py", line 412, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/base.py", line 458, in execute
+    output = self.handle(*args, **options)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/management/commands/post_upgrade.py", line 91, in handle
+    call_command(
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/__init__.py", line 194, in call_command
+    return command.execute(*args, **defaults)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/base.py", line 458, in execute
+    output = self.handle(*args, **options)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/base.py", line 106, in wrapper
+    res = handle_func(*args, **kwargs)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/commands/migrate.py", line 100, in handle
+    self.check(databases=[database])
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/management/base.py", line 485, in check
+    all_issues = checks.run_checks(
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/core/checks/registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/nautobot/core/checks.py", line 92, in check_postgresql_version
+    server_version = conn.cursor().connection.info.server_version
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/base/base.py", line 330, in cursor
+    return self._cursor()
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/base/base.py", line 306, in _cursor
+    self.ensure_connection()
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    with self.wrap_database_errors:
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/base/base.py", line 289, in ensure_connection
+    self.connect()
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/base/base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/Users/jabelk/Library/Caches/pypoetry/virtualenvs/nautobot-docker-compose-gRtuJhB6-py3.10/lib/python3.10/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(nautobot-docker-compose-py3.10) nautobot-docker-compose$ invoke stop debug
+Stopping Nautobot...
+Running docker compose command "down"
+ Container nautobot-docker-compose-celery_worker-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopping
+ Container nautobot-docker-compose-celery_beat-1  Stopped
+ Container nautobot-docker-compose-celery_beat-1  Removing
+ Container nautobot-docker-compose-celery_worker-1  Stopped
+ Container nautobot-docker-compose-celery_worker-1  Removing
+ Container nautobot-docker-compose-celery_worker-1  Removed
+ Container nautobot-docker-compose-celery_beat-1  Removed
+ Container nautobot-docker-compose-nautobot-1  Stopping
+ Container nautobot-docker-compose-nautobot-1  Stopped
+ Container nautobot-docker-compose-nautobot-1  Removing
+ Container nautobot-docker-compose-nautobot-1  Removed
+ Container nautobot-docker-compose-db-1  Stopping
+ Container nautobot-docker-compose-redis-1  Stopping
+ Container nautobot-docker-compose-redis-1  Stopped
+ Container nautobot-docker-compose-redis-1  Removing
+ Container nautobot-docker-compose-db-1  Stopped
+ Container nautobot-docker-compose-db-1  Removing
+ Container nautobot-docker-compose-redis-1  Removed
+ Container nautobot-docker-compose-db-1  Removed
+ Network nautobot-docker-compose_default  Removing
+ Network nautobot-docker-compose_default  Removed
+Starting Nautobot in debug mode...
+Running docker compose command "up"
+ Network nautobot-docker-compose_default  Creating
+ Network nautobot-docker-compose_default  Created
+ Container nautobot-docker-compose-redis-1  Creating
+ Container nautobot-docker-compose-db-1  Creating
+ Container nautobot-docker-compose-db-1  Created
+ Container nautobot-docker-compose-redis-1  Created
+ Container nautobot-docker-compose-nautobot-1  Creating
+ Container nautobot-docker-compose-nautobot-1  Created
+ Container nautobot-docker-compose-celery_beat-1  Creating
+ Container nautobot-docker-compose-celery_worker-1  Creating
+ Container nautobot-docker-compose-celery_beat-1  Created
+ Container nautobot-docker-compose-celery_worker-1  Created
+Attaching to celery_beat-1, celery_worker-1, db-1, nautobot-1, redis-1
+redis-1          | 1:C 27 Nov 2024 01:54:49.793 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis-1          | 1:C 27 Nov 2024 01:54:49.793 # Redis version=6.2.16, bits=64, commit=00000000, modified=0, pid=1, just started
+redis-1          | 1:C 27 Nov 2024 01:54:49.793 # Configuration loaded
+redis-1          | 1:M 27 Nov 2024 01:54:49.793 * monotonic clock: POSIX clock_gettime
+redis-1          | 1:M 27 Nov 2024 01:54:49.794 * Running mode=standalone, port=6379.
+redis-1          | 1:M 27 Nov 2024 01:54:49.794 # Server initialized
+redis-1          | 1:M 27 Nov 2024 01:54:49.796 * Ready to accept connections
+db-1             |
+db-1             | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db-1             |
+db-1             | 2024-11-27 01:54:49.954 UTC [1] LOG:  starting PostgreSQL 13.18 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 13.2.1_git20240309) 13.2.1 20240309, 64-bit
+db-1             | 2024-11-27 01:54:49.954 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1             | 2024-11-27 01:54:49.954 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1             | 2024-11-27 01:54:49.956 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1             | 2024-11-27 01:54:49.958 UTC [27] LOG:  database system was shut down at 2024-11-27 01:45:28 UTC
+db-1             | 2024-11-27 01:54:49.964 UTC [1] LOG:  database system is ready to accept connections
+nautobot-1       | Performing database migrations...
+nautobot-1       | Operations to perform:
+nautobot-1       |   Apply all migrations: admin, auth, circuits, cloud, constance, contenttypes, dcim, django_celery_beat, django_celery_results, extras, ipam, sessions, silk, social_django, taggit, tenancy, users, virtualization
+nautobot-1       | Running migrations:
+nautobot-1       |   No migrations to apply.
+nautobot-1       | 01:54:55.922 INFO    nautobot.extras.utils utils.py        refresh_job_model_from_job_class() :
+nautobot-1       |   Refreshed Job "System Jobs: Export Object List" from <ExportObjectList>
+nautobot-1       | 01:54:55.925 INFO    nautobot.extras.utils utils.py        refresh_job_model_from_job_class() :
+nautobot-1       |   Refreshed Job "System Jobs: Git Repository: Sync" from <GitRepositorySync>
+nautobot-1       | 01:54:55.927 INFO    nautobot.extras.utils utils.py        refresh_job_model_from_job_class() :
+nautobot-1       |   Refreshed Job "System Jobs: Git Repository: Dry-Run" from <GitRepositoryDryRun>
+nautobot-1       | 01:54:55.929 INFO    nautobot.extras.utils utils.py        refresh_job_model_from_job_class() :
+nautobot-1       |   Refreshed Job "System Jobs: Import Objects" from <ImportObjects>
+nautobot-1       | 01:54:55.931 INFO    nautobot.extras.utils utils.py        refresh_job_model_from_job_class() :
+nautobot-1       |   Refreshed Job "System Jobs: Logs Cleanup" from <LogsCleanup>
+nautobot-1       | 01:54:55.932 INFO    nautobot.extras.utils utils.py        refresh_job_model_from_job_class() :
+nautobot-1       |   Refreshed Job "System Jobs: Refresh Dynamic Group Caches" from <RefreshDynamicGroupCaches>
+nautobot-1       |
+nautobot-1       | Generating cable paths...
+nautobot-1       | Found no missing circuit termination paths; skipping
+nautobot-1       | Found no missing console port paths; skipping
+nautobot-1       | Found no missing console server port paths; skipping
+nautobot-1       | Found no missing interface paths; skipping
+nautobot-1       | Found no missing power feed paths; skipping
+nautobot-1       | Found no missing power outlet paths; skipping
+nautobot-1       | Found no missing power port paths; skipping
+nautobot-1       | Finished.
+nautobot-1       |
+nautobot-1       | Collecting static files...
+nautobot-1       |
+nautobot-1       | 1160 static files copied to '/opt/nautobot/static'.
+nautobot-1       |
+nautobot-1       | Removing stale content types...
+nautobot-1       |
+nautobot-1       | Removing expired sessions...
+nautobot-1       |
+nautobot-1       | Sending installation metrics...
+nautobot-1       | Sending installation metrics to 'https://nautobot.cloud/api/nautobot/installation-metric/':
+nautobot-1       | {
+nautobot-1       |     "deployment_id": "fe9c1839-bcb7-4a08-9157-0bd69bfd714e",
+nautobot-1       |     "nautobot_version": "2.3.6",
+nautobot-1       |     "python_version": "3.12.7",
+nautobot-1       |     "installed_apps": {},
+nautobot-1       |     "debug": true
+nautobot-1       | }
+nautobot-1       | Installation metrics successfully sent to 'https://nautobot.cloud/api/nautobot/installation-metric/'
+nautobot-1       | To disable installation metrics, set INSTALLATION_METRICS_ENABLED = False in your Nautobot config.
+nautobot-1       |
+nautobot-1       | Refreshing _content_type cache
+nautobot-1       | CONTENT_TYPE_CACHE_TIMEOUT is set to 0; skipping cache refresh
+nautobot-1       |
+nautobot-1       | Refreshing dynamic group member caches...
+nautobot-1       | Refreshing DynamicGroup member caches...
+nautobot-1       |
+celery_beat-1    | Traceback (most recent call last):
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 65, in load_plugin
+celery_beat-1    |     plugin = importlib.import_module(plugin_name)
+celery_beat-1    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_beat-1    |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+celery_beat-1    |     return _bootstrap._gcd_import(name[level:], package, level)
+celery_beat-1    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+celery_beat-1    |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+celery_beat-1    | ModuleNotFoundError: No module named 'nautobot-device-onboarding'
+celery_beat-1    |
+celery_beat-1    | The above exception was the direct cause of the following exception:
+celery_beat-1    |
+celery_beat-1    | Traceback (most recent call last):
+celery_beat-1    |   File "/usr/local/bin/nautobot-server", line 8, in <module>
+celery_beat-1    |     sys.exit(main())
+celery_beat-1    |              ^^^^^^
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 292, in main
+celery_beat-1    |     load_settings(args.config_path)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 139, in load_settings
+celery_beat-1    |     _preprocess_settings(module, config_path)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/core/cli/__init__.py", line 125, in _preprocess_settings
+celery_beat-1    |     load_plugins(settings)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 55, in load_plugins
+celery_beat-1    |     load_plugin(plugin_name, settings)
+celery_beat-1    |   File "/usr/local/lib/python3.12/site-packages/nautobot/extras/plugins/utils.py", line 68, in load_plugin
+celery_beat-1    |     raise PluginNotFound(
+celery_beat-1    | nautobot.extras.plugins.exceptions.PluginNotFound: Unable to import plugin nautobot-device-onboarding: Module not found. Check that the plugin module has been installed within the correct Python environment.
+celery_beat-1    |
+celery_beat-1 exited with code 1
+nautobot-1       | ⏳ Running initial systems check...
+celery_worker-1  |
+celery_worker-1  |  -------------- celery@b5f7dab7a706 v5.3.6 (emerald-rush)
+celery_worker-1  | --- ***** -----
+celery_worker-1  | -- ******* ---- Linux-6.10.14-linuxkit-aarch64-with-glibc2.36 2024-11-27 01:55:00
+celery_worker-1  | - *** --- * ---
+celery_worker-1  | - ** ---------- [config]
+celery_worker-1  | - ** ---------- .> app:         nautobot:0xffff8c941400
+celery_worker-1  | - ** ---------- .> transport:   redis://:**@redis:6379/0
+celery_worker-1  | - ** ---------- .> results:
+celery_worker-1  | - *** --- * --- .> concurrency: 8 (prefork)
+celery_worker-1  | -- ******* ---- .> task events: ON
+celery_worker-1  | --- ***** -----
+celery_worker-1  |  -------------- [queues]
+celery_worker-1  |                 .> default          exchange=default(direct) key=default
+celery_worker-1  |
+celery_worker-1  |
+celery_worker-1  | [2024-11-27 01:55:01,886: WARNING/MainProcess] /usr/local/lib/python3.12/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+celery_worker-1  | whether broker connection retries are made during startup in Celery 6.0 and above.
+celery_worker-1  | If you wish to retain the existing behavior for retrying connections on startup,
+celery_worker-1  | you should set broker_connection_retry_on_startup to True.
+celery_worker-1  |   warnings.warn(
+celery_worker-1  |
+celery_worker-1  | [2024-11-27 01:55:01,895: WARNING/MainProcess] /usr/local/lib/python3.12/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+celery_worker-1  | whether broker connection retries are made during startup in Celery 6.0 and above.
+celery_worker-1  | If you wish to retain the existing behavior for retrying connections on startup,
+celery_worker-1  | you should set broker_connection_retry_on_startup to True.
+celery_worker-1  |   warnings.warn(
+celery_worker-1  |
+nautobot-1       | System check identified some issues:
+nautobot-1       |
+nautobot-1       | WARNINGS:
+nautobot-1       | ?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.
+nautobot-1       | ?: (security.W008) Your SECURE_SSL_REDIRECT setting is not set to True. Unless your site should be available over both SSL and non-SSL connections, you may want to either set this setting True or configure a load balancer or reverse-proxy server to redirect all connections to HTTPS.
+nautobot-1       | ?: (security.W012) SESSION_COOKIE_SECURE is not set to True. Using a secure-only session cookie makes it more difficult for network traffic sniffers to hijack user sessions.
+nautobot-1       | ?: (security.W016) You have 'django.middleware.csrf.CsrfViewMiddleware' in your MIDDLEWARE, but you have not set CSRF_COOKIE_SECURE to True. Using a secure-only CSRF cookie makes it more difficult for network traffic sniffers to steal the CSRF token.
+nautobot-1       | ?: (security.W018) You should not have DEBUG set to True in deployment.
+nautobot-1       |
+nautobot-1       | System check identified 5 issues (0 silenced).
+nautobot-1       | 01:55:12.848 INFO    django.
