@@ -1,3 +1,12 @@
+## Getting Started Big picture
+Unclear to me why we are creating locations or sites. What are we working towards? 
+Seeing "To create a new Device, you will need an existing Location or need to create a new Location instance."
+https://docs.nautobot.com/projects/core/en/latest/user-guide/feature-guides/getting-started/creating-devices/#creating-a-location
+Made me think, oh, that makes sense, but why didn't we do locations first then? Or what else do I need to know is required to make things get started?
+
+
+## Getting Started Step by Step
+
 https://docs.nautobot.com/projects/core/en/latest/user-guide/feature-guides/getting-started/creating-devices/#creating-a-device-role
 Click on Devices in the left sidebar menu
 should be
