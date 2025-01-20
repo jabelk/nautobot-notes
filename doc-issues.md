@@ -22,5 +22,5 @@ Populate the Location Type's Name
 ...
 Select the desired ContentTypes for this LocationType (in this case dcim.device).
 should be
-Select the desired Content Types for this LocationType (in this case dcim.device).
+Select the desired Content Types for this Location Type (in this case dcim.device).
 ```
