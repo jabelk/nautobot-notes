@@ -117,3 +117,106 @@ On the home page for the specific Device Type, click on +Add Components and sele
 
 
 Needs guidance on sample data to put in Manufacturer and Height values. Skipped the step of "Create"  before the final step in this sequence. 
+
+Saw this note and not sure if still relevant since very old version:
+```
+Note
+
+As of this writing (Nautobot 1.0.3), Interfaces cannot be assigned in to a LAG in the Device Type template; component Interfaces must be designated in the specific instantiation of a Device created from the Device Type.
+```
+
+https://docs.nautobot.com/projects/core/en/latest/user-guide/feature-guides/getting-started/interfaces/#creating-a-new-device-using-the-device-type
+
+`Device type select APC APDU9941 (this will show up as a fusion of the Manufacturer (APC) for the Device Type and the Device Type (APDU9941) Names)`
+
+the screenshot shows device type with just APDU9941, but when I selected it from the drop down it had both `APC` and `APDU9941` together already in the `Device type` field. I could still select APC on manufacturer, but was different than the instructions.
+
+Instructions did not tell me to set it as active status, which is required. 
+
+### VLANS and VLAN Groups
+
+https://docs.nautobot.com/projects/core/en/latest/user-guide/feature-guides/getting-started/vlans-and-vlan-groups/#creating-the-vlans
+```
+Now we'll create two instances of VLANs, each with ID = 100 and Name = vlan 100 and an Active Status. The differentiator will be that one instance will be assigned to the Vancouver 1 Site and the other to the Ottawa 1 Site.
+
+On the Add a new VLAN form:
+
+Populate ID with 100
+Populate Name with vlan 100
+Select Status as Active
+Select ANG01 from the Location selector drop-down
+Click on the Create and Add Another button
+On the Add a new VLAN form:
+
+Populate ID with 100
+Populate Name with vlan 100
+Select Status as Active
+Select BRE01 from the Location selector drop-down
+Click on the Create button when complete with the second instance
+```
+
+
+The instructions say to create two instances of ID vlan 100, but when I create one vlan 100 and do create another, it already has the ANG01 populated in the form for VLAN 100. The instructions are written with a screenshot indicating that you can only have one location per form drop down, and that it is not prepopulated from the previous submission on location. 
+
+```
+Once you've created the three VLANs and then hit the Create button, you will be taken to the VLANs main page
+```
+
+After the final create, I am taken to the VLAN detail page of the last one created, ` vlan 100 (100)` for BRE01 in this case. I will need to navigate to the VLANs main page. 
+
+
+
+```
+Assigning VLANs to an Interface¶
+To assign a VLAN to an Interface:
+
+Click on IPAM on the left sidebar menu
+Select Devices to go to the Devices main page
+Click on the name of the Device you wish to add a VLAN to (ang01-edge-01) in this example
+Click on the Edit button for the xe-0/0/0 Interface to go to the Editing interface xe-0/0/0 page
+On the Editing interface xe-0/0/0 page, set 802.1Q Mode to Access (or whatever mode you need) and then click on the VLAN drop-down selector. Notice that there are two choices:
+One choice is the vlan 100 instance specifically assigned to the ANG01 Location
+The other choice is vlan 200, which was not assigned to a Location, and thus has a global scope
+```
+
+There is no `Devices` under `IPAM` probably should just be Click on Devices on sidebar
+
+
+
+https://docs.nautobot.com/projects/core/en/latest/user-guide/feature-guides/getting-started/ipam/#assigning-ip-addresses
+
+```
+To assign an IP Address to a specific Device and Interface:
+
+Click on Devices in the left side navigation menu
+Click on Devices to go to the main page for Devices
+Find the Device whose Interface you wish to associate to an IP Address and click on it
+Go to the Interfaces tab and look for the row with the Interface you are interested in
+Click on the edit button for the Interface (a pencil icon)
+```
+
+Other guides give specific instances from the demo app to use and this one doesn't, though you can imply from the screenshots what to do. Diatraxis tone inconsistent. 
+
+
+### The Search Bar
+
+example two steps
+```
+Example two shows a Device-specific search:
+
+Search for edge
+This takes you to a search results page
+In the drop-down selector to the right, select Devices
+Search results for Devices with edge in the name
+Tenants for each Device (if applicable)
+Device Type for each Device
+Location for each Device
+```
+
+The steps starting at Teneants don't make sense, I am not sure what action I am taking. 
+
+```
+END OF Getting Started in the Web UI GUIDE
+```
+
+Unusual and not in any other guide
